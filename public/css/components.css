@@ -1,0 +1,119 @@
+/* Header Products Wrapper */
+.products-container {
+    margin-top: 2.5rem;
+    padding: 0 5rem;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.products-container .products-text-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.products-container .products-text-wrapper a {
+    color: #000;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.products-container .products-text-wrapper a:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+.products-container hr{
+    border: none;
+    width: 100%;
+    height: 1.4px;
+    background: #bbb;
+    margin-top: .3rem;
+}
+
+
+/* Products Wrapper */
+
+.products-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+.products-wrapper .product {
+    background-color: #fff;
+    width: 220px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1.8rem;
+}
+
+.products-wrapper .product .thumb-product {
+    position: relative;
+}
+
+.products-wrapper .product .thumb-product img.product-image {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    object-position: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.products-wrapper .product .thumb-product img.promo-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+}
+
+.products-wrapper .product .desc-product {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.products-wrapper .product .desc-product .price-wrapper {
+    margin-top: 1rem;
+}
+
+.products-wrapper .product .desc-product .price-wrapper h4 {
+    color: #e00c6c;
+}
+
+.products-wrapper .product .desc-product .price-wrapper .discount {
+    display: flex;
+    margin-top: .3rem;
+}
+
+.products-wrapper .product .desc-product .price-wrapper .discount h5 {
+    font-weight: 600;
+}
+
+.products-wrapper .product .desc-product .price-wrapper .discount span {
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: rgb(243, 21, 106);
+}
+
+.products-wrapper .product .desc-product .info-product {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.products-wrapper .product .desc-product .info-product .stok {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.products-wrapper .product .desc-product .info-product .sold {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
