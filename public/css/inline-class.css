@@ -1,0 +1,8 @@
+/* Inline Class */
+.text-danger {
+    color: rgb(228, 21, 21) !important;
+}
+
+.font-weight-bold {
+    font-weight: 600 !important;
+}

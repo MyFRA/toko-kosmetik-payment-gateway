@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/components.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/inline-class.css') }}">
     @yield('stylesheet')
     <title>{{ $title || '' }} | Toko Kosmetik</title>
 </head>
