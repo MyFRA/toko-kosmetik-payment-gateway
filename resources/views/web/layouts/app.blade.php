@@ -17,12 +17,12 @@
 <body>
         
     @include('web.layouts.partials.navbar')
-    @include('web.layouts.partials.sidebar')
 
     <div id="app">
         @yield('content')
     </div>
     
+    @include('web.layouts.partials.bottom-navigation')
     @include('web.layouts.partials.footer')
     @yield('script')
 </body>

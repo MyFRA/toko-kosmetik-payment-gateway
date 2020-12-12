@@ -3,7 +3,7 @@
         <h2>Produk Terbaru</h2>
         <a href="">Lihat Semua</a>
     </div>
-    <div class="products-wrapper">
+    <div class="products-wrapper home-newest-product pink-toggle">
         <div class="product">
             <div class="thumb-product">
                 <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
