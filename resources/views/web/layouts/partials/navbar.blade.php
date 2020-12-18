@@ -26,9 +26,9 @@
         </div>
         <div class="action">
             <a href="{{ url('/wishlist') }}" class="icon {{ $nav == 'wishlist' ? 'active' : '' }}"><i class="zmdi zmdi-favorite zmdi-hc-lg"></i>
-            <a href="" class="icon {{ $nav == 'wishlist' ? 'cart' : '' }}"><i class="zmdi zmdi-shopping-cart zmdi-hc-lg"></i></a>
-            <a href="" class="auth login">Masuk</a>
-            <a href="" class="auth register">Daftar</a>
+            <a href="{{ url('/cart') }}" class="icon {{ $nav == 'wishlist' ? 'cart' : '' }}"><i class="zmdi zmdi-shopping-cart zmdi-hc-lg"></i></a>
+            <a href="{{ url('/login') }}" class="auth login">Masuk</a>
+            <a href="{{ url('/register') }}" class="auth register">Daftar</a>
         </div>
     </div>
 </nav>

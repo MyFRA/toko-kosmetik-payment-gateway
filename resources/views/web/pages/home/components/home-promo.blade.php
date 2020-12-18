@@ -5,7 +5,7 @@
         <a href="" class="view-all">Lihat Semua</a> 
     </h2>
     <div class="products-wrapper home-promo-product-wrapper">
-        <div class="product">
+        <a href="{{ url('/product/ini-slug') }}" class="product">
             <div class="thumb-product">
                 <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
                 <img class="promo-label" src="https://www.pinclipart.com/picdir/big/336-3366313_great-clips-printable-coupons-valpak.png" alt="promo">
@@ -24,8 +24,8 @@
                     <span class="sold">154 Terjual</span>
                 </div>
             </div>
-        </div>
-        <div class="product">
+        </a>
+        <a href="{{ url('/product/ini-slug') }}" class="product">
             <div class="thumb-product">
                 <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
                 <img class="promo-label" src="https://www.pinclipart.com/picdir/big/336-3366313_great-clips-printable-coupons-valpak.png" alt="promo">
@@ -44,8 +44,8 @@
                     <span class="sold">154 Terjual</span>
                 </div>
             </div>
-        </div>
-        <div class="product">
+        </a>
+        <a href="{{ url('/product/ini-slug') }}" class="product">
             <div class="thumb-product">
                 <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
                 <img class="promo-label" src="https://www.pinclipart.com/picdir/big/336-3366313_great-clips-printable-coupons-valpak.png" alt="promo">
@@ -64,8 +64,8 @@
                     <span class="sold">154 Terjual</span>
                 </div>
             </div>
-        </div>
-        <div class="product">
+        </a>
+        <a href="{{ url('/product/ini-slug') }}" class="product">
             <div class="thumb-product">
                 <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
                 <img class="promo-label" src="https://www.pinclipart.com/picdir/big/336-3366313_great-clips-printable-coupons-valpak.png" alt="promo">
@@ -84,8 +84,8 @@
                     <span class="sold">154 Terjual</span>
                 </div>
             </div>
-        </div>
-        <div class="product">
+        </a>
+        <a href="{{ url('/product/ini-slug') }}" class="product">
             <div class="thumb-product">
                 <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
                 <img class="promo-label" src="https://www.pinclipart.com/picdir/big/336-3366313_great-clips-printable-coupons-valpak.png" alt="promo">
@@ -104,6 +104,6 @@
                     <span class="sold">154 Terjual</span>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 </div>

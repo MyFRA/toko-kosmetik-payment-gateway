@@ -47,7 +47,7 @@ class LoginController extends Controller
     {
         $data = [
             'title' => 'Login',
-            'nav'   => ''
+            'nav'   => 'account'
         ];
 
         return view('auth.web.login', $data);

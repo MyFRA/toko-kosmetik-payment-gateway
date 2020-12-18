@@ -23,7 +23,9 @@
         @yield('content')
     </div>
     
+    @if (!isset($remove_bottom_navigation))
     @include('web.layouts.partials.bottom-navigation')
+    @endif
     @include('web.layouts.partials.footer')
     @yield('script')
 </body>
