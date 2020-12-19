@@ -417,3 +417,14 @@
         display: none;
     }
 }
+
+/* Padding Responsive */
+.padding-responsive {
+    padding: 0 5rem;
+}
+
+@media screen and (max-width: 991px) {
+    .padding-responsive {
+        padding: 0 1rem;
+    }
+}
