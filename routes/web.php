@@ -16,6 +16,7 @@ Route::get('/wishlist', 'Web\WishlistController@index');
 Route::get('/categories', 'Web\CategoriesController@index');
 Route::get('/product/{slug}', 'Web\ProductController@show');
 Route::get('/account', 'Web\AccountController@index');
+Route::get('/cart', 'Web\CartController@index');
 Route::get('/login', 'Auth\Web\LoginController@showLoginForm');
 Route::post('/login', 'Auth\Web\LoginController@login');
 Route::post('/logout', 'Auth\Web\LoginController@logout');
