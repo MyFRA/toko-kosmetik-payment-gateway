@@ -1,9 +1,6 @@
 @extends('web.layouts.app')
 
 @section('content')
-@extends('web.layouts.app')
-
-@section('content')
 <div class="products-container">
     <div class="products-text-wrapper">
         <h4 class="related-product-title">Produk Lainya</h4>
@@ -296,5 +293,4 @@
         </div>
     </div>
 </div>
-@endsection
 @endsection

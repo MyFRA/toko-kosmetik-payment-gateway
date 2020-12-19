@@ -7,6 +7,19 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+    public function index()
+    {
+        $data = [
+            'title'                     => 'Jual Judul Produk',
+            'nav'                       => '',
+            'product_category'          => 'Skin Care',
+            'remove_bottom_navigation'  => true,
+        ];
+
+        return view('web.pages.product.index', $data);
+    }
+
     public function show($slug)
     {
         $data = [
