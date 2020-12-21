@@ -11,6 +11,7 @@
           <li class="{{ $sidebar == 'dashboard' ? 'active' : '' }}"><a class="nav-link" href="{{ url('/app-admin') }}"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
           <li class="menu-header">Starter</li>
           <li class="{{ $sidebar == 'product' ? 'active' : '' }}"><a class="nav-link" href="{{ url('/app-admin/product') }}"><i class="fas fa-shopping-bag"></i> <span>Produk</span></a></li>
+          <li class="{{ $sidebar == 'product-category' ? 'active' : '' }}"><a class="nav-link" href="{{ url('/app-admin/product-category') }}"><i class="fas fa-list-alt"></i> <span>Kategori Produk</span></a></li>
           <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank Page</span></a></li>
           <li class="nav-item dropdown">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Bootstrap</span></a>

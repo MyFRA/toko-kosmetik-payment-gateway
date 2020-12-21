@@ -24,6 +24,7 @@
               <tbody>
                 <tr>
                   <th>#</th>
+                  <th>Gambar</th>
                   <th>Nama Produk</th>
                   <th>Kategori</th>
                   <th>Harga</th>
@@ -37,6 +38,13 @@
                 @foreach ($products as $key => $product)
                   <tr>
                     <td>{{ $loop->iteration + $products->firstItem() - 1 }}</td>
+                    <td>
+                      @foreach (json_decode($product->product_images) as $image)
+                          @if ($image->index == 0)
+                            <img class="rounded" src="{{ asset('/storage/images/products/' . $image->name) }}" alt="product-category-image" width="80px" height="80px" style="object-fit: cover; object-position: center">
+                          @endif
+                      @endforeach
+                    </td>
                     <td>{{ $product->product_name }}</td>
                     <td>{{ $product->category->category_name }}</td>
                     <td>{{ $product->price }}</td>

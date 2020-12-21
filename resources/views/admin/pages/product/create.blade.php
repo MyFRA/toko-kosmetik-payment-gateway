@@ -139,10 +139,10 @@
         <div class="col-lg-5">
           <div class="card">
             <div class="card-header">
-              <h4>Product Detail</h4>
+              <h4>Gambar Utama Produk</h4>
             </div>
             <div class="card-body d-flex flex-column align-items-center">
-              
+              <img src="{{ asset('/images/icons/shopping-bag.png') }}" alt="image-preview" class="rounded-lg" id="product_image_preview" style="width: 90%; object-fit: cover; object-position: center">
             </div>
           </div>
         </div>
@@ -152,14 +152,19 @@
 @section('script')
     <script>
       var product_image_previews = document.querySelectorAll('.product_image_previews');
+      var product_image_preview  = document.getElementById('product_image_preview');
 
       function showPreviewImage(index, file) {
         var reader = new FileReader();
 
         reader.onload = function() {
-          product_image_previews[index].setAttribute('src', reader.result)
+          product_image_previews[index].setAttribute('src', reader.result);
+          if(index == 0) {
+            product_image_preview.setAttribute('src', reader.result);
+          }
         }
         reader.readAsDataURL(file.files[0]);
       }
+      product_image_preview.style.height = product_image_preview.offsetWidth + 'px';
     </script>
 @endsection
