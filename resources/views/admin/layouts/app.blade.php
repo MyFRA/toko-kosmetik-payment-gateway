@@ -16,7 +16,6 @@
         <section class="section">
           @include('admin.layouts.partials.section-header')
           <div class="section-body">
-            <h2 class="section-title">Form Validation</h2>
             @yield('content')
           </div>
         </section>
@@ -28,5 +27,6 @@
   </div>
 
   @include('admin.layouts.partials.script')
+  @yield('script')
 </body>
 </html>

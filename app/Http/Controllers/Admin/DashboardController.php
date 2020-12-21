@@ -10,8 +10,8 @@ class DashboardController extends Controller
     public function index()
     {
         $data = [
-            'title'     => 'Dashboard',
-            'nav'       => 'dashboard'
+            'main_title'     => 'Dashboard',
+            'sidebar'        => 'dashboard'
         ];
 
         return view('admin.pages.dashboard.index', $data);
