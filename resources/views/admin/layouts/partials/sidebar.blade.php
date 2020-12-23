@@ -12,6 +12,7 @@
           <li class="menu-header">Starter</li>
           <li class="{{ $sidebar == 'product' ? 'active' : '' }}"><a class="nav-link" href="{{ url('/app-admin/product') }}"><i class="fas fa-shopping-bag"></i> <span>Produk</span></a></li>
           <li class="{{ $sidebar == 'product-category' ? 'active' : '' }}"><a class="nav-link" href="{{ url('/app-admin/product-category') }}"><i class="fas fa-list-alt"></i> <span>Kategori Produk</span></a></li>
+          <li class="{{ $sidebar == 'promo' ? 'active' : '' }}"><a class="nav-link" href="{{ url('/app-admin/promo') }}"><i class="fas fa-tags"></i> <span>Promo</span></a></li>
           <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank Page</span></a></li>
           <li class="nav-item dropdown">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Bootstrap</span></a>

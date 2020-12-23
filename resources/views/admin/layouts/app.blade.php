@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   @include('admin.layouts.partials.head')
+  @yield('stylesheet')
 </head>
 
 <body>

@@ -37,4 +37,13 @@ class Controller extends BaseController
 
         return $filename;
     }
+
+    public function getAllOneColumn($arr_object, $column_name) {
+        $valid_to_return = [];
+        foreach ($arr_object as $object) {
+            $valid_to_return[] = $object->$column_name;
+        }
+
+        return $valid_to_return;
+    }
 }
