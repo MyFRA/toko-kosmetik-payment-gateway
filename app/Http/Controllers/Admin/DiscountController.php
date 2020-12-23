@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\{Promo, Product};
+use App\Models\{ Discount, Product };
 
-class PromoController extends Controller
+class DiscountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,13 +18,13 @@ class PromoController extends Controller
     public function index()
     {
         $data = [
-            'title'         => 'Promo',
-            'main_title'    => 'List Promo',
-            'sidebar'       => 'promo',
-            'arr_promo'     => Promo::orderBy('end_date', 'ASC')->paginate(10)
+            'title'         => 'Diskon',
+            'main_title'    => 'List Diskon',
+            'sidebar'       => 'discount',
+            'discounts'     => Discount::orderBy('end_date', 'ASC')->paginate(10)
         ];
 
-        return view('admin.pages.promo.index', $data);
+        return view('admin.pages.discount.index', $data);
     }
 
     /**
@@ -35,7 +35,7 @@ class PromoController extends Controller
     public function create()
     {
         $products               = Product::orderBy('product_name', 'ASC')->get();
-        $all_product_id_promo   = $this->getAllOneColumn(Promo::get(), 'product_id');
+        $all_product_id_promo   = $this->getAllOneColumn(Discount::get(), 'product_id');
         $valid_products         = [];
 
         foreach ($products as $product) {
@@ -45,9 +45,9 @@ class PromoController extends Controller
         }
 
         $data = [
-            'title'         => 'Promo',
-            'main_title'    => 'Tambah Promo',
-            'sidebar'       => 'promo',
+            'title'         => 'Diskon',
+            'main_title'    => 'Tambah Diskon',
+            'sidebar'       => 'discount',
             'products'      => $valid_products,
             'forevers'      => [
                 [
@@ -61,7 +61,7 @@ class PromoController extends Controller
             ],
         ];
 
-        return view('admin.pages.promo.create', $data);
+        return view('admin.pages.discount.create', $data);
     }
 
     /**
@@ -74,8 +74,9 @@ class PromoController extends Controller
     {
         $allProductId = join(',', $this->getAllId(Product::get()));
         $validator = Validator::make($request->all(), [
-            'product_id'    => "required|in:$allProductId",
-            'forever'       => 'required|in:0,1',
+            'product_id'        => "required|in:$allProductId",
+            'forever'           => 'required|in:0,1',
+            'discount_percent'  => 'required|numeric|max:100|min:0',
         ]);
 
         if($validator->fails()) {
@@ -96,13 +97,14 @@ class PromoController extends Controller
             }
         }
 
-        Promo::create([
-            'product_id'    => $request->product_id,
-            'forever'       => $request->forever,
-            'end_date'      => $request->forever == 0 ? date('d-m-y', strtotime($request->end_date)) : null,
+        Discount::create([
+            'product_id'        => $request->product_id,
+            'forever'           => $request->forever,
+            'discount_percent'  => $request->discount_percent,
+            'end_date'          => $request->forever == 0 ? date('d-m-y', strtotime($request->end_date)) : null,
         ]);
 
-        return redirect('/app-admin/promo')->with('success', 'Promo Produk ' . Product::find($request->product_id)->product_name . ' telah ditambahkan');
+        return redirect('/app-admin/discount')->with('success', 'Diskon Produk ' . Product::find($request->product_id)->product_name . ' telah ditambahkan');
     }
 
     /**
@@ -128,7 +130,7 @@ class PromoController extends Controller
             'title'         => 'Promo',
             'main_title'    => 'Edit Promo',
             'sidebar'       => 'promo',
-            'promo'         => Promo::find($id),
+            'discount'      => Discount::find($id),
             'forevers'      => [
                 [
                     'status'    => 0,
@@ -141,7 +143,7 @@ class PromoController extends Controller
             ],
         ];
 
-        return view('admin.pages.promo.edit', $data);
+        return view('admin.pages.discount.edit', $data);
     }
 
     /**
@@ -155,7 +157,8 @@ class PromoController extends Controller
     {
         $allProductId = join(',', $this->getAllId(Product::get()));
         $validator = Validator::make($request->all(), [
-            'forever'       => 'required|in:0,1',
+            'forever'           => 'required|in:0,1',
+            'discount_percent'  => 'required|numeric|max:100|min:0',
         ]);
 
         if($validator->fails()) {
@@ -175,12 +178,15 @@ class PromoController extends Controller
                         ->withInput();
             }
         }
-        $promo = Promo::find($id);
-        $promo->update([
-            'forever'       => $request->forever,
-            'end_date'      => $request->forever == 0 ? date('d-m-y', strtotime($request->end_date)) : null,
+
+        $discount = Discount::find($id);
+        $discount->update([
+            'forever'           => $request->forever,
+            'discount_percent'  => $request->discount_percent,
+            'end_date'          => $request->forever == 0 ? date('d-m-y', strtotime($request->end_date)) : null,
         ]);
-        return redirect('/app-admin/promo')->with('success', 'Promo Produk ' . $promo->product->product_name . ' telah diupdate');
+
+        return redirect('/app-admin/discount')->with('success', 'Diskon Produk ' . $discount->product->product_name . ' telah diupdate');
     }
 
     /**
@@ -191,10 +197,8 @@ class PromoController extends Controller
      */
     public function destroy($id)
     {
-        $product = Promo::find($id)->product;
-
-        Promo::destroy($id);
-
-        return back()->with('success', 'Promo Produk ' . $product->product_name . ' telah dihapus');
+        $product = Discount::find($id)->product;
+        Discount::destroy($id);
+        return back()->with('success', 'Diskon Produk ' . $product->product_name . ' telah dihapus');
     }
 }

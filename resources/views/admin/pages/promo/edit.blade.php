@@ -25,7 +25,6 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="product_id">Produk<span class="text-danger">*</span></label>
-
                     <input type="text" id="product_id" class="form-control" readonly value="{{ $promo->product->product_name }}">
                   </div>
 

@@ -16,11 +16,11 @@
     <div class="row">
         <div class="col-lg-7">
             <div class="card">
-              <form method="POST" action="{{ url('/app-admin/promo') }}">
+              <form method="POST" action="{{ url('/app-admin/discount') }}">
                 @csrf
                 @method('POST')
                 <div class="card-header">
-                  <h4>Tambah Promo Produk</h4>
+                  <h4>Tambah Diskon Produk</h4>
                 </div>
                 <div class="card-body">
                   <div class="form-group">
@@ -32,6 +32,17 @@
                     </select>
 
                     @error('product_id')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>   
+                    @enderror
+                  </div>
+
+                  <div class="form-group">
+                    <label for="discount_percent">Diskon Berapa Persen<span class="text-danger">*</span></label>
+                    <input type="number" name="discount_percent" id="discount_percent" class="form-control @error('discount_percent') is-invalid @enderror" value="{{ old('discount_percent') }}" placeholder="Diskon Berapa Persen" max="100" required autocomplete="off" min="0">
+
+                    @error('discount_percent')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>   
@@ -66,9 +77,9 @@
 
                 </div>
                 <div class="card-footer mt-n4">
-                  <button type="submit" class="btn btn-primary">Tambahkan Promo</button>
+                  <button type="submit" class="btn btn-primary">Tambahkan Diskon</button>
                   <button type="reset" class="btn btn-secondary ml-3">Reset</button>
-                  <a href="{{ url('/app-admin/promo') }}" class="btn btn-dark float-right">Kembali</a>
+                  <a href="{{ url('/app-admin/discount') }}" class="btn btn-dark float-right">Kembali</a>
                 </div>
               </form>
             </div>

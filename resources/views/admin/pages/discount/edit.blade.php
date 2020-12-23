@@ -16,22 +16,23 @@
     <div class="row">
         <div class="col-lg-7">
             <div class="card">
-              <form method="POST" action="{{ url('/app-admin/promo') }}">
+              <form method="POST" action="{{ url('/app-admin/discount/' . $discount->id) }}">
                 @csrf
-                @method('POST')
+                @method('PUT')
                 <div class="card-header">
-                  <h4>Tambah Promo Produk</h4>
+                  <h4>Edit Diskon Produk</h4>
                 </div>
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="product_id">Pilih Produk<span class="text-danger">*</span></label>
-                    <select name="product_id" id="product_id" class="form-control" required>
-                        @foreach ($products as $product)
-                            <option value="{{ $product->id }}" {{ old('product_id') == $product->id ? 'selected' : ''}}>{{ $product->product_name }}</option>
-                        @endforeach
-                    </select>
+                    <label for="product_id">Produk<span class="text-danger">*</span></label>
+                    <input type="text" id="product_id" class="form-control" readonly value="{{ $discount->product->product_name }}">
+                  </div>
 
-                    @error('product_id')
+                  <div class="form-group">
+                    <label for="discount_percent">Diskon Berapa Persen<span class="text-danger">*</span></label>
+                    <input type="number" name="discount_percent" id="discount_percent" class="form-control @error('discount_percent') is-invalid @enderror" value="{{ old('discount_percent') ? old('discount_percent') : $discount->discount_percent }}" placeholder="Diskon Berapa Persen" max="100" required autocomplete="off" min="0">
+
+                    @error('discount_percent')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>   
@@ -42,7 +43,13 @@
                     <label for="forever">Selamanya<span class="text-danger">*</span></label>
                     <select name="forever" id="forever" required class="form-control">
                         @foreach ($forevers as $forever)
-                            <option value="{{ $forever['status'] }}" {{ old('forever') == $forever['status'] ? 'selected' : ''}}>{{ $forever['text'] }}</option>
+                            <option value="{{ $forever['status'] }}" 
+                            @if (old('forever'))
+                                {{ old('forever') == $forever['status'] ? 'selected' : ''}}
+                            @else
+                                {{ $discount->forever == $forever['status'] ? 'selected' : ''}}
+                            @endif
+                            >{{ $forever['text'] }}</option>
                         @endforeach
                     </select>
 
@@ -55,7 +62,7 @@
 
                     <div class="form-group">
                         <label for="end_date">Tanggal Berakhir</label>
-                        <input type="text" class="form-control datepicker @error('end_date') is-invalid  @enderror" id="end_date" name="end_date" placeholder="Tanggal Berakhir" autocomplete="off" value="{{ old('end_date') }}">
+                        <input type="text" class="form-control datepicker @error('end_date') is-invalid  @enderror" id="end_date" name="end_date" placeholder="Tanggal Berakhir" autocomplete="off" value="{{ old('end_date') ? old('end_date') : $discount->end_date }}">
                     
                         @error('end_date')
                             <div class="invalid-feedback">
@@ -66,9 +73,9 @@
 
                 </div>
                 <div class="card-footer mt-n4">
-                  <button type="submit" class="btn btn-primary">Tambahkan Promo</button>
+                  <button type="submit" class="btn btn-primary">Update Diskon</button>
                   <button type="reset" class="btn btn-secondary ml-3">Reset</button>
-                  <a href="{{ url('/app-admin/promo') }}" class="btn btn-dark float-right">Kembali</a>
+                  <a href="{{ url('/app-admin/discount') }}" class="btn btn-dark float-right">Kembali</a>
                 </div>
               </form>
             </div>
