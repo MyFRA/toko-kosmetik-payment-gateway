@@ -20,6 +20,7 @@ class CreateCustomersTable extends Migration
             $table->string('password');
             $table->string('number_phone', 16);
             $table->string('photo')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
     }
