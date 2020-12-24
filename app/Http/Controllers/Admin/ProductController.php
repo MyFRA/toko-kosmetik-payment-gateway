@@ -93,7 +93,7 @@ class ProductController extends Controller
         }
 
         $arr_product_images_name = [];
-        
+
         for( $i = 0; $i <= 3; $i++ ) {
             if(isset($request->file('product_images')[$i])) {
                 $arr_product_images_name[] = [
@@ -104,15 +104,15 @@ class ProductController extends Controller
         }
 
         $product = Product::create([
-            'product_name'          => $request->product_name,     
-            'product_slug'          => $slug, 
-            'product_category_id'   => $request->product_category_id, 
-            'price'                 => $request->price, 
-            'weight'                => $request->weight, 
-            'amount'                => $request->amount, 
-            'condition'             => $request->condition, 
-            'product_images'        => json_encode($arr_product_images_name), 
-            'description'           => $request->description, 
+            'product_name'          => $request->product_name,
+            'product_slug'          => $slug,
+            'product_category_id'   => $request->product_category_id,
+            'price'                 => $request->price,
+            'weight'                => $request->weight,
+            'amount'                => $request->amount,
+            'condition'             => $request->condition,
+            'product_images'        => json_encode($arr_product_images_name),
+            'description'           => $request->description,
         ]);
 
         return redirect('/app-admin/product')->with('success', 'Produk ' . $request->product_name . ' telah ditambahkan');
@@ -178,7 +178,7 @@ class ProductController extends Controller
         if(!is_null($request->file('product_images'))) {
             foreach ($request->file('product_images') as $file) {
                 $fileValidation = $this->fileValidation($file, ['jpeg', 'jpg', 'png']);
-    
+
                 if($fileValidation) {
                     return back()
                         ->withInput()
@@ -200,7 +200,7 @@ class ProductController extends Controller
                     if( gettype($product_image_db) == 'object' ) {
                         if($product_image_db->index == $key) {
                             Storage::delete('public/images/products/'. $product_image_db->name);
-                        
+
                             $arr_product_images_name_from_db[$keyDB] = [
                                 'index'    => $key,
                                 'name'     => $this->uploadFile(uniqid($slug), $request->file('product_images')[$key], 'images/products'),
@@ -209,7 +209,7 @@ class ProductController extends Controller
                     }
                 }
             }
-    
+
             foreach($arr_product_images_name_from_db as $product_image) {
                 if( gettype($product_image) == 'object' ) {
                     $arr_index_product_images_from_db[] = $product_image->index;
@@ -217,7 +217,7 @@ class ProductController extends Controller
                     $arr_index_product_images_from_db[] = $product_image['index'];
                 }
             }
-    
+
             foreach ($request->file('product_images') as $key => $product_image) {
                 if(!in_array($key, $arr_index_product_images_from_db)) {
                     $arr_product_images_name_from_db[] = [
@@ -229,14 +229,14 @@ class ProductController extends Controller
         }
 
         $product->update([
-            'product_name'          => $request->product_name,     
-            'product_category_id'   => $request->product_category_id, 
-            'price'                 => $request->price, 
-            'weight'                => $request->weight, 
-            'amount'                => $request->amount, 
-            'condition'             => $request->condition, 
-            'product_images'        => json_encode($arr_product_images_name_from_db), 
-            'description'           => $request->description, 
+            'product_name'          => $request->product_name,
+            'product_category_id'   => $request->product_category_id,
+            'price'                 => $request->price,
+            'weight'                => $request->weight,
+            'amount'                => $request->amount,
+            'condition'             => $request->condition,
+            'product_images'        => json_encode($arr_product_images_name_from_db),
+            'description'           => $request->description,
         ]);
 
         return redirect('/app-admin/product')->with('success', 'Produk ' . $request->product_name . ' telah diupdate');
@@ -261,4 +261,5 @@ class ProductController extends Controller
 
         return back()->with('success', 'Produk ' . $product->product_name . ' telah dihapus');
     }
+
 }

@@ -8,8 +8,10 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
+use Auth;
 
-use App\User;
+use App\Models\Customer;
 
 class RegisterController extends Controller
 {
@@ -66,10 +68,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        return Customer::create([
+            'fullname'      => $data['fullname'],
+            'email'         => $data['email'],
+            'number_phone'  => $data['number_phone'],
+            'password'      => Hash::make($data['password']),
         ]);
     }
 
@@ -86,5 +89,57 @@ class RegisterController extends Controller
         ];
 
         return view('auth.web.register', $data);
+    }
+
+        /**
+     * Get the guard to be used during registration.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('customer');
+    }
+
+     /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'fullname'      => 'required|string|max:100',
+            'email'         => 'required|string|max:100|email|unique:customers',
+            'number_phone'  => 'required|string|max:16',
+            'password'      => 'required|string|min:8|confirmed',
+        ], [
+            'fullname.required'     => 'Nama lengkap tidak boleh kosong', 
+            'fullname.string'       => 'Nama lengkap harus berupa teks',
+            'fullname.max'          => 'Nama lengkap maksimal 100 karakter',
+            'email.required'        => 'Email tidak boleh kosong',
+            'email.string'          => 'Email harus berupa teks',
+            'email.email'           => 'Email tidak valid',
+            'email.unique'          => 'Email sudah digunakan',
+            'email.max'             => 'Email maksimal 100 karakter',
+            'password.required'     => 'Password tidak boleh kosong',
+            'password.string'       => 'Password harus berupa teks',
+            'password.min'          => 'Password minimal 8 karakter',
+            'password.confirmed'    => 'Konfirmasi Password tidak cocok',
+        ]);
+
+        if($validator->fails()) {
+            return back()
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard('customer')->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
     }
 }

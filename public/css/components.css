@@ -428,3 +428,14 @@
         padding: 0 1rem;
     }
 }
+
+/* Form Validation */
+.is-invalid {
+    border: 1px solid  rgb(255, 46, 46) !important;
+}
+
+.invalid-feedback {
+    color: rgb(255, 46, 46);
+    font-size: 13px;
+    margin-top: 5px;
+}
