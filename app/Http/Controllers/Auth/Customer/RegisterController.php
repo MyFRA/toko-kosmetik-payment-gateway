@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Auth\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
+use App\Mail\VerifyEmail;
 use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
-use Auth;
 
-use App\Models\Customer;
+use Auth;
+use DB;
+use Mail;
+use Crypt;
 
 class RegisterController extends Controller
 {
@@ -57,22 +61,6 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
-    {
-        return Customer::create([
-            'fullname'      => $data['fullname'],
-            'email'         => $data['email'],
-            'number_phone'  => $data['number_phone'],
-            'password'      => Hash::make($data['password']),
         ]);
     }
 
@@ -135,11 +123,39 @@ class RegisterController extends Controller
                     ->withInput();
         }
 
-        event(new Registered($user = $this->create($request->all())));
+        DB::transaction(function () use ($request) {
+            // save into table
+            $customer = Customer::create([
+                'fullname'      => $request['fullname'],
+                'email'         => $request['email'],
+                'number_phone'  => $request['number_phone'],
+                'password'      => Hash::make($request['password']),
+            ]);
+            // send email verification
+            Mail::to($customer->email)->send(new VerifyEmail($customer));
+        });
+        // redirect to home
+        return redirect()->back();
+    }
 
-        $this->guard('customer')->login($user);
-
-        return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath());
+    public function verify()
+    { 
+        if (empty(request('token'))) {
+            // if token is not provided
+            return redirect()->route('customer.signup-form');
+        }
+        // descrypt token as email
+        $decryptedEmail = Crypt::decrypt(request('token'));
+        // find user by email
+        $customer = Customer::whereEmail($decryptedEmail)->first();
+        if ($customer->status == 'activated') {
+            // user is already active, do something
+        }
+        // otherwise change user status to "activated"
+        $customer->status = 'activated';
+        $customer->save();
+        // autologin
+        Auth::loginUsingId($customer->id);
+        return redirect('/home');
     }
 }

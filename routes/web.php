@@ -24,9 +24,7 @@ Route::get('/promo', 'Web\PromoController@index');
 Route::get('/login', 'Auth\Customer\LoginController@showLoginForm');
 Route::post('/login', 'Auth\Customer\LoginController@login');
 Route::post('/logout', 'Auth\Customer\LoginController@logout');
-Route::get('/register', 'Auth\Customer\RegisterController@showRegistrationForm');
+Route::get('/register', 'Auth\Customer\RegisterController@showRegistrationForm')->name('customer.signup-form');
 Route::post('/register', 'Auth\Customer\RegisterController@register');
 
-Route::post('/email/resend', 'Auth\Customer\VerificationController@resend ')->name('verification.resend')->middleware(['auth.customer']);
-Route::get('/email/verify', 'Auth\Customer\VerificationController@show')->name('verification.notice');
-Route::get('/email/verify/{id}/{hash}', 'Auth\Customer\VerificationController@verify')->name('verification.verify')->middleware(['auth.customer']);
+Route::get('/verify', 'Auth\Customer\RegisterController@verify')->name('customer.verify');

@@ -260,6 +260,22 @@ class ProductController extends Controller
         Product::destroy($product->id);
 
         return back()->with('success', 'Produk ' . $product->product_name . ' telah dihapus');
+    
+        $data = [
+            [
+                'nama' => 'naruto',
+                'desa' => 'konoha'
+            ],
+            [
+                'nama' => 'sasuke',
+                'desa' => 'konoha'
+            ],
+            [
+                'nama' => 'itachi',
+                'desa' => 'akatsuki'
+            ],
+        ];
+
     }
 
 }
