@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Closure;
 
-class CustomerAuth
+class CustomerGuest
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,8 @@ class CustomerAuth
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::guard('customer')->check()) {
-            return redirect('/login');
+        if (Auth::guard('customer')->check()) {
+            return redirect('/account');
         }
         return $next($request);
     }

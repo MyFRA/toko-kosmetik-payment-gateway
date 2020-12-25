@@ -27,6 +27,16 @@
     @include('web.layouts.partials.bottom-navigation')
     @endif
     @include('web.layouts.partials.footer')
+    <form action="{{ url('/logout') }}" method="POST" id="logout-action">
+        @csrf
+    </form>
     @yield('script')
+    <script>
+        function logoutAction()
+        {
+            event.preventDefault();
+            document.getElementById('logout-action').submit();
+        }
+    </script>
 </body>
 </html>

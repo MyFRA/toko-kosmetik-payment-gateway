@@ -10,14 +10,27 @@
             <div class="logo">
                 <img src="https://demo.hasthemes.com/corano-preview/corano/assets/img/logo/logo.png" alt="app-logo">
             </div>
-            <form action="">
+            <form action="{{ url('/login') }}" method="POST">
+                @csrf
                 <div class="form-group">
                     <label class="font-weight-bold" for="email">Email <span class="text-danger">*</span></label>
-                    <input type="email" name="email" id="email" placeholder="Email" value="{{old('email')}}">
+                    <input type="email" name="email" id="email" placeholder="Email" class="@error('email') is-invalid @enderror" value="{{old('email')}}">
+                
+                    @error('email')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label class="font-weight-bold" for="password">Kata Sandi <span class="text-danger">*</span></label>
-                    <input type="password" name="password" id="password" placeholder="Kata Sandi">
+                    <input type="password" name="password" id="password" placeholder="Kata Sandi" class="@error('password') is-invalid @enderror">
+                
+                    @error('password')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <button type="submit">LOGIN</button>

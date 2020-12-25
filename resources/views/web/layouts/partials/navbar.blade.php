@@ -27,8 +27,12 @@
         <div class="action">
             <a href="{{ url('/wishlist') }}" class="icon {{ $nav == 'wishlist' ? 'active' : '' }}"><i class="zmdi zmdi-favorite zmdi-hc-lg"></i>
             <a href="{{ url('/cart') }}" class="icon {{ $nav == 'wishlist' ? 'cart' : '' }}"><i class="zmdi zmdi-shopping-cart zmdi-hc-lg"></i></a>
-            <a href="{{ url('/login') }}" class="auth login">Masuk</a>
-            <a href="{{ url('/register') }}" class="auth register">Daftar</a>
+            @if (Auth::guard('customer')->check())
+                <a href=""><i class="zmdi zmdi-account zmdi-hc-lg" style="margin-right: 13px"></i> Tomy Wibowo</a>
+            @else
+                <a href="{{ url('/login') }}" class="auth login">Masuk</a>
+                <a href="{{ url('/register') }}" class="auth register">Daftar</a>
+            @endif
         </div>
     </div>
 </nav>
