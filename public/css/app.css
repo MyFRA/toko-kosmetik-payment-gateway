@@ -109,6 +109,18 @@
     color: #DB2777;
 }
 
+.navbar .action-wrapper a.account {
+    padding: .7rem;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: all 150ms ease;
+}
+
+.navbar .action-wrapper a.account:hover {
+    background-color: #DB2777;
+    color: #fff;
+}
+
 .navbar .action-wrapper a.auth {
     border: 1px solid #DB2777;
     padding: .4rem 1rem;
