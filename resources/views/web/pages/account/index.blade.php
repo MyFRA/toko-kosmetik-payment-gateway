@@ -27,11 +27,42 @@
         product_image.style.height = product_image.offsetWidth + 'px';
     </script>    
     <script>
-        const buttonPilihFotoProfil = document.querySelector('.account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form button');
-        const inputFile = document.querySelector('.account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form input');
-    
+        const buttonPilihFotoProfil     = document.querySelector('.account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form button');
+        const inputFile                 = document.querySelector('.account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form input[type=file]');
+        const buttonSubmit              = document.getElementById('submit-photo-button');
+        const photoProfile              = document.getElementById('photo-profile');
+        const formUpdatePhotoProfile    = document.querySelector('form#update-photo-profil');
+
         buttonPilihFotoProfil.addEventListener('click', () => {
+            event.preventDefault();
             inputFile.click();
+        });
+
+        inputFile.addEventListener('change', () => {
+            if( inputFile.files[0] != undefined ) {
+                extension = inputFile.files[0].name.split('.')[inputFile.files[0].name.split('.').length - 1];
+                validExtension = ['jpg', 'jpeg', 'png'];
+
+                if(validExtension.includes(extension.toLowerCase())) {
+
+                    buttonSubmit.classList.remove('d-none');
+                    var reader = new FileReader();
+                    reader.readAsDataURL(inputFile.files[0]);
+                    reader.onload = function() {
+                        photoProfile.setAttribute('src', reader.result);
+                    }
+                } else {
+                    photoProfile.setAttribute('src', 'https://www.flaticon.com/svg/static/icons/svg/1602/1602467.svg');
+                    ( !buttonSubmit.classList.contains('d-none') ) ? buttonSubmit.classList.add('d-none') : '';
+                }
+            } else {
+                photoProfile.setAttribute('src', reader.result);
+                ( !buttonSubmit.classList.contains('d-none') ) ? buttonSubmit.classList.add('d-none') : '';
+            }
+        });
+
+        buttonSubmit.addEventListener('click', () => {
+            formUpdatePhotoProfile.submit();
         });
     </script>
 
@@ -86,5 +117,9 @@
 
             elementWantToChanged.setAttribute('onclick', `submitValue(this, '${name}', '${value}')`);
         }
+    </script>
+
+    <script>
+        
     </script>
 @endsection

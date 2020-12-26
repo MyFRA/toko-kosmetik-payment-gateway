@@ -7,10 +7,12 @@
         <div class="px-15 py-20">
             <div class="profile-wrapper">
                 <div class="photo-profile-wrapper">
-                    <form>
-                        <img src="https://ecs7.tokopedia.net/img/cache/300/default_picture_user/default_toped-18.jpg" alt="photo-profil">
+                    <form method="POST" action="{{ url('/account/photo/update') }}" id="update-photo-profil" enctype="multipart/form-data">
+                        @csrf
+                        <img src="{{ is_null(Auth::guard('customer')->user()->photo) ? 'https://i.pinimg.com/736x/4d/b8/3d/4db83d1b757657acf5edc8bd66e50abf.jpg' : asset('/storage/images/customer-profiles/' . Auth::guard('customer')->user()->photo) }}" alt="photo-profile" id="photo-profile">
                         <button>Pilih Foto</button>
-                        <input type="file">
+                        <button class="bg-success text-white border-0 mb-4 d-none" id="submit-photo-button">Simpan</button>
+                        <input type="file" id="photo" name="photo">
                         <div class="desc">
                             <p>Besar file: maksimum (10 Megabytes)</p>
                             <p>Ekstensi file : .JPG .JPEG .PNG</p>

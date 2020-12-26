@@ -1544,6 +1544,7 @@ footer.footer .copyright {
         background: #fafafa;
         border: 1px solid #ddd;
         color: #555;
+        border-radius: 3px;
     }
 
     .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form input {

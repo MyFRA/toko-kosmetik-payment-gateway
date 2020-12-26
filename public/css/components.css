@@ -2043,3 +2043,19 @@
 .ml-30 {
     margin-left: 3rem;
 }
+
+.bg-success {
+    background: green !important;
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+.border-0 {
+    border: 0px !important;
+}
+
+.d-none {
+    display: none !important; 
+}

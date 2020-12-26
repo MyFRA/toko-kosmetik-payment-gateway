@@ -35,6 +35,7 @@ Route::middleware(['customer.auth'])->group(function() {
     Route::post('/account/gender/update', 'Web\AccountController@updateGender');
     Route::post('/account/email/update', 'Web\AccountController@updateEmail');
     Route::post('/account/number_phone/update', 'Web\AccountController@updateNumberPhone');
+    Route::post('/account/photo/update', 'Web\AccountController@updatePhoto');
 });
 
 Route::get('/verify', 'Auth\Customer\RegisterController@verify')->name('customer.verify');

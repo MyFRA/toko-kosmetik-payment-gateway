@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 use App\Models\Customer;
 use App\Models\CustomerDetail;
@@ -133,5 +135,35 @@ class AccountController extends Controller
         ]);
         
         return back()->with('success', 'Nomor HP telah diupdate');
+    }
+
+    public function updatePhoto(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'photo'          => 'required|mimes:jpg,jpeg,png',
+        ], [
+            'photo.required' => 'Foto Profil tidak boleh kosong',
+            'photo.mimes'    => 'Foto Profil harus berekstensi jpg, jpeg, png'
+        ]);
+
+        if($validator->fails()) {
+            return back()->with('failed', $validator->errors()->first());
+        }
+
+        $customer = Customer::find(Auth::guard('customer')->user()->id);
+
+        if( !is_null($customer->photo) ) {
+            if( Storage::exists('public/images/customer-profiles/' . $customer->photo) ) {
+                Storage::delete('public/images/customer-profiles/' . $customer->photo);
+            }
+        }
+
+        $filename = $this->uploadFile(uniqid(Str::slug($customer->fullname)), $request->file('photo'), 'images/customer-profiles');
+        
+        $customer->update([
+            'photo'  => $filename,
+        ]);
+
+        return back()->with('success', 'Foto Profil Telah diupdate');
     }
 }
