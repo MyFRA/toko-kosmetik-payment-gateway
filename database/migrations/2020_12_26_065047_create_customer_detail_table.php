@@ -17,7 +17,7 @@ class CreateCustomerDetailTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
             $table->string('number_phone', 16)->nullable();
-            $table->enum('gender', ['laki laki', 'perempuan'])->nullable();
+            $table->enum('gender', ['laki-laki', 'perempuan'])->nullable();
             $table->date('birth')->nullable();
             $table->timestamps();
 

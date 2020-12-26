@@ -25,9 +25,16 @@ Route::post('/register', 'Auth\Customer\RegisterController@register');
 
 Route::middleware(['customer.auth'])->group(function() {
     Route::post('/logout', 'Auth\Customer\LoginController@logout');
-    Route::get('/account', 'Web\AccountController@index');
     Route::get('/cart', 'Web\CartController@index');
     Route::get('/wishlist', 'Web\WishlistController@index');
+
+    // Account
+    Route::get('/account', 'Web\AccountController@index');
+    Route::post('/account/fullname/update', 'Web\AccountController@updateFullname');
+    Route::post('/account/birth/update', 'Web\AccountController@updateBirth');
+    Route::post('/account/gender/update', 'Web\AccountController@updateGender');
+    Route::post('/account/email/update', 'Web\AccountController@updateEmail');
+    Route::post('/account/number_phone/update', 'Web\AccountController@updateNumberPhone');
 });
 
 Route::get('/verify', 'Auth\Customer\RegisterController@verify')->name('customer.verify');

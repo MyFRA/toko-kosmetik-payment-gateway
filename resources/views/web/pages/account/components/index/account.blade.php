@@ -23,31 +23,30 @@
                         <h5>Biodata Diri</h5>
                         <div class="row-group">
                             <p class="label">Nama</p>
-                            <p class="value">Muhammad Tomy <a href="">Edit</a></p>
+                            <p class="value">{{ Auth::guard('customer')->user()->fullname }} <a href="" onclick="displayInput('fullname', this)">Edit</a></p>
                         </div>
                         <div class="row-group">
                             <p class="label">Tanggal Lahir</p>
-                            <p class="value">Muhammad Tomy <a href="">Edit</a></p>
+                            <p class="value">{{ Auth::guard('customer')->user()->customerDetail->birth ? Auth::guard('customer')->user()->customerDetail->birth : '-' }} <a href="" onclick="displayInput('birth', this)">Edit</a></p>
                         </div>
                         <div class="row-group">
                             <p class="label">Jenis Kelamin</p>
-                            <p class="value">Muhammad Tomy <a href="">Edit</a></p>
+                            <p class="value">{{ Auth::guard('customer')->user()->customerDetail->gender ? Auth::guard('customer')->user()->customerDetail->gender : '-' }} <a href="" onclick="displayInput('gender', this)">Edit</a></p>
                         </div>
                     </div>
                     <div class="data-group mt-20">
                         <h5>Kontak</h5>
                         <div class="row-group">
                             <p class="label">Email</p>
-                            <p class="value">tomyntapss@gmail.com <a href="">Edit</a></p>
+                            <p class="value">{{ Auth::guard('customer')->user()->email }} <a href="" onclick="displayInput('email', this)">Edit</a></p>
                         </div>
                         <div class="row-group">
                             <p class="label">Nomor HP</p>
-                            <p class="value">085865721251 <a href="">Edit</a></p>
+                            <p class="value">{{ Auth::guard('customer')->user()->customerDetail->number_phone ? Auth::guard('customer')->user()->customerDetail->number_phone : '-' }} <a href="" onclick="displayInput('number_phone', this)">Edit</a></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
