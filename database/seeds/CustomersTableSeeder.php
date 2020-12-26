@@ -17,7 +17,6 @@ class CustomersTableSeeder extends Seeder
             'fullname'              => 'Putri Pramuasti',
             'email'                 => 'putripramuasti@gmail.com',
             'password'              => Hash::make('12345678'),
-            'number_phone'          => '085865761951',
             'status'                => 'activated',
             'email_verified_at'     => date('Y-m-d H:i:s'),
         ]);
