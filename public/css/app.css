@@ -8,7 +8,7 @@
     margin-top: 11vh;
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1024px) {
     #app {
         margin-top: 9vh;
         margin-bottom: 80px;
@@ -136,7 +136,7 @@
     color: #fff;
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1024px) {
     .navbar {
         position: fixed;
         z-index: 9999;
@@ -289,7 +289,7 @@ footer.footer .copyright {
     font-size: 15px;
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1024px) {
     footer.footer {
         display: none;
         margin-top: 0;
@@ -352,7 +352,7 @@ footer.footer .copyright {
         font-size: 17px;
     }
 
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: 1024px) {
         .banner-wrapper {
             height: 25vh;
         }
@@ -421,7 +421,7 @@ footer.footer .copyright {
         margin-top: .4rem;
     }
 
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: 1024px) {
         .home-services {
             padding: 0 1.5rem;
             flex-wrap: wrap;
@@ -531,7 +531,7 @@ footer.footer .copyright {
         text-decoration: underline;
     }
 
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: 1024px) {
         .home-promo {
             padding: 1.7rem 1.5rem;
             background-color: #DB2777;
@@ -594,7 +594,7 @@ footer.footer .copyright {
         font-size: 17px;
     }
 
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: 1024px) {
         .home-categories {
             margin-top: 1.7rem;
             padding: 0 1.5rem;
@@ -647,7 +647,7 @@ footer.footer .copyright {
         cursor: pointer;
     }
 
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: 1024px) {
         .home-recommendation-products-wrapper {
             display: flex !important;
             flex-wrap: wrap !important;
@@ -675,7 +675,7 @@ footer.footer .copyright {
     display: none;
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1024px) {
     .bottom-navigation {
         font-family: 'Open Sans', sans-serif;
         display: flex;
@@ -728,7 +728,7 @@ footer.footer .copyright {
     margin-top: 7rem !important;
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1024px) {
     .categories-categories {
         margin-top: 5rem !important;
     }
@@ -842,7 +842,7 @@ footer.footer .copyright {
     text-decoration: underline;
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1024px) {
     .auth-web-login-container {
         height: 80vh;
         margin: 4.5rem 0;
@@ -945,7 +945,7 @@ footer.footer .copyright {
     width: 85%;
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1024px) {
     .auth-web-login.auth-web-register .illustration {
         display: none;
     }
@@ -1159,7 +1159,7 @@ footer.footer .copyright {
         color: #666;
     }
 
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: 1024px) {
         .product-product-detail {
             flex-direction: column;
             padding: 0 1rem;
@@ -1320,7 +1320,7 @@ footer.footer .copyright {
         line-height: 23px;
     }
 
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: 1024px) {
         .product-product-description-header {
             padding: 0 1.5rem;
             margin-top: 2rem;
@@ -1444,7 +1444,7 @@ footer.footer .copyright {
         cursor: pointer;
     }
 
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: 1024px) {
         .product-comment-box {
             padding: 0 1.5rem;
         }
@@ -1475,99 +1475,212 @@ footer.footer .copyright {
 
     /* Index */
     .account-index {
-        font-family: 'Open Sans', sans-serif;
         margin-top: 6rem;
+        font-family: 'Open Sans', sans-serif;
     }
 
-    .account-index .account-wrapper {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 1.4rem;
+    .account-index .title {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .account-profile {
         padding: 0 5rem;
+        font-family: 'Open Sans', sans-serif;
+        margin-top: .7rem;
     }
 
-    .account-index .account-wrapper .alamat {
+    .account-profile .link-wrapper {
+        display: flex;
+        width: 100%;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    .account-profile .link-wrapper a {
+        background-color: #fff;
+        height: 100%;
+        padding: 1rem;
+        margin-right: .5rem;
+        text-decoration: none;
+        font-size: 14px;
+        color: #888;
+    }
+
+    .account-profile .link-wrapper a.active {
+        color: #DB2777;
+        border-bottom: 2px solid #DB2777;
+    }
+
+    .account-profile .content-wrapper {
+        border: 1px solid #ddd;
+    }
+
+    .account-profile .content-wrapper .profile-wrapper {
+        display: flex;
+    }
+
+    .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper {
+        width: 25%;
+    }
+
+    .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form {
         display: flex;
         flex-direction: column;
-        width: 50%;
     }
 
-    .account-index .account-wrapper .alamat h4 {
-        margin-bottom: .25rem;
-    }
-
-    .account-index .account-wrapper .alamat span {
-        font-size: 15px;
-        margin: 1.5px 0;
-    }
-
-    .account-index .account {
-        display: flex;
-    }
-
-    .account-index .account .photo-profile {
-        width: 150px;
-        height: 150px;
-    }
-
-    .account-index .account .photo-profile img {
-        width: 150px;
-        height: 150px;
+    .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form img {
+        width: 100%;
         object-fit: cover;
         object-position: center;
-        border-radius: 4px;
+        border-radius: 5px;
     }
 
-    .account-index .account .account-profile {
-        margin-left: 1.4rem;
-    }
-
-    .account-index .account .account-profile button {
-        padding: .3rem 1rem;
-        margin-top: .4rem;
+    .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form button {
+        width: 100%;
+        padding: .4rem 0;
+        margin-top: .6rem;
         cursor: pointer;
+        background: #fafafa;
+        border: 1px solid #ddd;
+        color: #555;
     }
 
-    @media screen and (max-width: 991px) {
+    .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form input {
+        display: none;
+    }
+
+    .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form .desc {
+        font-size: 12px;
+        margin-top: .9rem;
+        color: #555;
+    }
+
+    .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form .desc p {
+        margin-bottom: 7px;
+    }
+
+    .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form a {
+        width: 100%;
+        background: #fafafa;
+        border: 1px solid #ddd;
+        text-align: center;
+        padding: .4rem 0;
+        font-size: 13px;
+        color: #333;
+        text-decoration: none;
+        margin-top: 2rem;
+    }
+
+    .account-profile .content-wrapper .explain-wrapper {
+        padding: 0 3rem;
+        width: 100%;
+    }
+
+    .account-profile .content-wrapper .explain-wrapper .data-group {
+        width: 100%;
+    }
+
+    .account-profile .content-wrapper .explain-wrapper .data-group h5 {
+        color: #666;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: .5rem;
+    }
+
+    .account-profile .content-wrapper .explain-wrapper .data-group .row-group {
+        display: flex;
+        width: 100%;
+        font-size: 14px;
+        color: #666;
+        margin: 1.3rem 0;
+    }
+
+    .account-profile .content-wrapper .explain-wrapper .data-group .row-group .label {
+        flex: 1;
+        color: #555;
+    }
+
+    .account-profile .content-wrapper .explain-wrapper .data-group .row-group .value {
+        flex: 3;
+    }
+
+    .account-profile .content-wrapper .explain-wrapper .data-group .row-group .value a {
+        color: #DB2777;
+        text-decoration: none;
+        margin-left: .5rem;
+        font-size: 13px;
+    }
+
+    @media screen and (max-width: 1024px) {
         .account-index {
             margin-top: 5rem;
         }
     
-        .account-index .account-wrapper {
-            flex-direction: column;
-            margin-top: 1.2rem;
+        .account-profile {
             padding: 0 1rem;
+            margin-top: .5rem;
         }
     
-        .account-index .account-wrapper .alamat {
-            margin-top: 1.3rem;
-            width: 100%;
-        }
-    
-        .account-index .account-wrapper .alamat span {
-            margin: 1px 0;
-        }
-    
-        .account-index .account {
+        .account-profile .link-wrapper {
             display: flex;
-            flex-direction: column;
-            width: 100%;
-            align-items: center;
         }
     
-        .account-index .account .account-profile {
-            margin-left: 0;
+        .account-profile .link-wrapper a {
+            padding: .7rem;
+            font-size: 13px;
+            flex: 1;
             text-align: center;
-            margin-top: .8rem;
         }
     
-        .account-index .account .account-profile button {
-            padding: .3rem 1rem;
-            margin-top: .4rem;
-            cursor: pointer;
+        .account-profile .content-wrapper .profile-wrapper {
+            flex-direction: column;
+        }
+    
+        .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper {
+            width: 100%;
+        }
+    
+        .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form button {
+            margin-top: .9rem;
+        }
+    
+        .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form .desc {
+            margin-top: 1.1rem;
+        }
+    
+        .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form .desc p {
+            margin-bottom: 7px;
+        }
+    
+        .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form a {
+            font-size: 12px;
+            margin: 1rem 0 1.5rem;
+        }
+    
+        .account-profile .content-wrapper .explain-wrapper {
+            padding: 0 0;
+        }
+    
+        .account-profile .content-wrapper .explain-wrapper .data-group {
+            width: 100%;
+        }
+    
+        .account-profile .content-wrapper .explain-wrapper .data-group h5 {
+            font-size: 14px;
+            margin-bottom: .25rem;
+        }
+    
+        .account-profile .content-wrapper .explain-wrapper .data-group .row-group {
+            font-size: 12px;
+            margin: 1.2rem 0;
+        }
+    
+        .account-profile .content-wrapper .explain-wrapper .data-group .row-group .value a {
+            font-size: 12px;
         }
     }
-
+ 
     /* Account Daftar Transaksi */
     .title-account-daftar-transaksi {
         margin-top: 1.5rem;
@@ -1577,9 +1690,9 @@ footer.footer .copyright {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
         border-radius: 4px;
         margin-top: .8rem;
+        border: 1px solid #ddd;
     }
 
     .account-daftar-transaksi .sub-transaksi {
@@ -1627,14 +1740,13 @@ footer.footer .copyright {
         color: #fff;
     }
 
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: 1024px) {
         .title-account-daftar-transaksi {
             font-size: 17px;
         }
     
         .account-daftar-transaksi {
             flex-wrap: wrap;
-            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
         }
     
         .account-daftar-transaksi .sub-transaksi {
@@ -1818,7 +1930,7 @@ footer.footer .copyright {
         cursor: pointer;
     }
 
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: 1024px) {
         .cart-wrapper {
             flex-direction: column;
             padding: 0 1rem;

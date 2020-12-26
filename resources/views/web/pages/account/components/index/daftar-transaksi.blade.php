@@ -1,5 +1,5 @@
 <div class="padding-responsive">
-    <h3 class="title-account-daftar-transaksi">Daftar Transaksi</h3>
+    <h3 class="font-weight-bold title-account-daftar-transaksi text-666">Daftar Transaksi</h3>
     <div class="account-daftar-transaksi">
         <a href="" class="sub-transaksi">
             <span class="icon">
