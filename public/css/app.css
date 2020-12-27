@@ -979,7 +979,6 @@ footer.footer .copyright {
     .product-image-container .product-thumbs {
         display: flex;
         align-items: center;
-        justify-content: space-between;
         width: 100%;
         margin-top: 1rem;
     }
@@ -1073,7 +1072,7 @@ footer.footer .copyright {
     }
 
     .product-detail-container .product-order-desc-container .product-order-desc .desc.harga-desc h3 {
-        margin-top: .5rem;
+        margin-top: 0rem;
     }
 
     .product-detail-container .product-order-desc-container .product-order-desc .desc.jumlah-desc {
@@ -1119,8 +1118,12 @@ footer.footer .copyright {
     }
 
     .product-detail-container .product-order-desc-container .product-order-desc .desc.info-product-desc .info-product:first-child {
-        border-right: 1px solid #bbb;
         padding-left: 0;
+    }
+
+    .product-detail-container .product-order-desc-container .product-order-desc .desc.info-product-desc .info-product:nth-child(2) {
+        border-right: 1px solid #bbb;
+        border-left: 1px solid #bbb;
     }
 
     .product-detail-container .product-order-desc-container .product-order-desc .desc.info-product-desc .info-product .desc-info {
@@ -1137,26 +1140,22 @@ footer.footer .copyright {
 
     .product-detail-container .product-order-desc-container .product-order-desc .desc.varian-warna-desc .warna {
         height: 40px;
-        border: 1px solid #aaa;
-        border-radius: 10px;
+        border: 1px solid #666;
+        border-radius: 4px;
         display: flex;
         align-items: center;
-        padding: 0 5.5px;
+        padding: 0 10px;
         cursor: pointer;
         margin-right: 10px;
         margin-bottom: 9px;
-    }
-
-    .product-detail-container .product-order-desc-container .product-order-desc .desc.varian-warna-desc .warna .color {
-        width: 28px;
-        height: 28px;
-        border-radius: 7px;
-    }
-
-    .product-detail-container .product-order-desc-container .product-order-desc .desc.varian-warna-desc .warna .text {
-        margin-left: 7px;
+        color: #333;
         font-size: 13px;
-        color: #666;
+    }
+
+    .product-detail-container .product-order-desc-container .product-order-desc .desc.varian-warna-desc .warna.active {
+        border: 1px solid #DB2777;
+        color: #DB2777 !important;
+        font-weight: 600;
     }
 
     @media screen and (max-width: 1024px) {

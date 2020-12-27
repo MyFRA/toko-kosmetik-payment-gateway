@@ -34,11 +34,13 @@ class ProductController extends Controller
 
     public function show($slug)
     {
+        $product = Product::where('product_slug', $slug)->first();
         $data = [
             'title'                     => 'Jual Judul Produk',
             'nav'                       => '',
-            'product_category'          => 'Skin Care',
             'remove_bottom_navigation'  => true,
+            'product'                   => $product,
+            'product_images'            => (array) json_decode($product->product_images),
         ];
 
         return view('web.pages.product.show', $data);

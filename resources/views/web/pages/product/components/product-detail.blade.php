@@ -1,31 +1,27 @@
 <div class="product-product-detail">
     <div class="product-image-container">
         <div class="product-image">
-            <img src="https://assets.pikiran-rakyat.com/crop/204x7:1986x1325/x/photo/2020/08/16/2708438435.jpg" alt="product-image">
+            <img src="{{ asset('/storage/images/products/' . $product_images[0]->name) }}" alt="product-image">
         </div>
-        <div class="product-thumbs">
-            <div class="active">
-                <img class="product-thumb" src="https://assets.pikiran-rakyat.com/crop/204x7:1986x1325/x/photo/2020/08/16/2708438435.jpg" alt="product-thumb">
-            </div>
-            <div>
-                <img class="product-thumb" src="https://ecs7.tokopedia.net/img/cache/700/product-1/2020/3/23/32384324/32384324_cb38cac5-5003-464c-b923-6016f5f58181_1081_1081.webp" alt="product-thumb">
-            </div>
-            <div>
-                <img class="product-thumb" src="https://assets.pikiran-rakyat.com/crop/204x7:1986x1325/x/photo/2020/08/16/2708438435.jpg" alt="product-thumb">
-            </div>
-            <div>
-                <img class="product-thumb" src="https://assets.pikiran-rakyat.com/crop/204x7:1986x1325/x/photo/2020/08/16/2708438435.jpg" alt="product-thumb">
-            </div>
-            <div>
-                <img class="product-thumb" src="https://assets.pikiran-rakyat.com/crop/204x7:1986x1325/x/photo/2020/08/16/2708438435.jpg" alt="product-thumb">
-            </div>
+        <div class="product-thumbs {{ count($product_images) >= 5 ? 'justify-content-space-between' : '' }}">
+            @foreach (json_decode($product->product_images) as $key => $product_image)
+                <div class="{{ $key == 0 ? 'active' : '' }} {{ count($product_images) >= 5 ? '' : 'mr-lg-15' }}">
+                    <img class="product-thumb" src="{{ asset('/storage/images/products/'. $product_image->name) }}" alt="product-thumb">
+                </div>
+            @endforeach
         </div>
     </div>
     <div class="product-detail-container">
-        <h3 class="title-product">Wardah Everyday BB Cream Natural 30 ml</h3>
+        <h3 class="title-product">{{ $product->product_name }}</h3>
         <div class="terjual-dilihat">
-            <span>Terjual 744 Produk</span>
-            <span>18,7rb x Dilihat</span>
+            <span>
+                @if ($product->sold > 0)
+                    Terjual {{ $product->sold }} Produk,
+                @else
+                    Belum Terjual,
+                @endif
+            </span>
+            <span>{{ $product->counter }} x Dilihat</span>
         </div>
         <div class="product-order-desc-container">
             <div class="product-order-desc">
@@ -33,42 +29,53 @@
                     HARGA
                 </div>
                 <div class="desc harga-desc">
-                    <h5><span>20%</span>Rp49.500</h5>
-                    <h3>Rp39.600</h3>
+                    @if (!is_null($product->discount))
+                        @if ( $product->discount->forever == true )
+                            <h5 class="mb-7">
+                                <span>{{ $product->discount->discount_percent }}%</span>{{ $product->price }}
+                            </h5>
+                        @elseif(strtotime($product->discount->end_date) >= strtotime(date('d-m-y')))
+                            <h5 class="mb-7">
+                                <span>{{ $product->discount->discount_percent }}%</span>{{ $product->price }}
+                            </h5>
+                        @endif
+                    @endif
+                    @if (!is_null($product->discount))
+                        @if ( $product->discount->forever == true )
+                            <h3>Rp. {{ floor($product->price - ($product->price * $product->discount->discount_percent / 100)) }}</h3>
+                        @elseif(strtotime($product->discount->end_date) >= strtotime(date('d-m-y')))
+                            <h3>Rp. {{ floor($product->price - ($product->price * $product->discount->discount_percent / 100)) }}</h3>
+                        @else
+                            <h3>Rp. {{ $product->price }}</h3>
+                        @endif
+                    @else
+                        <h3>Rp. {{ $product->price }}</h3>
+                    @endif
                 </div>
             </div>
-            <div class="product-order-desc">
-                <div class="label">
-                    WARNA
+            @if (count($product->product_variants) > 0)
+                <div class="product-order-desc">
+                    <div class="label">
+                        Varian
+                    </div>
+                    <div class="desc varian-warna-desc" id="varian-wrapper">
+                        @foreach ($product->product_variants as $variant)
+                            <div class="warna">
+                                <div class="text">{{ $variant->variant }}</div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-                <div class="desc varian-warna-desc">
-                    <div class="warna">
-                        <div class="color" style="background-color: #000"></div>
-                        <div class="text">Hitam</div>
-                    </div>
-                    <div class="warna">
-                        <div class="color" style="background-color: #000"></div>
-                        <div class="text">Hitam</div>
-                    </div>
-                    <div class="warna">
-                        <div class="color" style="background-color: #000"></div>
-                        <div class="text">Hitam</div>
-                    </div>
-                    <div class="warna">
-                        <div class="color" style="background-color: #000"></div>
-                        <div class="text">Hitam</div>
-                    </div>
-                    
-                </div>
-            </div>
+            @endif
+            <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
             <div class="product-order-desc">
                 <div class="label">
                     JUMLAH
                 </div>
                 <div class="desc jumlah-desc">
-                    <button class="min">-</button>
-                    <input type="number" value="1" readonly>
-                    <button class="plus">+</button>
+                    <button class="min" id="min">-</button>
+                    <input type="number" name="amount" value="1" id="amount" readonly>
+                    <button class="plus" id="plus">+</button>
                 </div>
             </div>
             <div class="product-order-desc">
@@ -78,35 +85,18 @@
                 <div class="desc info-product-desc">
                     <div class="info-product">
                         <div class="title-info">Berat</div>
-                        <div class="desc-info">100gr</div>
+                        <div class="desc-info">{{ $product->weight }}gr</div>
                     </div>
                     <div class="info-product">
                         <div class="title-info">Kondisi</div>
-                        <div class="desc-info">Baru</div>
+                        <div class="desc-info">{{ $product->condition }}</div>
+                    </div>
+                    <div class="info-product">
+                        <div class="title-info">Stok</div>
+                        <div class="desc-info">{{ $product->amount }}</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-@section('script')
-    <script>
-        const product_image = document.querySelector('.product-image img');
-        product_image.style.height = product_image.offsetWidth + 'px';
-
-        const product_thumbs_wrapper = document.querySelector('.product-thumbs');
-        const product_thumb_width = document.querySelector('.product-thumbs div img').offsetWidth + 'px';
-    
-        product_thumbs_wrapper.querySelectorAll('div').forEach((e) => {
-            e.style.height = product_thumb_width;
-        });
-
-        product_thumbs_wrapper.addEventListener('click', (e) => {
-            if(e.target.className == 'product-thumb') {
-                product_image.setAttribute('src', e.target.getAttribute('src'));
-            }
-        });
-
-    </script>    
-@endsection

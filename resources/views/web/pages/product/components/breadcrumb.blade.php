@@ -5,7 +5,7 @@
             <i class="zmdi zmdi-caret-right"></i>
         </li>
         <li>
-            <a href="{{ url('/categories/{slug}') }}">Kategori</a>
+            <a href="{{ url('/product?category=' . $product->category->slug) }}">{{ $product->category->category_name }}</a>
             <i class="zmdi zmdi-caret-right"></i>
         </li>
         <li>

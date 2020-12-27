@@ -2,7 +2,7 @@
     <div class="product-desc-wrapper">
         <h3 class="title">DESKRIPSI</h3>
         <p class="desc-product">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium dicta earum adipisci, pariatur sapiente asperiores quisquam illum velit, architecto commodi dolorum officiis doloribus quos excepturi alias nobis id quam distinctio?
+            {{ $product->description }}
         </p>
     </div>
     <div class="product-desc-wrapper">
@@ -54,15 +54,3 @@
         </div>
     </div>
 </div>
-
-    <script>
-        const height_product_header_desc = document.querySelector('.product-product-description-header .inner .product-desc-product').offsetHeight;
-        const product_header_desc = document.querySelectorAll('.product-product-description-header .inner .product-desc-product a');
-
-        product_header_desc.forEach((e) => {
-            e.style.height = height_product_header_desc;
-            console.log(height_product_header_desc);
-        });
-
-        console.log(product_header_desc);
-    </script>
