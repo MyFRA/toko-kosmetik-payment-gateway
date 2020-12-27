@@ -65,7 +65,7 @@ class ProductCategoryController extends Controller
                     ->withInput();
         }
 
-        $fileValidation = $this->fileValidation($request->file('image_category'), ['jpeg', 'jpg', 'png']);
+        $fileValidation = $this->fileValidation($request->file('image_category'), ['jpeg', 'jpg', 'png', 'webp']);
 
         $slug = Str::slug($request->category_name);
         if(ProductCategory::where('slug', $slug)->count() > 0) {
@@ -150,7 +150,7 @@ class ProductCategoryController extends Controller
         $image_category_name = $ProductCategory->image_category;
 
         if( !is_null($request->file('image_category')) ) {
-            $fileValidation = $this->fileValidation($request->file('image_category'), ['jpeg', 'jpg', 'png']);
+            $fileValidation = $this->fileValidation($request->file('image_category'), ['jpeg', 'jpg', 'png', 'webp']);
             
             if($fileValidation) {
                 return back()

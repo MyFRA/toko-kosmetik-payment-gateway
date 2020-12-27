@@ -13,8 +13,6 @@
 
 Route::get('/', 'Web\HomeController@index');
 Route::get('/categories', 'Web\CategoriesController@index');
-Route::get('/product/{slug}', 'Web\ProductController@show');
-Route::get('/product', 'Web\ProductController@index');
 Route::get('/promo', 'Web\PromoController@index');
 
 // Customer Authentication Route
@@ -22,6 +20,10 @@ Route::get('/login', 'Auth\Customer\LoginController@showLoginForm')->middleware(
 Route::post('/login', 'Auth\Customer\LoginController@login');
 Route::get('/register', 'Auth\Customer\RegisterController@showRegistrationForm')->name('customer.signup-form');
 Route::post('/register', 'Auth\Customer\RegisterController@register');
+
+// Product Route
+Route::get('/product/{slug}', 'Web\ProductController@show');
+Route::get('/product', 'Web\ProductController@index');
 
 Route::middleware(['customer.auth'])->group(function() {
     Route::post('/logout', 'Auth\Customer\LoginController@logout');
