@@ -7,7 +7,7 @@
     </div>
     <div class="products-wrapper home-recommendation-products-wrapper not-using-slick {{ count($products) >= 5 ? 'justify-content-space-between' : '' }}">
         @foreach ($products as $product)
-            <a href="{{ url('/product/' . $product->product_slug) }}" class="product {{ count($products) < 5 ? 'mr-lg-25' : '' }}">
+            <a href="{{ url('/product/' . $product->product_slug) }}" class="product {{ count($products) < 5 ? 'mr-lg-18' : '' }}">
                 <div class="thumb-product">
                     <img class="product-image" src="{{ asset('/storage/images/products/' . json_decode($product->product_images)[0]->name) }}" alt="thumb-product">
                 </div>

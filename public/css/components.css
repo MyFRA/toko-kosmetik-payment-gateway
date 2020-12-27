@@ -67,9 +67,9 @@
 .products-wrapper {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     margin-top: 1.5rem;
     width: 100%;
+    align-items: flex-start;
 }
 
 .products-wrapper .product {
