@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('amount');
             $table->enum('condition', ['baru', 'bekas']);
             $table->longText('product_images');
+            $table->boolean('enable_variants')->default(false);
             $table->text('description');
             $table->bigInteger('sold')->default(0);
             $table->bigInteger('counter')->default(0);

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
-use App\Models\{Product, ProductCategory};
+use App\Models\{Product, ProductCategory, ProductVariant};
 
 class ProductController extends Controller
 {
@@ -113,7 +113,17 @@ class ProductController extends Controller
             'condition'             => $request->condition,
             'product_images'        => json_encode($arr_product_images_name),
             'description'           => $request->description,
+            'enable_variants'      => !is_null($request->enable_variants) ? true : false,
         ]);
+
+        if( !is_null($request->enable_variants) ) {
+            foreach ($request->variants as $variant) {
+                ProductVariant::create([
+                    'product_id'  => $product->id,
+                    'variant'     => $variant,
+                ]);
+            }
+        }
 
         return redirect('/app-admin/product')->with('success', 'Produk ' . $request->product_name . ' telah ditambahkan');
     }
@@ -237,7 +247,21 @@ class ProductController extends Controller
             'condition'             => $request->condition,
             'product_images'        => json_encode($arr_product_images_name_from_db),
             'description'           => $request->description,
+            'enable_variants'       => !is_null($request->enable_variants) ? true : false,
         ]);
+
+        if( !is_null($request->enable_variants) ) {
+            foreach (ProductVariant::where('product_id', $product->id)->get() as $variant) {
+                $variant->delete();
+            }
+            
+            foreach ($request->variants as $variant) {
+                ProductVariant::create([
+                    'product_id'  => $product->id,
+                    'variant'     => $variant,
+                ]);
+            }
+        }
 
         return redirect('/app-admin/product')->with('success', 'Produk ' . $request->product_name . ' telah diupdate');
     }

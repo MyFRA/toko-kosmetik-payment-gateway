@@ -17,7 +17,8 @@ class Product extends Model
         'product_images', 
         'description', 
         'sold', 
-        'counter'
+        'counter',
+        'enable_variants',
     ];
 
     public function category()
@@ -28,5 +29,10 @@ class Product extends Model
     public function discount()
     {
         return $this->hasOne('App\Models\Discount', 'product_id', 'id');
+    }
+
+    public function product_variants()
+    {
+        return $this->hasMany('App\Models\ProductVariant', 'product_id', 'id');
     }
 }

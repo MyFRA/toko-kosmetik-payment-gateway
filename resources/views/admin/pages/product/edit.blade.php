@@ -109,6 +109,20 @@
                     @enderror
                   </div>
 
+                  <div class="form-check">
+                    <input type="checkbox" {{ $product->enable_variants ? 'checked' : '' }} class="form-check-input" name="enable_variants" id="enable-variants">
+                    <label class="text-dark" for="enabled-variants">Buat Varian</label>
+                  </div>
+                  <div class="form-group mb-4">
+                    <select class="form-control" multiple="multiple" name="variants[]" id="variants" {{ $product->enable_variants ? '' : 'disabled' }}>
+                      @if (!is_null($product->product_variants))
+                        @foreach ($product->product_variants as $variant)
+                            <option value="{{ $variant->variant }}" selected>{{ $variant->variant }}</option>
+                        @endforeach
+                      @endif
+                    </select>
+                  </div>
+
                   <div class="form-group">
                     <label for="product_images">Foto Produk <span class="text-danger">*</span></label>
                     <div class="mb-3">
@@ -194,7 +208,36 @@
     </div>
 @endsection
 
+@section('stylesheet')
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+@endsection
+
 @section('script')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $("#variants").select2({
+          tags: true,
+          theme: "classic"
+        });
+      });
+    </script>
+        <script>
+          const enabled_variants = document.getElementById('enable-variants');
+          const input_variant = document.getElementById('variants');
+    
+          enabled_variants.addEventListener('change', () => {
+            if( enabled_variants.checked ) {
+              if(input_variant.hasAttribute('disabled')) {
+                input_variant.removeAttribute('disabled');
+              }
+            } else {
+              if(!input_variant.hasAttribute('disabled')) {
+                input_variant.setAttribute('disabled', '');
+              }
+            }
+          });
+        </script>
     <script>
       var product_image_previews = document.querySelectorAll('.product_image_previews');
       var product_image_preview  = document.getElementById('product_image_preview');
