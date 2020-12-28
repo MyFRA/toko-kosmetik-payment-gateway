@@ -36,4 +36,9 @@ class Customer extends Authenticatable
     public function customerDetail() {
         return $this->hasOne('App\Models\CustomerDetail', 'customer_id', 'id');
     }
+
+    public function carts()
+    {
+        return $this->hasMany('App\Models\Cart', 'customer_id', 'id');
+    }
 }

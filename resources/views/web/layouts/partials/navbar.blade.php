@@ -25,8 +25,8 @@
             <button type="submit"><i class="zmdi zmdi-search"></i></button>
         </div>
         <div class="action">
-            <a href="{{ url('/wishlist') }}" class="icon {{ $nav == 'wishlist' ? 'active' : '' }}"><i class="zmdi zmdi-favorite zmdi-hc-lg"></i>
-            <a href="{{ url('/cart') }}" class="icon {{ $nav == 'wishlist' ? 'cart' : '' }}"><i class="zmdi zmdi-shopping-cart zmdi-hc-lg"></i></a>
+            <a href="{{ url('/wishlist') }}" class="icon {{ $nav == 'wishlist' ? 'active' : '' }}"><i class="zmdi zmdi-favorite"></i>
+            <a href="{{ url('/cart') }}" class="icon {{ $nav == 'wishlist' ? 'cart' : '' }}"><i class="zmdi zmdi-shopping-cart"></i> <span id="customer-cart-amount" class="{{ Auth::guard('customer')->check() ? 'bg-pink' : '' }}">{{ Auth::guard('customer')->check() ? Auth::guard('customer')->user()->carts->count() : '' }}</span></a>
             @if (Auth::guard('customer')->check())
                 <a href="{{ url('/account') }}" class="account" ><i class="zmdi zmdi-account zmdi-hc-lg" style="margin-right: 13px"></i> {{ Auth::guard('customer')->user()->fullname }}</a>
             @else

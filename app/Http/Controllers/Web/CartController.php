@@ -91,7 +91,9 @@ class CartController extends Controller
             'code'      => '200',
             'success'   => (boolean) true,
             'message'   => 'Produk berhasil ditambahkan ke keranjang',
-            'data'      => $cart,
+            'data'      => [
+                'customerCartAmount'    => Cart::where('customer_id', Auth::guard('customer')->user()->id)->count(),
+            ],
         ], 200);
     }
 }

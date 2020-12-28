@@ -140,6 +140,9 @@
                     body : JSON.stringify($data),
                 }).then(response => response.json())
                     .then(res => {
+                        const customerCartAmount = document.getElementById('customer-cart-amount');
+                        customerCartAmount.innerHTML = res.data.customerCartAmount;
+
                         if(res.code == 200 && res.success) {
                             Toast.fire({
                                 icon: 'success',

@@ -2185,3 +2185,11 @@
 .justify-content-space-between {
     justify-content: space-between !important;
 }
+
+.bg-pink {
+    background-color: #DB2777 !important;
+}
+
+.bg-white {
+    background-color: #fff !important;
+}
