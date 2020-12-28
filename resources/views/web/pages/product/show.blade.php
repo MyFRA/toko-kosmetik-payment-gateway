@@ -94,6 +94,12 @@
         product_thumbs_wrapper.addEventListener('click', (e) => {
             if(e.target.className == 'product-thumb') {
                 product_image.setAttribute('src', e.target.getAttribute('src'));
+                product_thumbs_wrapper.querySelectorAll('div').forEach((e) => {
+                    if(e.classList.contains('active')) {
+                        e.classList.remove('active');
+                    }
+                });
+                e.target.parentElement.classList.add('active');
             }
         });
     </script>    
@@ -151,6 +157,45 @@
                         }
                     })
 
+            } else {
+                window.location.href = '{{ url('/login') }}'
+            }
+        });
+    </script>
+
+    <script>
+        const add_to_wishlist = document.querySelector('.product-bottom-navigation-order .sub.favorite');
+        add_to_wishlist.addEventListener('click', () => {
+            if( {{ is_null(Auth::guard('customer')->user()) ? 'false' : 'true' }} ) {
+                const url = '{{ url('/add-to-wishlists') }}';
+
+                fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type' : 'application/json'
+                        },
+                        body: JSON.stringify({
+                            '_token'     : document.getElementById('token').value,
+                            'product_id' : {{ $product->id }},
+                        }),
+                }).then(response => response.json())
+                .then((res) => {
+                    if(res.code == 200 && res.success) {
+                        const customerWishlistAmount = document.getElementById('customer-wishlist-amount');
+                        customerWishlistAmount.innerHTML = res.data.customerWishlistAmount;
+                        add_to_wishlist.classList.add('active');
+
+                        Toast.fire({
+                                icon: 'success',
+                                title: res.message
+                            })
+                    } else {
+                        Toast.fire({
+                                icon: 'error',
+                                title: res.message
+                            })
+                    }
+                });
             } else {
                 window.location.href = '{{ url('/login') }}'
             }

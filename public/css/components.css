@@ -343,6 +343,10 @@
     color: #DB2777;
 }
 
+.product-bottom-navigation-order .favorite.active {
+    color: #DB2777;
+}
+
 .product-bottom-navigation-order .beli-langsung {
     color: #DB2777;
     font-weight: 600;

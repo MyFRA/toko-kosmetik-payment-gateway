@@ -41,6 +41,9 @@ Route::middleware(['customer.auth'])->group(function() {
 
     // Cart
     Route::post('/add-to-cart', 'Web\CartController@addToCart');
+
+    // Wishlist
+    Route::post('/add-to-wishlists', 'Web\WishlistController@addToWishlist');
 });
 
 Route::get('/verify', 'Auth\Customer\RegisterController@verify')->name('customer.verify');

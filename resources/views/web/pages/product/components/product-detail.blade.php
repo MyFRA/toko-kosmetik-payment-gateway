@@ -42,14 +42,14 @@
                     @endif
                     @if (!is_null($product->discount))
                         @if ( $product->discount->forever == true )
-                            <h3>Rp. {{ floor($product->price - ($product->price * $product->discount->discount_percent / 100)) }}</h3>
+                            <h3>Rp. {{ number_format(floor($product->price - ($product->price * $product->discount->discount_percent / 100)),0,',','.') }}</h3>
                         @elseif(strtotime($product->discount->end_date) >= strtotime(date('d-m-y')))
-                            <h3>Rp. {{ floor($product->price - ($product->price * $product->discount->discount_percent / 100)) }}</h3>
+                            <h3>Rp. {{ number_format(floor($product->price - ($product->price * $product->discount->discount_percent / 100)),0,',','.') }}</h3>
                         @else
-                            <h3>Rp. {{ $product->price }}</h3>
+                            <h3>Rp. {{ number_format($product->price,0,',','.') }}</h3>
                         @endif
                     @else
-                        <h3>Rp. {{ $product->price }}</h3>
+                        <h3>Rp. {{ number_format($product->price,0,',','.') }}</h3>
                     @endif
                 </div>
             </div>
