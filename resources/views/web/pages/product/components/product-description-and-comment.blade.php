@@ -1,9 +1,9 @@
 <div class="product-product-description-header">
     <div class="product-desc-wrapper">
         <h3 class="title">DESKRIPSI</h3>
-        <p class="desc-product">
-            {{ $product->description }}
-        </p>
+        <div class="desc-product">
+            {!! $product->description !!}
+        </div>
     </div>
     <div class="product-desc-wrapper">
         <h3 class="title">ULASAN</h3>

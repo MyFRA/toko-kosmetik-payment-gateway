@@ -128,7 +128,7 @@
 
                   <div class="form-group">
                     <label for="description">Deskripsi <span class="text-danger">*</span></label>
-                    <textarea name="description" id="description" style="height: 200px" class="form-control @error('description') is-invalid @enderror" required="" placeholder="Deskripsi Produk">{{ old('description') }}</textarea>
+                    <textarea name="description" id="description" required="">{{ old('description') }}</textarea>
 
                     @error('description')
                         <div class="invalid-feedback">
@@ -160,10 +160,27 @@
 
 @section('stylesheet')
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-@endsection
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+  @endsection
 
 @section('script')
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#description').summernote({
+          height: 200,
+          placeholder: 'Deskripsi Produk',
+          toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['insert', ['link']],
+          ]
+        });
+      });
+    </script>
     <script>
       $(document).ready(function() {
         $("#variants").select2({

@@ -1277,10 +1277,10 @@ footer.footer .copyright {
         color: #555;
     }
 
-    .product-product-description-header .product-desc-wrapper p.desc-product {
-        color: #666;
-        font-size: 14px;
-        line-height: 25px;
+    .product-product-description-header .product-desc-wrapper .desc-product {
+        color: #666 !important;
+        font-size: 14px !important;
+        line-height: 25px !important;
     }
 
     .product-product-description-header .product-desc-wrapper .ulasan-wrapper {
@@ -1359,9 +1359,9 @@ footer.footer .copyright {
             color: #555;
         }
     
-        .product-product-description-header .product-desc-wrapper p.desc-product {
-            font-size: 13px;
-            line-height: 24px;
+        .product-product-description-header .product-desc-wrapper .desc-product {
+            font-size: 13px !important;
+            line-height: 24px !important;
         }
     
         .product-product-description-header .product-desc-wrapper .ulasan-wrapper {
