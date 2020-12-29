@@ -201,4 +201,63 @@
             }
         });
     </script>
+    <script>
+        const inputComment = document.querySelector('textarea#comment[name=comment]');
+        const buttonComment = document.getElementById('submit-comment');
+
+        buttonComment.addEventListener('click', () => {
+            const url = '{{ url('/add-comment') }}';
+            const data = {
+                _token: document.getElementById('token').value,
+                comment: inputComment.value,
+                product_id: {{ $product->id }},
+            }
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json',
+                },
+                body: JSON.stringify(data),
+            }).then(response => response.json())
+                .then((res) => {
+                    if(res.code == 200 && res.success) {
+                        const commentsWrapper = document.querySelector('.product-desc-wrapper .ulasan-wrapper');
+                        const amountComments  = document.querySelector('.ulasan-count');
+
+                        amountComments.innerHTML = 'Semua komentar ' + res.data.comments.length;
+                        commentsWrapper.innerHTML = '';
+                        let comments = '';
+
+                        res.data.comments.forEach((comment) => {
+                            comments += `<div class="ulasan">
+                                                <div class="account">
+                                                    <div class="photo">
+                                                        <img src="${ !comment.photo ? 'https://i.pinimg.com/736x/4d/b8/3d/4db83d1b757657acf5edc8bd66e50abf.jpg': '{{ asset('/storage/images/customer-profiles') }}' + '/' + comment.photo}" alt="photo-profile">
+                                                    </div>
+                                                    <div class="info">
+                                                        <a href="" class="name">${ comment.customer_name }</a>
+                                                        <span class="date">${ comment.comment_at }</span>
+                                                    </div>
+                                                </div>
+                                                <div class="comment">
+                                                    <p class="comment-user">${ comment.comment }</p>
+                                                </div>
+                                            </div>`; 
+                        })
+                        
+                        commentsWrapper.innerHTML = comments
+                        inputComment.value = '';
+                        Toast.fire({
+                                icon: 'success',
+                                title: res.message
+                            })
+                    } else {
+                        Toast.fire({
+                                icon: 'error',
+                                title: res.message
+                            })
+                    }
+                })
+        });
+    </script>
 @endsection

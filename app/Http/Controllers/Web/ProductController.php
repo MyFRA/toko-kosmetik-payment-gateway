@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Wishlist;
-
+use App\Models\ProductComment;
 
 class ProductController extends Controller
 {
@@ -57,6 +57,7 @@ class ProductController extends Controller
             'product'                   => $product,
             'product_images'            => (array) json_decode($product->product_images),
             'alreadyInFavorite'         => $alreadyInFavorite > 0 ? true : false,
+            'comments'                  => ProductComment::where('product_id', $product->id)->orderBy('updated_at', 'DESC')->get(),
         ];
 
         return view('web.pages.product.show', $data);
