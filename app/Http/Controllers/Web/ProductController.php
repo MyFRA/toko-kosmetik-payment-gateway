@@ -42,9 +42,14 @@ class ProductController extends Controller
             'counter' => $product->counter + 1,
         ]);
 
-        $alreadyInFavorite = Wishlist::where('customer_id', Auth::guard('customer')->user()->id)
-                            ->where('product_id', $product->id)
-                            ->count();
+        $alreadyInFavorite = 0;
+
+        if( Auth::guard('customer')->check() ) {
+            $alreadyInFavorite = Wishlist::where('customer_id', Auth::guard('customer')->user()->id)
+                                    ->where('product_id', $product->id)
+                                    ->count();
+        }
+
         $data = [
             'title'                     => 'Jual Judul Produk',
             'nav'                       => '',
