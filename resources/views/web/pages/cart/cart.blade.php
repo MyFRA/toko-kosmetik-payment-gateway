@@ -26,14 +26,14 @@
                                 <a href="" onclick="deleteProductFromCart({{$cart['product_id']}})"><i class="zmdi zmdi-delete"></i></a>
                             </div>
                             <div class="sub-action">
-                                <button onclick="decreaseAmount(this)">-</button>
+                                <button onclick="decreaseAmount(this)" data-product_id="{{ $cart['product_id'] }}">-</button>
                                 <input type="number" id="product-amount" value="{{ $cart['cart_amount'] }}" readonly>
-                                <button onclick="increaseAmount(this, {{ $cart['product_amount'] }})">+</button>
+                                <button onclick="increaseAmount(this, {{ $cart['product_amount'] }})" data-product_id="{{ $cart['product_id'] }}">+</button>
                             </div>
                         </div>
                     </div>
                     <div class="product-check">
-                        <input type="checkbox" name="checked_products[]" multiple="multiple" onchange="checkProduct(this)" data-product_id="{{ $cart['product_id'] }}" data-price="{{ $cart['product_price'] }}">
+                        <input type="checkbox" name="checked_products[]" multiple="multiple" onchange="checkProduct(this)" data-product_id="{{ $cart['product_id'] }}" data-price="{{ $cart['product_price'] }}" {{ $cart['is_checked'] ? 'checked' : ''}}>
                     </div>
                 </div>
                 @endforeach
@@ -46,7 +46,7 @@
                     <span class="text">Total Harga</span>
                     <span class="price">-</span>
                 </div>
-                <button class="disabled" id="checkout-button">Beli (<span>0</span>)</button>
+                <button class="disabled" id="checkout-button" onclick="gotoShipment(this, '{{url('/cart/shipment')}}')">Beli (<span>0</span>)</button>
             </div>
         </div>
     </div>
@@ -55,272 +55,6 @@
             <h4 class="related-product-title">Produk Lainya</h4>
         </div>
         <div class="products-wrapper home-recommendation-products-wrapper not-using-slick">
-            <div class="product">
-                <div class="thumb-product">
-                    <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
-                </div>
-                <div class="desc-product">
-                    <h5>{{ substr('Garnier White Skin Body Lotion', 0, 23) }}...</h5>
-                    <div class="price-wrapper">
-                        <h4>Rp. 103.500</h4>
-                        <div class="discount">
-                            <h5><strike>Rp. 200.000</strike></h5>
-                            <span>30% OFF</span>
-                        </div>
-                    </div>
-                    <div class="info-product">
-                        <span class="stok">Stok 50</span>
-                        <span class="sold">154 Terjual</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumb-product">
-                    <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
-                </div>
-                <div class="desc-product">
-                    <h5>{{ substr('Garnier White Skin Body Lotion', 0, 23) }}...</h5>
-                    <div class="price-wrapper">
-                        <h4>Rp. 103.500</h4>
-                        <div class="discount">
-                            <h5><strike>Rp. 200.000</strike></h5>
-                            <span>30% OFF</span>
-                        </div>
-                    </div>
-                    <div class="info-product">
-                        <span class="stok">Stok 50</span>
-                        <span class="sold">154 Terjual</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumb-product">
-                    <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
-                </div>
-                <div class="desc-product">
-                    <h5>{{ substr('Garnier White Skin Body Lotion', 0, 23) }}...</h5>
-                    <div class="price-wrapper">
-                        <h4>Rp. 103.500</h4>
-                        <div class="discount">
-                            <h5><strike>Rp. 200.000</strike></h5>
-                            <span>30% OFF</span>
-                        </div>
-                    </div>
-                    <div class="info-product">
-                        <span class="stok">Stok 50</span>
-                        <span class="sold">154 Terjual</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumb-product">
-                    <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
-                </div>
-                <div class="desc-product">
-                    <h5>{{ substr('Garnier White Skin Body Lotion', 0, 23) }}...</h5>
-                    <div class="price-wrapper">
-                        <h4>Rp. 103.500</h4>
-                        <div class="discount">
-                            <h5><strike>Rp. 200.000</strike></h5>
-                            <span>30% OFF</span>
-                        </div>
-                    </div>
-                    <div class="info-product">
-                        <span class="stok">Stok 50</span>
-                        <span class="sold">154 Terjual</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumb-product">
-                    <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
-                </div>
-                <div class="desc-product">
-                    <h5>{{ substr('Garnier White Skin Body Lotion', 0, 23) }}...</h5>
-                    <div class="price-wrapper">
-                        <h4>Rp. 103.500</h4>
-                        <div class="discount">
-                            <h5><strike>Rp. 200.000</strike></h5>
-                            <span>30% OFF</span>
-                        </div>
-                    </div>
-                    <div class="info-product">
-                        <span class="stok">Stok 50</span>
-                        <span class="sold">154 Terjual</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumb-product">
-                    <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
-                </div>
-                <div class="desc-product">
-                    <h5>{{ substr('Garnier White Skin Body Lotion', 0, 23) }}...</h5>
-                    <div class="price-wrapper">
-                        <h4>Rp. 103.500</h4>
-                        <div class="discount">
-                            <h5><strike>Rp. 200.000</strike></h5>
-                            <span>30% OFF</span>
-                        </div>
-                    </div>
-                    <div class="info-product">
-                        <span class="stok">Stok 50</span>
-                        <span class="sold">154 Terjual</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumb-product">
-                    <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
-                </div>
-                <div class="desc-product">
-                    <h5>{{ substr('Garnier White Skin Body Lotion', 0, 23) }}...</h5>
-                    <div class="price-wrapper">
-                        <h4>Rp. 103.500</h4>
-                        <div class="discount">
-                            <h5><strike>Rp. 200.000</strike></h5>
-                            <span>30% OFF</span>
-                        </div>
-                    </div>
-                    <div class="info-product">
-                        <span class="stok">Stok 50</span>
-                        <span class="sold">154 Terjual</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumb-product">
-                    <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
-                </div>
-                <div class="desc-product">
-                    <h5>{{ substr('Garnier White Skin Body Lotion', 0, 23) }}...</h5>
-                    <div class="price-wrapper">
-                        <h4>Rp. 103.500</h4>
-                        <div class="discount">
-                            <h5><strike>Rp. 200.000</strike></h5>
-                            <span>30% OFF</span>
-                        </div>
-                    </div>
-                    <div class="info-product">
-                        <span class="stok">Stok 50</span>
-                        <span class="sold">154 Terjual</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumb-product">
-                    <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
-                </div>
-                <div class="desc-product">
-                    <h5>{{ substr('Garnier White Skin Body Lotion', 0, 23) }}...</h5>
-                    <div class="price-wrapper">
-                        <h4>Rp. 103.500</h4>
-                        <div class="discount">
-                            <h5><strike>Rp. 200.000</strike></h5>
-                            <span>30% OFF</span>
-                        </div>
-                    </div>
-                    <div class="info-product">
-                        <span class="stok">Stok 50</span>
-                        <span class="sold">154 Terjual</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumb-product">
-                    <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
-                </div>
-                <div class="desc-product">
-                    <h5>{{ substr('Garnier White Skin Body Lotion', 0, 23) }}...</h5>
-                    <div class="price-wrapper">
-                        <h4>Rp. 103.500</h4>
-                        <div class="discount">
-                            <h5><strike>Rp. 200.000</strike></h5>
-                            <span>30% OFF</span>
-                        </div>
-                    </div>
-                    <div class="info-product">
-                        <span class="stok">Stok 50</span>
-                        <span class="sold">154 Terjual</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumb-product">
-                    <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
-                </div>
-                <div class="desc-product">
-                    <h5>{{ substr('Garnier White Skin Body Lotion', 0, 23) }}...</h5>
-                    <div class="price-wrapper">
-                        <h4>Rp. 103.500</h4>
-                        <div class="discount">
-                            <h5><strike>Rp. 200.000</strike></h5>
-                            <span>30% OFF</span>
-                        </div>
-                    </div>
-                    <div class="info-product">
-                        <span class="stok">Stok 50</span>
-                        <span class="sold">154 Terjual</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumb-product">
-                    <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
-                </div>
-                <div class="desc-product">
-                    <h5>{{ substr('Garnier White Skin Body Lotion', 0, 23) }}...</h5>
-                    <div class="price-wrapper">
-                        <h4>Rp. 103.500</h4>
-                        <div class="discount">
-                            <h5><strike>Rp. 200.000</strike></h5>
-                            <span>30% OFF</span>
-                        </div>
-                    </div>
-                    <div class="info-product">
-                        <span class="stok">Stok 50</span>
-                        <span class="sold">154 Terjual</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumb-product">
-                    <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
-                </div>
-                <div class="desc-product">
-                    <h5>{{ substr('Garnier White Skin Body Lotion', 0, 23) }}...</h5>
-                    <div class="price-wrapper">
-                        <h4>Rp. 103.500</h4>
-                        <div class="discount">
-                            <h5><strike>Rp. 200.000</strike></h5>
-                            <span>30% OFF</span>
-                        </div>
-                    </div>
-                    <div class="info-product">
-                        <span class="stok">Stok 50</span>
-                        <span class="sold">154 Terjual</span>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <div class="thumb-product">
-                    <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
-                </div>
-                <div class="desc-product">
-                    <h5>{{ substr('Garnier White Skin Body Lotion', 0, 23) }}...</h5>
-                    <div class="price-wrapper">
-                        <h4>Rp. 103.500</h4>
-                        <div class="discount">
-                            <h5><strike>Rp. 200.000</strike></h5>
-                            <span>30% OFF</span>
-                        </div>
-                    </div>
-                    <div class="info-product">
-                        <span class="stok">Stok 50</span>
-                        <span class="sold">154 Terjual</span>
-                    </div>
-                </div>
-            </div>
             <div class="product">
                 <div class="thumb-product">
                     <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
@@ -366,12 +100,56 @@
     </script>
     <script>
         function checkProduct(element) {
+            const setCheckedUrl = '{{url('/checked-cart')}}';
+            const product_id    = element.getAttribute('data-product_id');
+
             if(!element.hasAttribute('checked')) {
-                element.setAttribute('checked', true);
+                fetch(setCheckedUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                    },
+                    body : JSON.stringify({
+                        '_token'     : document.getElementById('token').value,
+                        'product_id' : product_id,
+                        'is_checked' : true,
+                    }),
+                }).then(response => response.json())
+                    .then((res) => {
+                        if(res.code == 200 && res.success) {
+                            element.setAttribute('checked', true);
+                            generatePriceTotal();
+                        } else {
+                            Toast.fire({
+                                icon: 'error',
+                                title: res.message,
+                            });
+                        }
+                    });
             } else {
-                element.removeAttribute('checked');
+                fetch(setCheckedUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                    },
+                    body : JSON.stringify({
+                        '_token'     : document.getElementById('token').value,
+                        'product_id' : product_id,
+                        'is_checked' : false,
+                    }),
+                }).then(response => response.json())
+                    .then((res) => {
+                        if(res.code == 200 && res.success) {
+                            element.removeAttribute('checked');
+                            generatePriceTotal();
+                        } else {
+                            Toast.fire({
+                                icon: 'error',
+                                title: res.message,
+                            });
+                        }
+                    });
             }
-            generatePriceTotal();
         }
 
         function generatePriceTotal() {
@@ -391,7 +169,6 @@
                 }
 
             })
-
             if( price_total > 0 ) {
                 price_total_element.innerHTML = 'Rp. ' + formatRupiah(price_total);
                 checkout_button.classList.remove('disabled');
@@ -491,16 +268,62 @@
     <script>
         function increaseAmount(element, max) {
             const product_amount = element.parentElement.querySelector('input');
+            const product_id     = element.getAttribute('data-product_id');
+            const url            = '{{url('/increase-cart')}}';
+
             if( parseInt(product_amount.value) < max ) {
-                product_amount.value = parseInt(product_amount.value) + 1;
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                    },
+                    body : JSON.stringify({
+                        _token : document.getElementById('token').value,
+                        product_id : product_id,
+                        is_increased : true,
+                    }),
+                }).then(response => response.json())
+                .then((res) => {
+                    if(res.code == 200 && res.success) {
+                        product_amount.value = res.data.product_amount;
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: res.message,
+                        })
+                    }
+                });
             }
             generatePriceTotal();
         }
 
         function decreaseAmount(element) {
             const product_amount = element.parentElement.querySelector('input');
+            const product_id     = element.getAttribute('data-product_id');
+            const url            = '{{url('/increase-cart')}}';
+
             if( parseInt(product_amount.value) > 1 ) {
-                product_amount.value = parseInt(product_amount.value) - 1;
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                    },
+                    body : JSON.stringify({
+                        _token : document.getElementById('token').value,
+                        product_id : product_id,
+                        is_increased : false,
+                    }),
+                }).then(response => response.json())
+                .then((res) => {
+                    if(res.code == 200 && res.success) {
+                        product_amount.value = res.data.product_amount;
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: res.message,
+                        })
+                    }
+                });
             }
             generatePriceTotal();
         }
@@ -562,6 +385,17 @@
                         })
                 }
             })
+        }
+    </script>
+    <script>
+        generatePriceTotal();
+    </script>
+
+    <script>
+        function gotoShipment(element, url) {
+            if(!element.classList.contains('disabled')) {
+                window.location.href = url;
+            }
         }
     </script>
 @endsection

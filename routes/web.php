@@ -42,6 +42,8 @@ Route::middleware(['customer.auth'])->group(function() {
     // Cart
     Route::post('/add-to-cart', 'Web\CartController@addToCart');
     Route::post('/delete-from-cart', 'Web\CartController@deleteFromCart');
+    Route::post('/checked-cart', 'Web\CartController@checkedCart');
+    Route::post('/increase-cart', 'Web\CartController@increaseDecreaseCart');
 
     // Wishlist
     Route::post('/add-to-wishlists', 'Web\WishlistController@addToWishlist');

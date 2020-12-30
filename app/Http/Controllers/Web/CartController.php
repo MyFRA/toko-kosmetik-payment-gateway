@@ -31,20 +31,15 @@ class CartController extends Controller
                 'product_amount'    => $cart->product->amount,
                 'cart_amount'       => $cart->amount,
                 'is_wishlist'       => $amount_wishlist > 0 ? true : false,
+                'is_checked'        => $cart->is_checked
             ];
         }
 
-        $price_total = 0;
-        foreach ($carts as $cart) {
-            $price_total += $cart->product->price * $cart->amount;
-        }
-        
         $data = [
             'title'                     => 'cart',
             'nav'                       => 'cart',
             'remove_bottom_navigation'  => true,
             'carts'                     => $validCarts,
-            'price_total'               => $price_total
         ];
 
         return view('web.pages.cart.cart', $data);
@@ -174,5 +169,96 @@ class CartController extends Controller
                 'customerCartAmount' => count($validCarts)
             ],
         ], 200);
+    }
+
+    public function checkedCart(Request $request)
+    {
+        $allProductsId = join(',', $this->getAllId(Product::get()));
+
+        $validator = Validator::make($request->all(), [
+            'product_id'          => "required|in:$allProductsId",
+            'is_checked'          => 'required|boolean',
+        ], [
+            'product_id.required' => 'Produk tidak boleh kosong',
+            'product_id.in'       => 'Produk tidak ada / sudah dihapus',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'code'      => 401,
+                'success'   => (boolean) false,
+                'message'   => $validator->errors()->first(),
+            ]);
+        }
+
+        $cart = Cart::where('customer_id', Auth::guard('customer')->user()->id)
+                    ->where('product_id', $request->product_id)->first();
+
+        if( $request->is_checked ) {
+            $cart->update([
+                'is_checked' => true,
+            ]);
+
+            return response()->json([
+                'code'      => 200,
+                'success'   => (boolean) true,
+                'message'   => 'Produk berhasil di checklist',
+            ]);
+        } else {
+            $cart->update([
+                'is_checked' => false,
+            ]);
+
+            return response()->json([
+                'code'      => 200,
+                'success'   => (boolean) true,
+                'message'   => 'Produk berhasil di unchecklist',
+            ]);
+        }
+    }
+
+    public function increaseDecreaseCart(Request $request)
+    {
+        $allProductsId = join(',', $this->getAllId(Product::get()));
+
+        $validator = Validator::make($request->all(), [
+            'product_id'          => "required|in:$allProductsId",
+            'is_increased'        => 'required|boolean',
+        ], [
+            'product_id.required'       => 'Produk tidak boleh kosong',
+            'product_id.in'             => 'Produk tidak ada / sudah dihapus',
+            'is_increased.required'     => 'Status tidak boleh kosong',
+            'is_increased.boolean'      => 'Status tidak valid',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'code'      => 401,
+                'success'   => (boolean) false,
+                'message'   => $validator->errors()->first(),
+            ]);
+        }
+
+        $cart = Cart::where('customer_id', Auth::guard('customer')->user()->id)
+                    ->where('product_id', $request->product_id)->first();
+
+        if( $request->is_increased ) {
+            $cart->update([
+                'amount' => $cart->amount + 1,
+            ]);
+        } else {
+            $cart->update([
+                'amount' => $cart->amount - 1,
+            ]);
+        }
+
+        return response()->json([
+            'code'      => 200,
+            'success'   => (boolean) true,
+            'message'   => 'Jumlah produk berhasil diupdate',
+            'data'      => [
+                'product_amount' => $cart->amount,
+            ]
+        ]);
     }
 }
