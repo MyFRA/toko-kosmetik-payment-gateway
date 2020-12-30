@@ -27,7 +27,6 @@ Route::get('/product', 'Web\ProductController@index');
 
 Route::middleware(['customer.auth'])->group(function() {
     Route::post('/logout', 'Auth\Customer\LoginController@logout');
-    Route::get('/cart', 'Web\CartController@index');
     Route::get('/wishlist', 'Web\WishlistController@index');
 
     // Account
@@ -40,6 +39,8 @@ Route::middleware(['customer.auth'])->group(function() {
     Route::post('/account/photo/update', 'Web\AccountController@updatePhoto');
 
     // Cart
+    Route::get('/cart', 'Web\CartController@index');
+    Route::get('/cart/shipment', 'Web\CartController@getShipment');
     Route::post('/add-to-cart', 'Web\CartController@addToCart');
     Route::post('/delete-from-cart', 'Web\CartController@deleteFromCart');
     Route::post('/checked-cart', 'Web\CartController@checkedCart');

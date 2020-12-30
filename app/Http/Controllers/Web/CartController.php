@@ -261,4 +261,37 @@ class CartController extends Controller
             ]
         ]);
     }
+
+    public function getShipment()
+    {
+        $carts = Cart::where('customer_id', Auth::guard('customer')->user()->id)
+                    ->where('is_checked', true)    
+                    ->orderBy('created_at', 'DESC')->get();
+        $validCarts = [];
+        
+        foreach ($carts as $cart) {
+            $amount_wishlist = Wishlist::where('customer_id', $cart->customer_id)
+                                        ->where('product_id', $cart->product->id)
+                                        ->count();
+            $validCarts[] = [
+                'product_id'        => $cart->product_id,
+                'image_src'         => asset('/storage/images/products/' . json_decode($cart->product->product_images)[0]->name),
+                'product_name'      => $cart->product->product_name,
+                'product_price'     => $cart->product->price,
+                'product_amount'    => $cart->product->amount,
+                'cart_amount'       => $cart->amount,
+                'is_wishlist'       => $amount_wishlist > 0 ? true : false,
+                'is_checked'        => $cart->is_checked
+            ];
+        }
+
+        $data = [
+            'title'  => '',
+            'nav'    => 'cart',
+            'carts'  => $validCarts,
+            'remove_bottom_navigation' => true,
+        ];
+
+        return view('web.pages.cart.shipment', $data);
+    }
 }
