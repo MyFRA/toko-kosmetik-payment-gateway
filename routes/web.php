@@ -41,9 +41,11 @@ Route::middleware(['customer.auth'])->group(function() {
 
     // Cart
     Route::post('/add-to-cart', 'Web\CartController@addToCart');
+    Route::post('/delete-from-cart', 'Web\CartController@deleteFromCart');
 
     // Wishlist
     Route::post('/add-to-wishlists', 'Web\WishlistController@addToWishlist');
+    Route::post('/delete-from-wishlists', 'Web\WishlistController@deleteFromWishlist');
 
     // Comment
     Route::post('/add-comment', 'Web\CommentController@addComment');

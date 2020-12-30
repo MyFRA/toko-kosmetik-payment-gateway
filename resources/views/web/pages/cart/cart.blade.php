@@ -2,107 +2,41 @@
 
 @section('content')
     <div class="cart-wrapper">
+        <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
         <div class="cart-product">
-            <div class="choose-all">
-                <div class="check">
-                    <input type="checkbox" name="check_all" id="check_all">
-                    <label for="check_all">Pilih Semua Barang</label>
-                </div>
-                <div class="remove">
-                    <a href="">Hapus</a>
-                </div>
-            </div>
-            <div class="products-cart">
+            <hr>
+            <div class="products-cart" id="products-cart">
+                @foreach ($carts as $cart)
                 <div class="product-cart">
                     <div class="product">
-                        <img src="https://assets.pikiran-rakyat.com/crop/204x7:1986x1325/x/photo/2020/08/16/2708438435.jpg" alt="product-image">
+                        <img src="{{ $cart['image_src'] }}" alt="product-image">
                         <div class="price-and-detail">
-                            <h4 class="name">kaos distro samurai japan - XL, Putih</h4>
-                            <h5 class="price">Rp35.000</h5>
+                            <h4 class="name">{{ $cart['product_name'] }}</h4>
+                            <h5 class="price">Rp. {{ number_format($cart['product_price'], 0, '.', '.') }}</h5>
                         </div>
                     </div>
                     <div class="action-product">
                         <div class="note">
-                            <a href="">Tulis catatan untuk produk</a>
                         </div>
                         <div class="action">
                             <div class="sub-action">
-                                <a href=""><i class="zmdi zmdi-favorite"></i></a>
+                                <a href="" onclick="addToWishlist(this, {{$cart['product_id']}})" class="{{ $cart['is_wishlist'] ? 'active' : ''}}"><i class="zmdi zmdi-favorite"></i></a>
                             </div>
                             <div class="sub-action">
-                                <a href=""><i class="zmdi zmdi-delete"></i></a>
+                                <a href="" onclick="deleteProductFromCart({{$cart['product_id']}})"><i class="zmdi zmdi-delete"></i></a>
                             </div>
                             <div class="sub-action">
-                                <button>-</button>
-                                <input type="number" readonly value="3">
-                                <button>+</button>
+                                <button onclick="decreaseAmount(this)">-</button>
+                                <input type="number" id="product-amount" value="{{ $cart['cart_amount'] }}" readonly>
+                                <button onclick="increaseAmount(this, {{ $cart['product_amount'] }})">+</button>
                             </div>
                         </div>
                     </div>
                     <div class="product-check">
-                        <input type="checkbox">
+                        <input type="checkbox" name="checked_products[]" multiple="multiple" onchange="checkProduct(this)" data-product_id="{{ $cart['product_id'] }}" data-price="{{ $cart['product_price'] }}">
                     </div>
                 </div>
-                <div class="product-cart">
-                    <div class="product">
-                        <img src="https://assets.pikiran-rakyat.com/crop/204x7:1986x1325/x/photo/2020/08/16/2708438435.jpg" alt="product-image">
-                        <div class="price-and-detail">
-                            <h4 class="name">kaos distro samurai japan - XL, Putih</h4>
-                            <h5 class="price">Rp35.000</h5>
-                        </div>
-                    </div>
-                    <div class="action-product">
-                        <div class="note">
-                            <a href="">Tulis catatan untuk produk</a>
-                        </div>
-                        <div class="action">
-                            <div class="sub-action">
-                                <a href=""><i class="zmdi zmdi-favorite"></i></a>
-                            </div>
-                            <div class="sub-action">
-                                <a href=""><i class="zmdi zmdi-delete"></i></a>
-                            </div>
-                            <div class="sub-action">
-                                <button>-</button>
-                                <input type="number" readonly value="3">
-                                <button>+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-check">
-                        <input type="checkbox">
-                    </div>
-                </div>
-                <div class="product-cart">
-                    <div class="product">
-                        <img src="https://assets.pikiran-rakyat.com/crop/204x7:1986x1325/x/photo/2020/08/16/2708438435.jpg" alt="product-image">
-                        <div class="price-and-detail">
-                            <h4 class="name">kaos distro samurai japan - XL, Putih</h4>
-                            <h5 class="price">Rp35.000</h5>
-                        </div>
-                    </div>
-                    <div class="action-product">
-                        <div class="note">
-                            <a href="">Tulis catatan untuk produk</a>
-                        </div>
-                        <div class="action">
-                            <div class="sub-action">
-                                <a href=""><i class="zmdi zmdi-favorite"></i></a>
-                            </div>
-                            <div class="sub-action">
-                                <a href=""><i class="zmdi zmdi-delete"></i></a>
-                            </div>
-                            <div class="sub-action">
-                                <button>-</button>
-                                <input type="number" readonly value="3">
-                                <button>+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-check">
-                        <input type="checkbox">
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
         <div class="cart-total-price">
@@ -110,9 +44,9 @@
                 <h4>Ringkasan Belanja</h4>
                 <div class="total-price">
                     <span class="text">Total Harga</span>
-                    <span class="price">Rp524.800</span>
+                    <span class="price">-</span>
                 </div>
-                <button>Beli (8)</button>
+                <button class="disabled" id="checkout-button">Beli (<span>0</span>)</button>
             </div>
         </div>
     </div>
@@ -408,4 +342,226 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('stylesheet')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@3/dark.css">
+@endsection
+
+@section('script')
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'center',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+        })
+    </script>
+    <script>
+        function checkProduct(element) {
+            if(!element.hasAttribute('checked')) {
+                element.setAttribute('checked', true);
+            } else {
+                element.removeAttribute('checked');
+            }
+            generatePriceTotal();
+        }
+
+        function generatePriceTotal() {
+            const arr_product_check = document.querySelectorAll('.product-check input[type=checkbox]');
+            const price_total_element = document.querySelector('.total-price .price');
+            const checkout_button = document.getElementById('checkout-button');
+            let price_total = 0;
+            let amount_total = 0;
+
+            arr_product_check.forEach((e) => {
+                if(e.hasAttribute('checked')) {
+                    const price = e.getAttribute('data-price');
+                    const product_amount = e.parentElement.parentElement.querySelector('#product-amount').value;
+
+                    price_total += price * product_amount;
+                    amount_total += parseInt(product_amount);
+                }
+
+            })
+
+            if( price_total > 0 ) {
+                price_total_element.innerHTML = 'Rp. ' + formatRupiah(price_total);
+                checkout_button.classList.remove('disabled');
+                checkout_button.querySelector('span').innerHTML = amount_total;
+            } else {
+                checkout_button.classList.add('disabled');
+                checkout_button.querySelector('span').innerHTML = 0;
+                price_total_element.innerHTML = '-';
+            }
+        }
+
+        function formatRupiah(angka){
+            let	number_string = angka.toString();
+                sisa 	= number_string.length % 3,
+                rupiah 	= number_string.substr(0, sisa),
+                ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                    
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            return rupiah;
+        }
+        
+        function deleteProductFromCart(product_id) {
+            event.preventDefault();
+            if(confirm('Yakin akan menghapus produk dari keranjang?')) {
+                const url = '{{url('/delete-from-cart')}}';
+                const data = {
+                    '_token'     : document.getElementById('token').value,
+                    'product_id' : product_id,
+                }
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                }).then(response => response.json())
+                .then((res) => {
+                    if(res.code == 200 && res.success) {
+                        const products_cart_wrapper = document.getElementById('products-cart');
+                        const customerCartAmount = document.getElementById('customer-cart-amount');
+                        customerCartAmount.innerHTML = res.data.customerCartAmount;
+                        let products_cart = '';
+
+                        res.data.carts.forEach((cart) => {
+                            const product_cart = `
+                                <div class="product-cart">
+                                    <div class="product">
+                                        <img src="${cart.image_src}" alt="product-image">
+                                        <div class="price-and-detail">
+                                            <h4 class="name">${cart.product_name}</h4>
+                                            <h5 class="price">${'Rp ' + formatRupiah(cart.product_price)}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="action-product">
+                                        <div class="note">
+                                        </div>
+                                        <div class="action">
+                                            <div class="sub-action">
+                                                <a href=""><i class="zmdi zmdi-favorite"></i></a>
+                                            </div>
+                                            <div class="sub-action">
+                                                <a href="" onclick="deleteProductFromCart(${cart.product_id})"><i class="zmdi zmdi-delete"></i></a>
+                                            </div>
+                                            <div class="sub-action">
+                                                <button onclick="decreaseAmount(this)">-</button>
+                                                <input type="number" id="product-amount" value="${cart.cart_amount}">
+                                                <button onclick="increaseAmount(this, ${cart.product_amount})">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-check">
+                                        <input type="checkbox" name="checked_products[]" multiple="multiple" onchange="checkProduct(this)" data-product_id="${cart.product_id}" data-price="${cart.product_price}">
+                                    </div>
+                                </div>`;
+                                products_cart += product_cart;
+                        });
+                        products_cart_wrapper.innerHTML = products_cart;
+                        Toast.fire({
+                            icon: 'success',
+                            title: res.message
+                        })
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: res.message
+                        })
+                    }
+                })
+            }
+        }
+    </script>
+    <script>
+        function increaseAmount(element, max) {
+            const product_amount = element.parentElement.querySelector('input');
+            if( parseInt(product_amount.value) < max ) {
+                product_amount.value = parseInt(product_amount.value) + 1;
+            }
+            generatePriceTotal();
+        }
+
+        function decreaseAmount(element) {
+            const product_amount = element.parentElement.querySelector('input');
+            if( parseInt(product_amount.value) > 1 ) {
+                product_amount.value = parseInt(product_amount.value) - 1;
+            }
+            generatePriceTotal();
+        }
+    </script>
+    <script>
+        function addToWishlist(element, product_id) {
+            event.preventDefault();
+            const url = '{{ url('/add-to-wishlists') }}';
+            const customerWishlistAmount = document.getElementById('customer-wishlist-amount');
+
+            fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({
+                        '_token'     : document.getElementById('token').value,
+                        'product_id' : product_id,
+                    }),
+            }).then(response => response.json())
+            .then((res) => {
+                if(res.code == 200 && res.success) {
+                    customerWishlistAmount.innerHTML = res.data.customerWishlistAmount;
+                    element.classList.add('active');
+
+                    Toast.fire({
+                            icon: 'success',
+                            title: res.message
+                        })
+                } else {
+                    const urlDeleteFromWishlist = '{{ url('/delete-from-wishlists') }}';
+                    fetch(urlDeleteFromWishlist, {
+                        method : 'POST',
+                        headers : {
+                            'Content-Type' : 'application/json',
+                        },
+                        body : JSON.stringify({
+                            '_token' : document.getElementById('token').value,
+                            'product_id' : product_id,
+                        }),
+                    }).then(response => response.json())
+                        .then((res) => {
+                            if(res.code == 200 && res.success) {
+                                customerWishlistAmount.innerHTML = res.data.customerWishlistAmount;
+                               if(element.classList.contains('active')) {
+                                   element.classList.remove('active')
+                               }
+
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: res.message
+                                })
+                            } else {
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: res.message
+                                })
+                            }
+                        })
+                }
+            })
+        }
+    </script>
 @endsection
