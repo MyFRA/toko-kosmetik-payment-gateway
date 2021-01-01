@@ -8,7 +8,7 @@
     margin-top: 11vh !important;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1280px) {
     #app {
         margin-top: 9vh;
         margin-bottom: 80px;
@@ -18,7 +18,7 @@
 /* Navbar */
 .navbar {
     position: fixed;
-    z-index: 9999;
+    z-index: 9;
     width: 100%;
     height: 11vh;
     top: 0;
@@ -31,7 +31,11 @@
 }
 
 .navbar .logo {
-    flex: 1;
+    flex: .25;
+}
+
+.navbar .logo img {
+    width: 75px;
 }
 
 .navbar .nav-links {
@@ -42,7 +46,7 @@
 }
 
 .navbar .nav-links .nav-link a {
-    color: #333;
+    color: #777;
     text-decoration: none;
     font-family: 'Lato', sans-serif;
     transition: all 250ms ease;
@@ -57,26 +61,37 @@
 }
 
 .navbar .action-wrapper {
-    flex: 3.3;
+    flex: 5.4;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     font-family: 'Lato', sans-serif;
+    align-items: center;
 }
 
 .navbar .action-wrapper .search {
-    padding-left: 2rem;
     display: flex;
     align-items: center;
 }
 
+.navbar .action-wrapper .search select option {
+    z-index: 999999;
+    color: #888 !important;
+}
+
 .navbar .action-wrapper .search input {
     height: 1.8rem;
-    width: 11rem;
+    width: 60%;
     padding: 0 .75rem;
     font-size: 15px;
-    border: 1px solid #bbb;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #fafafa;
+    background-color: #fff;
+    color: #777;
+    margin-left: 9px;
+}
+
+.navbar .action-wrapper .search input:focus {
+    outline: none;
 }
 
 .navbar .action-wrapper .search button {
@@ -87,6 +102,12 @@
     background-color: #DB2777;
     color: #fff;
     border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.navbar .action-wrapper .search button:focus {
+    outline: none;
 }
 
 .navbar .action-wrapper a {
@@ -103,17 +124,19 @@
 }
 
 .navbar .action-wrapper a.icon i {
-    font-size: 28px;
+    font-size: 22px;
+    color: #ababab;
+    transition: all 350ms ease;
 }
 
 .navbar .action-wrapper a.icon span {
     position: absolute;
-    bottom: -5px;
-    left: -5px;
+    top: -5px;
+    right: -5px;
     color: #fff;
-    width: 22px;
-    height: 22px;
-    font-size: 13px;
+    width: 17.5px;
+    height: 17.5px;
+    font-size: 11px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,30 +149,39 @@
     color: #DB2777;
 }
 
-.navbar .action-wrapper a.icon:hover {
+.navbar .action-wrapper a.icon:hover i {
     color: #DB2777;
+    transform: scale(1.2)
 }
 
 .navbar .action-wrapper a.account {
     padding: .7rem;
-    font-size: 13px;
+    font-size: 13.5px;
     border-radius: 4px;
     transition: all 150ms ease;
+    color: #888;
+    font-weight: 600;
 }
 
 .navbar .action-wrapper a.account:hover {
-    background-color: #DB2777;
-    color: #fff;
+    background-color: #eee;
 }
 
 .navbar .action-wrapper a.auth {
     border: 1px solid #DB2777;
-    padding: .4rem 1rem;
+    padding: .35rem .8rem;
     border-radius: 3px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 250ms ease;
 }
 
 .navbar .action-wrapper a.auth.login {
     color: #DB2777;
+}
+
+.navbar .action-wrapper a.auth.login:hover {
+    color: #df6ca0;
 }
 
 .navbar .action-wrapper a.auth.register {
@@ -157,20 +189,14 @@
     color: #fff;
 }
 
-@media screen and (max-width: 1024px) {
+.navbar .action-wrapper a.auth.register:hover {
+    background-color: #df6ca0;
+    color: #fff;
+}
+
+@media screen and (max-width: 1280px) {
     .navbar {
-        position: fixed;
-        z-index: 9999;
-        width: 100%;
-        height: 9vh;
-        top: 0;
-        left: 0;
-        background-color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         padding: 0 1rem;
-        box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4);
     }
 
     .navbar .logo {
@@ -182,7 +208,6 @@
     }
 
     .navbar .action-wrapper {
-        display: flex;
         align-items: center;
         justify-content: center;
     }
@@ -193,6 +218,15 @@
         align-items: center;
         justify-content: center;
         margin-left: 0px;
+    }
+
+    .navbar .action-wrapper .search select {
+        width: 50%;
+    }
+
+    .navbar .action-wrapper .search select option {
+        z-index: 999999;
+        color: #888 !important;
     }
     
     .navbar .action-wrapper .search input {
@@ -232,9 +266,9 @@
     }
 
     .navbar .action-wrapper a.icon span {
-        width: 20px;
-        height: 20px;
-        font-size: 11px;
+        width: 16.5px;
+        height: 16.5px;
+        font-size: 10.5px;
     }
 }
 
@@ -323,7 +357,7 @@ footer.footer .copyright {
     font-size: 15px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1280px) {
     footer.footer {
         display: none;
         margin-top: 0;
@@ -386,7 +420,7 @@ footer.footer .copyright {
         font-size: 17px;
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1280px) {
         .banner-wrapper {
             height: 25vh;
         }
@@ -455,7 +489,7 @@ footer.footer .copyright {
         margin-top: .4rem;
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1280px) {
         .home-services {
             padding: 0 1.5rem;
             flex-wrap: wrap;
@@ -565,7 +599,7 @@ footer.footer .copyright {
         text-decoration: underline;
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1280px) {
         .home-promo {
             padding: 1.7rem 1.5rem;
             background-color: #DB2777;
@@ -628,7 +662,7 @@ footer.footer .copyright {
         font-size: 17px;
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1280px) {
         .home-categories {
             margin-top: 1.7rem;
             padding: 0 1.5rem;
@@ -681,7 +715,7 @@ footer.footer .copyright {
         cursor: pointer;
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1280px) {
         .home-recommendation-products-wrapper {
             display: flex !important;
             flex-wrap: wrap !important;
@@ -709,7 +743,7 @@ footer.footer .copyright {
     display: none;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1280px) {
     .bottom-navigation {
         font-family: 'Open Sans', sans-serif;
         display: flex;
@@ -762,7 +796,7 @@ footer.footer .copyright {
     margin-top: 7rem !important;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1280px) {
     .categories-categories {
         margin-top: 5rem !important;
     }
@@ -876,7 +910,7 @@ footer.footer .copyright {
     text-decoration: underline;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1280px) {
     .auth-web-login-container {
         height: 80vh;
         margin: 4.5rem 0;
@@ -979,7 +1013,7 @@ footer.footer .copyright {
     width: 85%;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1280px) {
     .auth-web-login.auth-web-register .illustration {
         display: none;
     }
@@ -1193,7 +1227,7 @@ footer.footer .copyright {
         font-weight: 600;
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1280px) {
         .product-product-detail {
             flex-direction: column;
             padding: 0 1rem;
@@ -1354,7 +1388,7 @@ footer.footer .copyright {
         line-height: 23px;
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1280px) {
         .product-product-description-header {
             padding: 0 1.5rem;
             margin-top: 2rem;
@@ -1478,7 +1512,7 @@ footer.footer .copyright {
         cursor: pointer;
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1280px) {
         .product-comment-box {
             padding: 0 1.5rem;
         }
@@ -1670,7 +1704,7 @@ footer.footer .copyright {
         outline: none;
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1280px) {
         .account-index {
             margin-top: 5rem;
         }
@@ -1798,7 +1832,7 @@ footer.footer .copyright {
         color: #fff;
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1280px) {
         .title-account-daftar-transaksi {
             font-size: 17px;
         }
@@ -1972,7 +2006,7 @@ footer.footer .copyright {
         cursor: default;
     }
 
-    @media screen and (max-width: 1024px) {
+    @media screen and (max-width: 1280px) {
         .cart-wrapper {
             flex-direction: column;
             padding: 0 1rem;
@@ -2363,7 +2397,7 @@ section.cart-shipment .shipment-wrapper .total-price-wrapper .shopping-summary-w
     cursor: pointer;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1280px) {
     section.cart-shipment {
         margin-top: 0rem;
         padding: 0 1rem 27vh;

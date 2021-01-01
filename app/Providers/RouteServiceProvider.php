@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\ProductCategory;
+
 class RouteServiceProvider extends ServiceProvider
 {
     /**
@@ -30,9 +32,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+        view()->share('nav_product_categories', ProductCategory::select('slug', 'category_name')->orderBy('category_name', 'ASC')->get());
     }
 
     /**

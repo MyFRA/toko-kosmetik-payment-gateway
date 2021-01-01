@@ -1,6 +1,6 @@
 <nav class="navbar">
     <div class="logo">
-        <img src="https://demo.hasthemes.com/corano-preview/corano/assets/img/logo/logo.png" alt="logo">
+        <img src="{{ asset('/images/icons/logo-no-text.png') }}" alt="logo">
     </div>
     <ul class="nav-links">
         <li class="nav-link {{ $nav == 'home' ? 'active' : ''}}">
@@ -21,8 +21,10 @@
     </ul>
     <div class="action-wrapper">
         <div class="search">
-            <input type="text" placeholder="cari produk">
-            <button type="submit"><i class="zmdi zmdi-search"></i></button>
+            <div id="select-product-category-wrap">
+            </div>
+            <input type="text" placeholder="Cari Produk" id="input-search-product" autocomplete="off">
+            <button type="submit" id="button-search-product"><i class="zmdi zmdi-search"></i></button>
         </div>
         <div class="action">
             <a href="{{ url('/wishlist') }}" class="icon {{ $nav == 'wishlist' ? 'active' : '' }}"><i class="zmdi zmdi-favorite"> <span id="customer-wishlist-amount" class="{{ Auth::guard('customer')->check() ? 'bg-pink' : '' }}">{{ Auth::guard('customer')->check() ? Auth::guard('customer')->user()->wishlist->count() : '' }}</span></i>

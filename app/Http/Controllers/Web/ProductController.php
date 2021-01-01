@@ -15,24 +15,37 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        if( isset($request->category) ) {
+        if( isset($request->category) && isset($request->product_name) ) {
+            $category = ProductCategory::where('slug', $request->category)->first();
+            if( !is_null($category) ) {
+                $products = Product::where('product_category_id', $category->id)
+                                ->where('product_name', 'like', '%' . $request->product_name . '%')        
+                                ->orderBy('created_at', 'DESC')->get();
+            } else {
+                $products = Product::where('product_name', 'like', '%' . $request->product_name . '%')
+                                ->orderBy('created_at', 'DESC')->get();
+            }
+        } elseif( isset($request->category) ) {
             $category = ProductCategory::where('slug', $request->category)->first();
             if( !is_null($category) ) {
                 $products = Product::where('product_category_id', $category->id)->orderBy('created_at', 'DESC')->get();
             } else {
                 $products = Product::orderBy('created_at', 'DESC')->get();
             }
-        } else {
+        }
+        else {
             $products = Product::orderBy('created_at', 'DESC')->get();
         }
 
         $data = [
             'title'        => 'Jual Judul Produk',
-            'nav'          => '',
+            'nav'          => 'product',
             'products'     => $products,
         ];
 
         return view('web.pages.product.index', $data);
+        
+
     }
 
     public function show($slug)

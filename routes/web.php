@@ -52,6 +52,13 @@ Route::middleware(['customer.auth'])->group(function() {
 
     // Comment
     Route::post('/add-comment', 'Web\CommentController@addComment');
+
+    // Test
+    Route::get('/cek-ongkir', 'Test\CekOngkirController@cekOngkir');
 });
 
 Route::get('/verify', 'Auth\Customer\RegisterController@verify')->name('customer.verify');
+
+// API (Not Must Logged In)
+    // Product Categories
+    Route::get('/api/product-categories', 'Api\ProductCategories@index');
