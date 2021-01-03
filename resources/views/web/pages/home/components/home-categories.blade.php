@@ -1,5 +1,8 @@
 <div class="home-categories">
-    <h2>Kategori</h2>
+    <div class="title-home-categories">
+        <h2>Kategori</h2>
+        <a href="{{ url('/product') }}">Lihat Semua</a>
+    </div>
     <div class="categories">
         @foreach ($categories as $category)
             <div class="category">

@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function index()
     {
         $data = [
-            'title'                 => '',
+            'title'                 => 'Indah Jaya Kosmetik, Beli Kosmetik dan Aksesoris Lengkap Terpercaya',
             'nav'                   => 'home',
             'arr_promo'             => Promo::where('forever', true)
                                             ->orWhere('end_date', '>=', date('d-m-y'))

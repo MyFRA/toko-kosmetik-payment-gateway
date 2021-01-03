@@ -12,7 +12,7 @@
                     <img class="promo-label" src="https://www.pinclipart.com/picdir/big/336-3366313_great-clips-printable-coupons-valpak.png" alt="promo">
                 </div>
                 <div class="desc-product">
-                    <h5>{{ substr( $promo->product->product_name , 0, 23) }}...</h5>
+                    <h5>{{ strlen($promo->product->product_name) >= 23 ? substr($promo->product->product_name, 0, 23) . '...' : $promo->product->product_name }}</h5>
                     <div class="price-wrapper">
                         @if (!is_null($promo->product->discount))
                             @if ( $promo->product->discount->forever == true )

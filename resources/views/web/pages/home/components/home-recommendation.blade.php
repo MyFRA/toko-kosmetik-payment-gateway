@@ -9,7 +9,7 @@
                     <img class="product-image" src="{{ asset('/storage/images/products/' . json_decode($product->product_images)[0]->name) }}" alt="thumb-product">
                 </div>
                 <div class="desc-product">
-                    <h5>{{ substr($product->product_name, 0, 23) }}...</h5>
+                    <h5>{{ strlen($product->product_name) >= 23 ? substr($product->product_name, 0, 23) . '...' : $product->product_name }}</h5>
                     <div class="price-wrapper">
                         @if (!is_null($product->discount))
                             @if ( $product->discount->forever == true )
