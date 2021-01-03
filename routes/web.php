@@ -60,5 +60,5 @@ Route::middleware(['customer.auth'])->group(function() {
 Route::get('/verify', 'Auth\Customer\RegisterController@verify')->name('customer.verify');
 
 // API (Not Must Logged In)
-    // Product Categories
-    Route::get('/api/product-categories', 'Api\ProductCategories@index');
+    Route::get('/api/product-categories', 'Api\ApiController@ProductCategories');
+    Route::get('/api/product-recommendation/{count?}', 'Api\ApiController@getRecommendation');

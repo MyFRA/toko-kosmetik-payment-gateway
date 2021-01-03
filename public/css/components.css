@@ -109,6 +109,7 @@
 .products-wrapper .product .desc-product h5 {
     color: #333;
     font-weight: 600;
+    font-size: 14px;
 }
 
 .products-wrapper .product .desc-product .price-wrapper {
@@ -144,8 +145,8 @@
 
 .products-wrapper .product .desc-product .info-product .stok {
     font-weight: 600;
-    font-size: 16px;
-    color: #000;
+    font-size: 15px;
+    color: #333;
 }
 
 .products-wrapper .product .desc-product .info-product .sold {
@@ -191,6 +192,10 @@
     .products-wrapper .product .desc-product {
         padding: .8rem;
     }
+
+    .products-wrapper .product .desc-product h5 {
+        font-size: 13px;
+    }
     
     .products-wrapper .product .desc-product .price-wrapper {
         margin-top: .7rem;
@@ -210,6 +215,7 @@
     
     .products-wrapper .product .desc-product .price-wrapper .discount h5 {
         font-weight: 600;
+        font-size: 13px;
     }
     
     .products-wrapper .product .desc-product .price-wrapper .discount span {
@@ -228,6 +234,7 @@
     .products-wrapper .product .desc-product .info-product .stok {
         font-weight: 600;
         font-size: 12px;
+        color: #333;
     }
     
     .products-wrapper .product .desc-product .info-product .sold {

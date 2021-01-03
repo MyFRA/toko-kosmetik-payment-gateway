@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 #app {
@@ -555,80 +556,6 @@ footer.footer .copyright {
         }
     }
 
-    /* Home Categories */
-    .home-categories {
-        margin-top: 2.5rem;
-        padding: 0 5rem;
-        font-family: 'Open Sans', sans-serif;
-    }
-
-    .home-categories .title-home-categories {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .home-categories .title-home-categories a {
-        font-size: 16px;
-        color: #333;
-        text-decoration: none;
-        font-weight: 600;
-    }
-
-    .home-categories .title-home-categories a:hover {
-        color: #555;
-        text-decoration: underline;
-    }
-
-    .home-categories h2 {
-        color: #333;
-    }
-
-    .home-categories hr {
-        margin-top: 7px;
-        border: none;
-        width: 100%;
-        height: 1.4px;
-        background: #bbb;
-    }
-
-    .home-categories .categories {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        margin-top: 1.7rem;
-    }
-
-    .home-categories .categories .category {
-        display: flex;
-        flex-direction: column;
-        width: 175px;
-        margin-bottom: 1.7rem;
-        transition: 200ms ease;
-    }
-
-    .home-categories .categories .category:hover {
-        transform: translateY(-5px);
-    }
-
-    .home-categories .categories .category .category-image {
-        width: 100%;
-        height: 175px;
-        background-size: cover;
-        background-position: center;
-        border: 1px solid #999;
-        border-radius: 8px;
-    }
-
-    .home-categories .categories .category .category-name {
-        text-align: center;
-        margin-top: .75rem;
-        text-decoration: none;
-        color: #444;
-        font-weight: 600;
-        font-size: 15px !important;
-    }
-
     /* Home Promo */
     .home-promo {
         font-family: 'Open Sans', sans-serif;
@@ -674,17 +601,48 @@ footer.footer .copyright {
         }
     }
 
-    /* Home Newest Product */
+    /* Home Categories Product */
     .home-categories {
         margin-top: 2.5rem;
         padding: 0 5rem;
         font-family: 'Open Sans', sans-serif;
     }
 
+    .home-categories .title-home-categories {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .home-categories .title-home-categories a {
+        font-size: 16px;
+        color: #333;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .home-categories .title-home-categories a:hover {
+        color: #555;
+        text-decoration: underline;
+    }
+
+    .home-categories h2 {
+        color: #333;
+    }
+
+    .home-categories hr {
+        margin-top: 7px;
+        border: none;
+        width: 100%;
+        height: 1.4px;
+        background: #ddd;
+    }
+
     .home-categories .categories {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
+        margin-top: 1.7rem;
     }
 
     .home-categories .categories .category {
@@ -692,6 +650,11 @@ footer.footer .copyright {
         flex-direction: column;
         width: 175px;
         margin-bottom: 1.7rem;
+        transition: 200ms ease;
+    }
+
+    .home-categories .categories .category:hover {
+        transform: translateY(-5px);
     }
 
     .home-categories .categories .category .category-image {
@@ -699,17 +662,17 @@ footer.footer .copyright {
         height: 175px;
         background-size: cover;
         background-position: center;
-        border: 1px solid #999;
+        border: 1px solid #ddd;
         border-radius: 8px;
     }
 
     .home-categories .categories .category .category-name {
         text-align: center;
-        margin-top: .75rem;
+        margin-top: .85rem;
         text-decoration: none;
-        color: #333;
-        font-weight: 600;
-        font-size: 17px;
+        color: #454545;
+        font-weight: 600 !important;
+        font-size: 14px;
     }
 
     @media screen and (max-width: 1280px) {
@@ -768,6 +731,12 @@ footer.footer .copyright {
         padding: .7rem 3.5rem;
         border-radius: 7px;
         cursor: pointer;
+        transition: all 350ms ease;
+    }
+
+    .load-more-recommendation button:hover {
+        background: #e63685;
+        color: #fff;
     }
 
     @media screen and (max-width: 1280px) {

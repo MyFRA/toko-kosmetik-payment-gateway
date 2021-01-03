@@ -16,33 +16,33 @@
                     <div class="price-wrapper">
                         @if (!is_null($promo->product->discount))
                             @if ( $promo->product->discount->forever == true )
-                                <h4>Rp. {{ floor($promo->product->price - ($promo->product->price * $promo->product->discount->discount_percent / 100)) }}</h4>
+                                <h4>Rp. {{ number_format(floor($promo->product->price - ($promo->product->price * $promo->product->discount->discount_percent / 100)), 0, '.', '.') }}</h4>
                             @elseif(strtotime($promo->product->discount->end_date) >= strtotime(date('d-m-y')))
-                                <h4>Rp. {{ floor($promo->product->price - ($promo->product->price * $promo->product->discount->discount_percent / 100)) }}</h4>
+                                <h4>Rp. {{ number_format(floor($promo->product->price - ($promo->product->price * $promo->product->discount->discount_percent / 100)), 0, '.', '.') }}</h4>
                             @else
-                                <h4>Rp. {{ $promo->product->price }}</h4>
+                                <h4>Rp. {{ number_format($promo->product->price, 0, '.', '.') }}</h4>
                             @endif
                         @else
-                            <h4>Rp. {{ $promo->product->price }}</h4>
+                            <h4>Rp. {{ number_format($promo->product->price, 0, '.', '.') }}</h4>
                         @endif
                         @if (!is_null($promo->product->discount))
                             @if ( $promo->product->discount->forever == true )
                                 <div class="discount">
-                                    <h5><strike>Rp. {{ $promo->product->price }}</strike></h5>
+                                    <h5 class="text-555"><strike>Rp. {{ number_format($promo->product->price, 0, '.', '.') }}</strike></h5>
                                     <span>{{ $promo->product->discount->discount_percent }}% OFF</span>
                                 </div>  
                             @elseif(strtotime($promo->product->discount->end_date) >= strtotime(date('d-m-y')))
                                 <div class="discount">
-                                    <h5><strike>Rp. {{ $promo->product->price }}</strike></h5>
+                                    <h5 class="text-555"><strike>Rp. {{ number_format($promo->product->price, 0, '.', '.') }}</strike></h5>
                                     <span>{{ $promo->product->discount->discount_percent }}% OFF</span>
                                 </div>  
                             @endif
                         @endif
                     </div>
                     <div class="info-product">
-                        <span class="stok">Stok {{ $promo->product->amount }}</span>
+                        <span class="stok">Stok {{ number_format($promo->product->amount, 0, '.', '.') }}</span>
                         @if ($promo->product->sold > 0)
-                            <span class="sold">{{ $promo->product->sold }} Terjual</span>
+                            <span class="sold">{{ number_format($promo, 0, '.', '.') }} Terjual</span>
                         @endif
                     </div>
                 </div>

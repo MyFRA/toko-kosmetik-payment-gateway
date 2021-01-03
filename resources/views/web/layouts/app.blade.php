@@ -132,6 +132,10 @@
     </script>
     <!-- End of Global Javascript Script -->
 
+    <!-- Include Javascript Function Code -->
+    <script src="{{asset('/js/application.js')}}"></script>
+    <!-- End of Include Javascript Function Code -->
+
     <!-- Specify Files Javascript Script -->
     @yield('script')
     <!-- End of Specify Files Javascript Script -->

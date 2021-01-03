@@ -26,7 +26,6 @@ class HomeController extends Controller
                                         ->get(),
             'newest_products'       => Product::orderBy('created_at', 'DESC')->limit(5)->get(),
             'best_seller_products'  => Product::orderBy('sold', 'DESC')->limit(5)->get(),
-            'products_reccomend'    => Product::inRandomOrder()->get(),
         ];
 
         return view('web.pages.home.index', $data);
