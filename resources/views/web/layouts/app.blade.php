@@ -124,6 +124,12 @@
             window.location.href = url;
         });
     </script>
+    <script>
+        const logo_website = document.getElementById('logo-website');
+        logo_website.addEventListener('click', () => {
+            window.location.href = '{{url('/')}}';
+        })  
+    </script>
     <!-- End of Global Javascript Script -->
 
     <!-- Specify Files Javascript Script -->

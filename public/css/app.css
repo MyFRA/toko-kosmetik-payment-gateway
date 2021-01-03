@@ -36,6 +36,7 @@
 
 .navbar .logo img {
     width: 75px;
+    cursor: pointer;
 }
 
 .navbar .nav-links {

@@ -1,6 +1,6 @@
 <nav class="navbar">
     <div class="logo">
-        <img src="{{ asset('/images/icons/logo-no-text.png') }}" alt="logo">
+        <img src="{{ asset('/images/icons/logo-no-text.png') }}" alt="logo" id="logo-website">
     </div>
     <ul class="nav-links">
         <li class="nav-link {{ $nav == 'home' ? 'active' : ''}}">
