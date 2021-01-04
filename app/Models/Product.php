@@ -40,4 +40,9 @@ class Product extends Model
     {
         return $this->hasMany('App\Models\ProductComment', 'product_id', 'id');
     }
+
+    public function promo()
+    {
+        return $this->hasOne('App\Models\Promo', 'product_id', 'id');
+    }
 }
