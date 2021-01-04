@@ -3,7 +3,7 @@
 @section('content')
 <div class="products-container" style="background-color: #DB2777">
     <div class="products-text-wrapper">
-        <h1 class="related-product-title text-white mt-13 mb-5">Promo <i class="zmdi zmdi-fire"></i></h1>
+        <h1 class="related-product-title text-white mt-13 mb-5"><i class="zmdi zmdi-fire mr-3"></i> Promo</h1>
     </div>
     <div class="products-wrapper home-recommendation-products-wrapper not-using-slick {{ count($arr_promo) >= 5 ? 'justify-content-space-between' : '' }}">
         @foreach ($arr_promo as $promo)
@@ -43,7 +43,7 @@
                     <div class="info-product">
                         <span class="stok">Stok {{ number_format($promo->product->amount, 0, '.', '.') }}</span>
                         @if ($promo->product->sold > 0)
-                            <span class="sold">{{ number_format($promo, 0, '.', '.') }} Terjual</span>
+                            <span class="sold">{{ number_format($promo->product->sold, 0, '.', '.') }} Terjual</span>
                         @endif
                     </div>
                 </div>

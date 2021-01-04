@@ -42,7 +42,7 @@
                     <div class="info-product">
                         <span class="stok">Stok {{ number_format($promo->product->amount, 0, '.', '.') }}</span>
                         @if ($promo->product->sold > 0)
-                            <span class="sold">{{ number_format($promo, 0, '.', '.') }} Terjual</span>
+                            <span class="sold">{{ number_format($promo->product->sold, 0, '.', '.') }} Terjual</span>
                         @endif
                     </div>
                 </div>

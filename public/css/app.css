@@ -1562,6 +1562,16 @@ footer.footer .copyright {
         margin-bottom: -.5rem;
     }
 
+    h1.related-product-title {
+        font-size: 25px !important;
+    }
+
+    @media screen and (max-width: 1280px) {
+        h1.related-product-title {
+            font-size: 22px !important;
+        }
+    }
+
 /* Account */
 
     /* Index */

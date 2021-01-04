@@ -15,37 +15,40 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        if( isset($request->category) && isset($request->product_name) ) {
-            $category = ProductCategory::where('slug', $request->category)->first();
-            if( !is_null($category) ) {
-                $products = Product::where('product_category_id', $category->id)
-                                ->where('product_name', 'like', '%' . $request->product_name . '%')        
-                                ->orderBy('created_at', 'DESC')->get();
-            } else {
-                $products = Product::where('product_name', 'like', '%' . $request->product_name . '%')
-                                ->orderBy('created_at', 'DESC')->get();
-            }
-        } elseif( isset($request->category) ) {
-            $category = ProductCategory::where('slug', $request->category)->first();
-            if( !is_null($category) ) {
-                $products = Product::where('product_category_id', $category->id)->orderBy('created_at', 'DESC')->get();
-            } else {
-                $products = Product::orderBy('created_at', 'DESC')->get();
-            }
-        }
-        else {
-            $products = Product::orderBy('created_at', 'DESC')->get();
-        }
-
+       if(!$request->category && !$request->product_name) {
+            $valid_products = Product::simplePaginate(20);
+       } else {
+           if( $request->category && $request->product_name ) {
+               $product_category = ProductCategory::where('slug', $request->category)->first();
+                if(!is_null($product_category)) {
+                    $valid_products = Product::where('product_category_id', $product_category->id)
+                    ->where('product_name', 'like', '%' . $request->product_name . '%')
+                    ->simplePaginate(20);
+                } elseif(is_null($product_category)) {
+                    $valid_products = Product::where('product_name', 'like', '%' . $request->product_name . '%')
+                                                ->simplePaginate(20);
+                }
+           } elseif( $request->category && !$request->product_name ) {
+                $product_category = ProductCategory::where('slug', $request->category)->first();
+                if(!is_null($product_category)) {
+                    $valid_products = Product::where('product_category_id', $product_category->id)
+                                        ->simplePaginate(20);
+                } elseif(is_null($product_category)) {
+                    $valid_products = Product::simplePaginate(20);
+                }
+           } elseif( $request->product_name && !$request->category ) {
+            $valid_products = Product::where('product_name', 'like', '%' . $request->product_name . '%')
+                                ->simplePaginate(20);
+           }
+       }
+        
         $data = [
-            'title'        => 'Jual Judul Produk',
+            'title'        => 'Jual Produk Kosmetik dan Aksesoris',
             'nav'          => 'product',
-            'products'     => $products,
+            'products'     => $valid_products,
         ];
 
         return view('web.pages.product.index', $data);
-        
-
     }
 
     public function show($slug)

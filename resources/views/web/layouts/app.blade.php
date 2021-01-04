@@ -66,9 +66,11 @@
                     const select2                           = document.getElementById('select2-select-product-category');
                     const old_selected_product_categories   = localStorage.getItem('old_product_category_search');
                     const button_select_product_category    = document.getElementById('button-select-product-category');
+                    const input_search_product              = document.getElementById('input-search-product');
                     let options                             = `<option value="">Semua Kategori</option>`;
                     let text_to_navbar_select_category      = 'Semua Kategori';
 
+                    input_search_product.value = localStorage.getItem('old_product_name_search');
                     product_categories.forEach((product_category) => {
                         if(product_category.slug == old_selected_product_categories) {
                             text_to_navbar_select_category = product_category.category_name;
@@ -116,12 +118,25 @@
         const button_search_product     = document.getElementById('button-search-product');
         button_search_product.addEventListener('click', () => {
             const input_search_product_value    = document.getElementById('input-search-product').value;
-            const product_category_search_value = document.getElementById('select2-select-product-category').getAttribute('data-value');
+            const button_select_product_category    = document.getElementById('button-select-product-category');
+            let product_category_search_value   = document.getElementById('select2-select-product-category').getAttribute('data-value');
+            if(!product_category_search_value) {
+                if( button_select_product_category.innerHTML == 'Semua Kategori' ) {
+                    product_category_search_value = '';
+                } else {
+                    product_category_search_value = localStorage.getItem('old_product_category_search');
+                }
+            }
+
+            if(product_category_search_value == null) {
+                product_category_search_value = '';
+            }
             const url = `{{url('/product')}}?category=${product_category_search_value}&product_name=${input_search_product_value}`;
             if(window) {
                 localStorage.setItem('old_product_category_search', product_category_search_value);
+                localStorage.setItem('old_product_name_search', input_search_product_value);
+                window.location.href = url;
             }
-            window.location.href = url;
         });
     </script>
     <script>
