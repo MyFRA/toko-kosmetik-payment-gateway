@@ -62,3 +62,4 @@ Route::get('/verify', 'Auth\Customer\RegisterController@verify')->name('customer
 // API (Not Must Logged In)
     Route::get('/api/product-categories', 'Api\ApiController@ProductCategories');
     Route::get('/api/product-recommendation/{count?}', 'Api\ApiController@getRecommendation');
+    Route::get('/api/product-comments/{product_id?}', 'Api\ApiController@getProductComments');

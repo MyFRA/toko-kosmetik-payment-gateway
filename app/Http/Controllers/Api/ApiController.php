@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 use App\Models\Product;
+use App\Models\ProductComment;
 use App\Models\ProductCategory;
 
 class ApiController extends Controller
@@ -70,5 +72,44 @@ class ApiController extends Controller
                 ]
             ]);
         }
+    }
+
+    public function getProductComments($product_id = null)
+    {
+        if(is_null($product_id)) {
+            return response()->json([
+                'code'      => 401,
+                'success'   => (boolean) false,
+                'message'   => 'Produk id tidak boleh kosong',
+            ]);
+        }
+
+        $allProductsId = $this->getAllId(Product::get());
+        if(!in_array($product_id, $allProductsId)) {
+            return response()->json([
+                'code'      => 401,
+                'success'   => (boolean) false,
+                'message'   => 'Tidak ditemukan komentar dari produk tersebut',
+            ]);
+        }
+
+        $comments           = ProductComment::where('product_id', $product_id)->orderBy('created_at', 'DESC')->get();
+        $valid_comment      = [];
+        foreach ($comments as $comment) {
+            $valid_comment[] = [
+                'customer_photo' => $comment->customer->photo ? asset('/storage/images/customer-profiles/' . $comment->customer->photo) : asset('/images/icons/avatar.jpg'),
+                'customer_name'  => $comment->customer->fullname,
+                'comment_date'   => $comment->getCreatedAtAttributes($comment->created_at, 'diffForHumans'),
+                'comment'        => $comment->comment,
+            ];
+        }
+        return response()->json([
+            'code'      => 200,
+            'success'   => (boolean) true,
+            'message'   => 'success comments has been retirieves',
+            'data'      => [
+                'comments' => $valid_comment,
+            ],
+        ]);
     }
 }

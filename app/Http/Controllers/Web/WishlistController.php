@@ -29,7 +29,7 @@ class WishlistController extends Controller
         $validator = Validator::make($request->all(), [
             'product_id' => "required|in:$allProductsId",
         ], [
-            'product_id.required' => 'Produk tidak tidak boleh kosong',
+            'product_id.required' => 'Produk tidak boleh kosong',
             'product_id.in'       => 'Produk tidak ada / sudah dihapus',
         ]);
 
@@ -45,14 +45,20 @@ class WishlistController extends Controller
         }
 
         $countWishlist = Wishlist::where('customer_id', Auth::guard('customer')->user()->id)
-        ->where('product_id', $request->product_id)
-        ->count();
+                                ->where('product_id', $request->product_id);
 
-        if( $countWishlist > 0 ) {
+        if( $countWishlist->count() > 0 ) {
+            $wishlist = $countWishlist->first();
+            $wishlist->delete();
+
             return response()->json([
-                'code'      => 401,
-                'success'   => (boolean) false,
-                'message'   => "Produk sudah ada di daftar wishlist",
+                'code'      => 200,
+                'success'   => (boolean) true,
+                'message'   => "Produk berhasil dihapus dari daftar wishlist",
+                'data'      => [
+                    'customerWishlistAmount' => Wishlist::where('customer_id', Auth::guard('customer')->user()->id)->count(),
+                    'alreadyInFavorite'      => (boolean) false,
+                ]
             ], 200);
         }
 
@@ -67,6 +73,7 @@ class WishlistController extends Controller
             'message'   => 'Produk berhasil ditambahkan ke daftar wishlist',
             'data'      => [
                 'customerWishlistAmount' => Wishlist::where('customer_id', Auth::guard('customer')->user()->id)->count(),
+                'alreadyInFavorite'      => (boolean) true,
             ]
         ]);
     }

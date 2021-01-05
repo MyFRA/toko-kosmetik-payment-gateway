@@ -12,9 +12,9 @@ class CategoriesController extends Controller
     public function index()
     {
         $data = [
-            'title'         => 'Daftar Kategori',
+            'title'         => 'Kategori Produk dan Kosmetik',
             'nav'           => 'categories',
-            'categories'    => ProductCategory::orderBy('category_name', 'ASC')->get()
+            'categories'    => ProductCategory::orderBy('category_name', 'ASC')->simplePaginate(18),
         ];
 
         return view('web.pages.categories.index', $data);

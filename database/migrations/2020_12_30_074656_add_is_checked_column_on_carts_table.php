@@ -14,7 +14,7 @@ class AddIsCheckedColumnOnCartsTable extends Migration
     public function up()
     {
         Schema::table('carts', function (Blueprint $table) {
-            $table->boolean('is_checked')->after('variant');
+            $table->boolean('is_checked')->default(false)->after('variant');
         });
     }
 

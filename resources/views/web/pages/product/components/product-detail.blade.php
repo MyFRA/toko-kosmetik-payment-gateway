@@ -16,12 +16,12 @@
         <div class="terjual-dilihat">
             <span>
                 @if ($product->sold > 0)
-                    Terjual {{ $product->sold }} Produk,
+                    Terjual {{ number_format($product->sold, 0, '.', '.') }} Produk,
                 @else
                     Belum Terjual,
                 @endif
             </span>
-            <span>{{ $product->counter }} x Dilihat</span>
+            <span>{{ number_format($product->counter, 0, ',','.') }} x Dilihat</span>
         </div>
         <div class="product-order-desc-container">
             <div class="product-order-desc">
@@ -32,24 +32,24 @@
                     @if (!is_null($product->discount))
                         @if ( $product->discount->forever == true )
                             <h5 class="mb-7">
-                                <span>{{ $product->discount->discount_percent }}%</span>{{ $product->price }}
+                                <span>{{ $product->discount->discount_percent }}%</span><small>Rp. {{ number_format($product->price, 0, '.', '.') }}</small>
                             </h5>
                         @elseif(strtotime($product->discount->end_date) >= strtotime(date('d-m-y')))
                             <h5 class="mb-7">
-                                <span>{{ $product->discount->discount_percent }}%</span>{{ $product->price }}
+                                <span>{{ $product->discount->discount_percent }}%</span><small>Rp. {{ number_format($product->price, 0, '.', '.') }}</small>
                             </h5>
                         @endif
                     @endif
                     @if (!is_null($product->discount))
                         @if ( $product->discount->forever == true )
-                            <h3>Rp. {{ number_format(floor($product->price - ($product->price * $product->discount->discount_percent / 100)),0,',','.') }}</h3>
+                            <h3 id="price-specify-product" data-price="{{ floor($product->price - ($product->price * $product->discount->discount_percent / 100)) }}">Rp. {{ number_format(floor($product->price - ($product->price * $product->discount->discount_percent / 100)),0,',','.') }}</h3>
                         @elseif(strtotime($product->discount->end_date) >= strtotime(date('d-m-y')))
-                            <h3>Rp. {{ number_format(floor($product->price - ($product->price * $product->discount->discount_percent / 100)),0,',','.') }}</h3>
+                            <h3 id="price-specify-product" data-price="{{ floor($product->price - ($product->price * $product->discount->discount_percent / 100)) }}">Rp. {{ number_format(floor($product->price - ($product->price * $product->discount->discount_percent / 100)),0,',','.') }}</h3>
                         @else
-                            <h3>Rp. {{ number_format($product->price,0,',','.') }}</h3>
+                            <h3 id="price-specify-product" data-price="{{$product->price}}">Rp. {{ number_format($product->price,0,',','.') }}</h3>
                         @endif
                     @else
-                        <h3>Rp. {{ number_format($product->price,0,',','.') }}</h3>
+                        <h3 id="price-specify-product" data-price="{{$product->price}}">Rp. {{ number_format($product->price,0,',','.') }}</h3>
                     @endif
                 </div>
             </div>
@@ -85,7 +85,7 @@
                 <div class="desc info-product-desc">
                     <div class="info-product">
                         <div class="title-info">Berat</div>
-                        <div class="desc-info">{{ $product->weight }}gr</div>
+                        <div class="desc-info">{{ number_format($product->weight, 0,',','.') }}gr</div>
                     </div>
                     <div class="info-product">
                         <div class="title-info">Kondisi</div>
@@ -93,7 +93,7 @@
                     </div>
                     <div class="info-product">
                         <div class="title-info">Stok</div>
-                        <div class="desc-info">{{ $product->amount }}</div>
+                        <div class="desc-info">{{ number_format($product->amount, 0, '.', '.') }}</div>
                     </div>
                 </div>
             </div>

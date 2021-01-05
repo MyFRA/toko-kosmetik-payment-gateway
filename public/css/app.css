@@ -460,7 +460,7 @@ footer.footer .copyright {
         }
     
         .banner-wrapper .banner .title-wrapper {
-            padding: 0 1.5rem;
+            padding: 0 1rem;
             width: 70%;
         }
     
@@ -677,7 +677,7 @@ footer.footer .copyright {
     @media screen and (max-width: 1280px) {
         .home-categories {
             margin-top: 1.7rem;
-            padding: 0 1.5rem;
+            padding: 0 1rem;
         }
     
         .home-categories h2 {
@@ -816,13 +816,8 @@ footer.footer .copyright {
 
 /* Categories */
 .categories-categories {
-    margin-top: 7rem !important;
-}
-
-@media screen and (max-width: 1280px) {
-    .categories-categories {
-        margin-top: 5rem !important;
-    }
+    margin-top: 6rem !important;
+    margin-bottom: 1rem;
 }
 
 /* Web Login */
@@ -941,7 +936,7 @@ footer.footer .copyright {
     
     .auth-web-login {
         justify-content: center;
-        padding: 0 1.5rem;
+        padding: 0 1rem;
     }
     
     .auth-web-login .illustration {
@@ -1110,13 +1105,13 @@ footer.footer .copyright {
     }
 
     .product-detail-container h3.title-product {
-        color: #333;
+        color: #555;
     }
 
     .product-detail-container div.terjual-dilihat {
         font-size: 15px;
-        margin-top: 6px;
-        color: #565656;
+        margin-top: 8px;
+        color: #777;
     }
 
     .product-detail-container div.terjual-dilihat span {
@@ -1139,7 +1134,7 @@ footer.footer .copyright {
         width: 20%;
         font-weight: 600;
         font-size: 15px;
-        color: #444;
+        color: #555;
     }
 
     .product-detail-container .product-order-desc-container .product-order-desc .desc {
@@ -1150,7 +1145,11 @@ footer.footer .copyright {
         display: flex;
         align-items: center;
         color: #aaa;
+    }
+
+    .product-detail-container .product-order-desc-container .product-order-desc .desc.harga-desc h5 small {
         text-decoration: line-through;
+        font-size: 13px;
     }
 
     .product-detail-container .product-order-desc-container .product-order-desc .desc.harga-desc h5 span {
@@ -1165,6 +1164,7 @@ footer.footer .copyright {
 
     .product-detail-container .product-order-desc-container .product-order-desc .desc.harga-desc h3 {
         margin-top: 0rem;
+        color: #333;
     }
 
     .product-detail-container .product-order-desc-container .product-order-desc .desc.jumlah-desc {
@@ -1182,6 +1182,15 @@ footer.footer .copyright {
         background-color: #e95d9c;
         color: #fff;
         cursor: pointer;
+        transition: all 200ms ease;
+    }
+
+    .product-detail-container .product-order-desc-container .product-order-desc .desc.jumlah-desc button:hover {
+        background-color: #ee76ac;
+    }
+
+    .product-detail-container .product-order-desc-container .product-order-desc .desc.jumlah-desc button:focus {
+        outline: none;
     }
 
     .product-detail-container .product-order-desc-container .product-order-desc .desc.jumlah-desc input {
@@ -1194,6 +1203,11 @@ footer.footer .copyright {
         font-size: 19px;
         padding-bottom: 6px;
         margin-top: 3px;
+        color: #333;
+    }
+
+    .product-detail-container .product-order-desc-container .product-order-desc .desc.jumlah-desc input:focus {
+        outline: none;
     }
 
     .product-detail-container .product-order-desc-container .product-order-desc .desc.info-product-desc {
@@ -1274,7 +1288,8 @@ footer.footer .copyright {
         }
     
         .product-detail-container h3.title-product {
-            font-size: 17px;
+            font-size: 15.2px;
+            line-height: 23px;
         }
     
         .product-detail-container div.terjual-dilihat {
@@ -1340,6 +1355,11 @@ footer.footer .copyright {
     .product-product-description-header .product-desc-wrapper h3.title {
         color: #c41765;
         margin-bottom: .4rem;
+        margin-top: 1rem;
+    }
+
+    .product-product-description-header .product-desc-wrapper h3.title.ulasan {
+        margin-top: 3rem;
     }
 
     .product-product-description-header .product-desc-wrapper h5.ulasan-count {
@@ -1348,10 +1368,21 @@ footer.footer .copyright {
         color: #555;
     }
 
+    .product-product-description-header .product-desc-wrapper h5.ulasan-count.masuk-untuk-komentar {
+        color: #DB2777;
+        margin-top: -.6rem !important;
+    }
+
+    .product-product-description-header .product-desc-wrapper h5.ulasan-count.masuk-untuk-komentar:hover {
+        color: #dd679c;
+        text-decoration: underline;
+    }
+
     .product-product-description-header .product-desc-wrapper .desc-product {
         color: #666 !important;
         font-size: 14px !important;
         line-height: 25px !important;
+        margin-top: .3rem;
     }
 
     .product-product-description-header .product-desc-wrapper .ulasan-wrapper {
@@ -1389,16 +1420,17 @@ footer.footer .copyright {
         margin-left: 15px;
     }
 
-    .product-product-description-header .product-desc-wrapper .ulasan-wrapper .ulasan .account .info a.name {
+    .product-product-description-header .product-desc-wrapper .ulasan-wrapper .ulasan .account .info span.name {
         font-weight: 700;
-        font-size: 14px;
+        font-size: 13px;
         color: #DB2777;
         text-decoration: none;
     }
 
     .product-product-description-header .product-desc-wrapper .ulasan-wrapper .ulasan .account .info span.date {
-        font-size: 13px;
+        font-size: 12px;
         color: #444;
+        margin-top: 3px;
     }
 
     .product-product-description-header .product-desc-wrapper .ulasan-wrapper .ulasan .comment {
@@ -1413,7 +1445,7 @@ footer.footer .copyright {
 
     @media screen and (max-width: 1280px) {
         .product-product-description-header {
-            padding: 0 1.5rem;
+            padding: 0 1rem;
             margin-top: 2rem;
         }
     
@@ -1488,6 +1520,7 @@ footer.footer .copyright {
     .product-comment-box {
         padding: 0 5rem;
         font-family: 'Open Sans', sans-serif;
+        margin-top: 2rem;
     }
 
     .product-comment-box .parrent-comment-box {
@@ -1535,9 +1568,33 @@ footer.footer .copyright {
         cursor: pointer;
     }
 
+    .product-comment-box .parrent-comment-box .send-box button:hover {
+        background-color: #df5693;
+    }
+
+    p.tampilkan-lebih-banyak-komentar {
+        color: #DB2777;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        margin-top: .9rem;
+        padding: 0 !important;
+        display: inline-block;
+    }
+
+    p.tampilkan-lebih-banyak-komentar:hover {
+        color: #f14e98;
+    }
+
+    @media screen and (max-width: 1280px) {
+        p.tampilkan-lebih-banyak-komentar {
+            font-size: 13px;
+        }
+    }
+
     @media screen and (max-width: 1280px) {
         .product-comment-box {
-            padding: 0 1.5rem;
+            padding: 0 1rem;
         }
     
         .product-comment-box .parrent-comment-box .comment-box textarea {
@@ -2638,5 +2695,48 @@ section.cart-shipment .shipment-wrapper .total-price-wrapper .shopping-summary-w
         padding: .85rem 0;
         font-size: 13px;
         margin-top: 1.3rem;
+    }
+}
+
+.product-show-error-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.product-show-error-wrapper img {
+    width: 30%;
+}
+
+.product-show-error-wrapper h2 {
+    color: #444;
+    margin-top: .5rem;
+    font-size: 25px;
+    margin-bottom: 2rem;
+}
+
+@media screen and (max-width: 1280px) {
+    .product-show-error-wrapper img {
+        width: 90%;
+    }
+    
+    .product-show-error-wrapper h2 {
+        margin-top: .7rem;
+        font-size: 22px;
+        margin-bottom: 0rem;
+    }
+}
+
+h1.related-product-title.real {
+    color: #444;
+}
+
+@media screen and (max-width: 1280px) {
+    h1.related-product-title.real {
+        color: #444;
+        font-size: 18px !important;
+        margin-top: 1rem;
+        margin-bottom: -.4rem;
     }
 }

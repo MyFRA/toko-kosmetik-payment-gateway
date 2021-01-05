@@ -326,17 +326,22 @@
 .breadcrumb ul li a {
     color: #DB2777;
     text-decoration: none;
+    transition: all 150ms ease;
+}
+
+.breadcrumb ul li a:hover {
+    color: #ec6fa7;
 }
 
 .breadcrumb ul li i {
     margin-left: .7rem;
-    color: #555;
+    color: #777;
     font-size: 24px;
     margin-top: 3px;
 }
 
 .breadcrumb ul li span {
-    color: #555;
+    color: #666;
     font-weight: 500;
 }
 
@@ -376,15 +381,18 @@
 }
 
 .product-bottom-navigation-order .total {
-    color: #444;
+    color: #555;
+    margin-right: .7rem;
 }
 
 .product-bottom-navigation-order .favorite {
-    color: #666;
+    color: #888;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 .7rem;
+    transition: all 250ms ease;
 }
 
 .product-bottom-navigation-order .favorite:hover {
@@ -405,6 +413,11 @@
     cursor: pointer;
 }
 
+.product-bottom-navigation-order .beli-langsung:hover {
+    border: 1px solid #dd5994;
+    color: #dd5994;
+}
+
 .product-bottom-navigation-order .add-to-cart {
     color: #fff;
     font-weight: 600;
@@ -413,6 +426,10 @@
     font-size: 15px;
     padding: .5rem 1rem;
     cursor: pointer;
+}
+
+.product-bottom-navigation-order .add-to-cart:hover {
+    background-color: #db5792;
 }
 
 @media screen and (max-width: 991px) {
@@ -426,11 +443,13 @@
     }
 
     .product-bottom-navigation-order .total {
-        display: none;
+        font-size: 15px;
+        margin-right: 0;
     }
     
     .product-bottom-navigation-order .favorite {
         width: 6%;
+        margin: 0;
     }
     
     .product-bottom-navigation-order .favorite:hover {

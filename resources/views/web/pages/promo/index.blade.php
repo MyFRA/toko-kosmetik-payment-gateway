@@ -7,7 +7,7 @@
     </div>
     <div class="products-wrapper home-recommendation-products-wrapper not-using-slick {{ count($arr_promo) >= 5 ? 'justify-content-space-between' : '' }}">
         @foreach ($arr_promo as $promo)
-            <a href="{{ url('/product/ini-slug') }}" class="product {{ count($arr_promo) < 5 ? 'mr-lg-18' : '' }}">
+            <a href="{{ url('/product/' . $promo->product->product_slug) }}" class="product {{ count($arr_promo) < 5 ? 'mr-lg-18' : '' }}">
                 <div class="thumb-product">
                     <img class="product-image" src="{{ asset('/storage/images/products/' . json_decode($promo->product->product_images)[0]->name) }}" alt="thumb-product">
                     <img class="promo-label" src="https://www.pinclipart.com/picdir/big/336-3366313_great-clips-printable-coupons-valpak.png" alt="promo">

@@ -16,29 +16,33 @@ class ProductController extends Controller
     public function index(Request $request)
     {
        if(!$request->category && !$request->product_name) {
-            $valid_products = Product::simplePaginate(20);
+            $valid_products = Product::orderBy('created_at', 'DESC')->simplePaginate(20);
        } else {
            if( $request->category && $request->product_name ) {
                $product_category = ProductCategory::where('slug', $request->category)->first();
                 if(!is_null($product_category)) {
                     $valid_products = Product::where('product_category_id', $product_category->id)
                     ->where('product_name', 'like', '%' . $request->product_name . '%')
+                    ->orderBy('created_at', 'DESC')
                     ->simplePaginate(20);
                 } elseif(is_null($product_category)) {
                     $valid_products = Product::where('product_name', 'like', '%' . $request->product_name . '%')
-                                                ->simplePaginate(20);
+                                            ->orderBy('created_at', 'DESC')                
+                                            ->simplePaginate(20);
                 }
            } elseif( $request->category && !$request->product_name ) {
                 $product_category = ProductCategory::where('slug', $request->category)->first();
                 if(!is_null($product_category)) {
                     $valid_products = Product::where('product_category_id', $product_category->id)
+                                        ->orderBy('created_at', 'DESC')                
                                         ->simplePaginate(20);
                 } elseif(is_null($product_category)) {
-                    $valid_products = Product::simplePaginate(20);
+                    $valid_products = Product::orderBy('created_at', 'DESC')->simplePaginate(20);
                 }
            } elseif( $request->product_name && !$request->category ) {
             $valid_products = Product::where('product_name', 'like', '%' . $request->product_name . '%')
-                                ->simplePaginate(20);
+                                    ->orderBy('created_at', 'DESC')
+                                    ->simplePaginate(20);
            }
        }
         
@@ -54,6 +58,15 @@ class ProductController extends Controller
     public function show($slug)
     {
         $product = Product::where('product_slug', $slug)->first();
+        
+        if(is_null($product)) {
+            $data = [
+                'title'   => 'Produk tidak ditemukan',
+                'nav'     => ''
+            ];
+            return view('web.pages.product.product-show-not-found', $data);
+        }
+        
         $product->update([
             'counter' => $product->counter + 1,
         ]);
@@ -67,13 +80,14 @@ class ProductController extends Controller
         }
 
         $data = [
-            'title'                     => 'Jual Judul Produk',
+            'title'                     => 'Jual ' . $product->product_name,
             'nav'                       => '',
             'remove_bottom_navigation'  => true,
             'product'                   => $product,
             'product_images'            => (array) json_decode($product->product_images),
             'alreadyInFavorite'         => $alreadyInFavorite > 0 ? true : false,
-            'comments'                  => ProductComment::where('product_id', $product->id)->orderBy('updated_at', 'DESC')->get(),
+            'comments'                  => ProductComment::where('product_id', $product->id)->orderBy('updated_at', 'DESC')->simplePaginate(5),
+            'related_products'          => Product::inRandomOrder()->limit(15)->get(),
         ];
 
         return view('web.pages.product.show', $data);

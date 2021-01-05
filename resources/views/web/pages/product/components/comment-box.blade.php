@@ -13,7 +13,7 @@
 <div class="product-product-description-header">
     <div class="product-desc-wrapper">
         <a href="{{ url('/login') }}" class="text-decoration-none">
-            <h5 class="ulasan-count mt-n10 text-pink">
+            <h5 class="ulasan-count masuk-untuk-komentar">
                 Masuk untuk berkomentar
             </h5>
         </a>

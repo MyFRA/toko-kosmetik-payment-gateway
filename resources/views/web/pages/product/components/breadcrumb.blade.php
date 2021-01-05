@@ -9,7 +9,7 @@
             <i class="zmdi zmdi-caret-right"></i>
         </li>
         <li>
-            <span>Judul Produk</span>
+            <span>{{ $product->product_name }}</span>
         </li>
     </ul>
 </div>

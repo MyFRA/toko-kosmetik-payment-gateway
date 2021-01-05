@@ -9,13 +9,7 @@
     @include('web.pages.product.components.product-bottom-navigation-order')
 @endsection
 
-@section('stylesheet')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@3/dark.css">
-@endsection
-
 @section('script')
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
     <script>
         const Toast = Swal.mixin({
             toast: true,
@@ -30,19 +24,99 @@
         })
     </script>
     <script>
+        var all_comments_global             = [];
+        var price_total_user_choose         = document.getElementById('price-total-user-choose');
+        const comments_wrapper              = document.querySelector('.ulasan-wrapper');
+        const show_more_comments_element    = document.querySelector('p.tampilkan-lebih-banyak-komentar');
+        const amount_input                  = document.getElementById('amount');
+        const price                         = parseInt(document.getElementById('price-specify-product').getAttribute('data-price'));
+    </script>
+    <script>
+        price_total_user_choose.innerHTML = 'Rp. ' + formatRupiah(price);
+    </script>
+    <script>
+        const url_get_comments = '{{ url('/api/product-comments')}}/{{$product->id}}';
+        fetch(url_get_comments).then(response => response.json())
+        .then((res) => {
+            if(res.code == 200 && res.success) {
+                const all_comments_from_api = res.data.comments;
+                all_comments_global = all_comments_from_api;
+                if( all_comments_global.length <= 6 ) {
+                    show_more_comments_element.style.display = 'none';
+                }
+
+                let comments = '';
+                all_comments_from_api.forEach((comment, index) => {
+                    if(index < 6) {
+                        const comment_element = 
+                        `<div class="ulasan">
+                            <div class="account">
+                                <div class="photo">
+                                    <img src="${comment.customer_photo}" alt="photo-profile">
+                                </div>
+                                <div class="info">
+                                    <span class="name">${comment.customer_name}</span>
+                                    <span class="date">${comment.comment_date}</span>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <p class="comment-user">${comment.comment}</p>
+                            </div>
+                        </div>`;
+                        comments += comment_element;
+                    }
+                });
+                comments_wrapper.innerHTML = comments;
+            }
+        });
+    </script>
+    <script>
+        // Tampilkan lebih banyak komentar
+        show_more_comments_element.addEventListener('click', () => {
+            var all_elements_comments_global_length = document.querySelectorAll('.ulasan-wrapper .ulasan').length;
+
+            let comments = '';
+            all_comments_global.forEach((element, index) => {
+                if(index >= all_elements_comments_global_length && index < all_elements_comments_global_length + 6) {
+                    const comment_element = 
+                        `<div class="ulasan">
+                            <div class="account">
+                                <div class="photo">
+                                    <img src="${element.customer_photo}" alt="photo-profile">
+                                </div>
+                                <div class="info">
+                                    <span class="name">${element.customer_name}</span>
+                                    <span class="date">${element.comment_date}</span>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <p class="comment-user">${element.comment}</p>
+                            </div>
+                        </div>`;
+                        comments += comment_element;
+                }
+            });
+            comments_wrapper.innerHTML += comments;
+            if(document.querySelectorAll('.ulasan-wrapper .ulasan').length == all_comments_global.length) {
+                show_more_comments_element.style.display = 'none';
+            }
+        });
+    </script>
+    <script>
         const plus = document.getElementById('plus');
         const min  = document.getElementById('min');
-        const amount_input = document.getElementById('amount');
 
         min.addEventListener('click', () => {
             if( amount_input.value > 1 ) {
-                amount_input.value = parseInt(amount_input.value) - 1;
+                amount_input.value                  = parseInt(amount_input.value) - 1;
+                price_total_user_choose.innerHTML   = 'Rp. ' + formatRupiah(parseInt(price * amount_input.value));
             }
         });
 
         plus.addEventListener('click', () => {
             if( parseInt(amount_input.value) < {{ $product->amount }} )
             amount_input.value = parseInt(amount_input.value) + 1;
+            price_total_user_choose.innerHTML   = 'Rp. ' + formatRupiah(parseInt(price * amount_input.value));
         });
     </script>
 
@@ -183,7 +257,15 @@
                     if(res.code == 200 && res.success) {
                         const customerWishlistAmount = document.getElementById('customer-wishlist-amount');
                         customerWishlistAmount.innerHTML = res.data.customerWishlistAmount;
-                        add_to_wishlist.classList.add('active');
+                        if(res.data.alreadyInFavorite) {
+                            if( !add_to_wishlist.classList.contains('active') ) {
+                                add_to_wishlist.classList.add('active');
+                            }
+                        } else {
+                            if( add_to_wishlist.classList.contains('active') ) {
+                                add_to_wishlist.classList.remove('active');
+                            }
+                        }
 
                         Toast.fire({
                                 icon: 'success',
@@ -202,62 +284,82 @@
         });
     </script>
     <script>
-        const inputComment = document.querySelector('textarea#comment[name=comment]');
-        const buttonComment = document.getElementById('submit-comment');
+        if ({{ Auth::guard('customer')->check() ? 'true' : 'false'}}) {
+            const inputComment = document.querySelector('textarea#comment[name=comment]');
+            const buttonComment = document.getElementById('submit-comment');
 
-        buttonComment.addEventListener('click', () => {
-            const url = '{{ url('/add-comment') }}';
-            const data = {
-                _token: document.getElementById('token').value,
-                comment: inputComment.value,
-                product_id: {{ $product->id }},
-            }
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type' : 'application/json',
-                },
-                body: JSON.stringify(data),
-            }).then(response => response.json())
-                .then((res) => {
-                    if(res.code == 200 && res.success) {
-                        const commentsWrapper = document.querySelector('.product-desc-wrapper .ulasan-wrapper');
-                        const amountComments  = document.querySelector('.ulasan-count');
+            buttonComment.addEventListener('click', () => {
+                const url = '{{ url('/add-comment') }}';
+                const data = {
+                    _token: document.getElementById('token').value,
+                    comment: inputComment.value,
+                    product_id: {{ $product->id }},
+                }
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                }).then(response => response.json())
+                    .then((res) => {
+                        if(res.code == 200 && res.success) {
+                            const commentsWrapper = document.querySelector('.product-desc-wrapper .ulasan-wrapper');
+                            const amountComments  = document.querySelector('.ulasan-count');
+                            all_comments_global   = res.data.comments;
+                            const allCommentsElement = document.querySelectorAll('.product-desc-wrapper .ulasan-wrapper .ulasan');
+                            amountComments.innerHTML = 'Semua komentar ' + res.data.comments.length;
+                            commentsWrapper.innerHTML = '';
+                            let comments = '';
 
-                        amountComments.innerHTML = 'Semua komentar ' + res.data.comments.length;
-                        commentsWrapper.innerHTML = '';
-                        let comments = '';
-
-                        res.data.comments.forEach((comment) => {
-                            comments += `<div class="ulasan">
-                                                <div class="account">
-                                                    <div class="photo">
-                                                        <img src="${ !comment.photo ? 'https://i.pinimg.com/736x/4d/b8/3d/4db83d1b757657acf5edc8bd66e50abf.jpg': '{{ asset('/storage/images/customer-profiles') }}' + '/' + comment.photo}" alt="photo-profile">
+                            res.data.comments.forEach((comment, index) => {
+                                if( all_comments_global.length == allCommentsElement.length + 1 ) {
+                                    comments += `<div class="ulasan">
+                                                    <div class="account">
+                                                        <div class="photo">
+                                                            <img src="${comment.customer_photo}" alt="photo-profile">
+                                                        </div>
+                                                        <div class="info">
+                                                            <span class="name">${ comment.customer_name }</span>
+                                                            <span class="date">${ comment.comment_date }</span>
+                                                        </div>
                                                     </div>
-                                                    <div class="info">
-                                                        <a href="" class="name">${ comment.customer_name }</a>
-                                                        <span class="date">${ comment.comment_at }</span>
+                                                    <div class="comment">
+                                                        <p class="comment-user">${ comment.comment }</p>
                                                     </div>
-                                                </div>
-                                                <div class="comment">
-                                                    <p class="comment-user">${ comment.comment }</p>
-                                                </div>
-                                            </div>`; 
-                        })
-                        
-                        commentsWrapper.innerHTML = comments
-                        inputComment.value = '';
-                        Toast.fire({
-                                icon: 'success',
-                                title: res.message
+                                                </div>`; 
+                                } else if( index < allCommentsElement.length ) {
+                                    comments += `<div class="ulasan">
+                                                    <div class="account">
+                                                        <div class="photo">
+                                                            <img src="${comment.customer_photo}" alt="photo-profile">
+                                                        </div>
+                                                        <div class="info">
+                                                            <a href="" class="name">${ comment.customer_name }</a>
+                                                            <span class="date">${ comment.comment_date }</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment">
+                                                        <p class="comment-user">${ comment.comment }</p>
+                                                    </div>
+                                                </div>`; 
+                                }
                             })
-                    } else {
-                        Toast.fire({
-                                icon: 'error',
-                                title: res.message
-                            })
-                    }
-                })
-        });
+                            
+                            commentsWrapper.innerHTML = comments
+                            inputComment.value = '';
+                            Toast.fire({
+                                    icon: 'success',
+                                    title: res.message
+                                })
+                        } else {
+                            Toast.fire({
+                                    icon: 'error',
+                                    title: res.message
+                                })
+                        }
+                    })
+            });
+        }
     </script>
 @endsection

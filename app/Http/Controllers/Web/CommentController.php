@@ -40,15 +40,15 @@ class CommentController extends Controller
             'customer_id' => Auth::guard('customer')->user()->id
         ]);
 
-        $allComments = ProductComment::where('product_id', $request->product_id)->orderBy('updated_at', 'DESC')->get();
+        $allComments = ProductComment::where('product_id', $request->product_id)->orderBy('created_at', 'DESC')->get();
         $validComments = [];
 
         foreach ($allComments as $comment) {
             $validComments[] = [
-                'customer_name' => $comment->customer->fullname,
-                'photo'         => $comment->customer->photo ? $comment->customer->photo[0]->name : null,
-                'comment_at'    => $comment->getCreatedAtAttributes($comment->created_at, 'diffForHumans'),
-                'comment'       => $comment->comment,
+                'customer_photo'    => $comment->customer->photo ? asset('/storage/images/customer-profiles/' . $comment->customer->photo) : asset('/images/icons/avatar.jpg'),
+                'customer_name'     => $comment->customer->fullname,
+                'comment_date'        => $comment->getCreatedAtAttributes($comment->created_at, 'diffForHumans'),
+                'comment'           => $comment->comment,
             ];
         }
 
