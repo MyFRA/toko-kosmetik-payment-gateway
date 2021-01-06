@@ -49,6 +49,7 @@ Route::middleware(['customer.auth'])->group(function() {
     // Wishlist
     Route::post('/add-to-wishlists', 'Web\WishlistController@addToWishlist');
     Route::post('/delete-from-wishlists', 'Web\WishlistController@deleteFromWishlist');
+    Route::post('/wishlist-page-delete-wishlist', 'Web\WishlistController@wishlistPageDeleteFromWishlist');
 
     // Comment
     Route::post('/add-comment', 'Web\CommentController@addComment');

@@ -15,8 +15,9 @@ class WishlistController extends Controller
     public function index()
     {
         $data = [
-            'title'     => '',
-            'nav'       => 'wishlist'
+            'title'     => 'Daftar Wishlist Produk Kosmetik dan Aksesoris',
+            'nav'       => 'wishlist',
+            'wishlists'  => Wishlist::where('customer_id', Auth::guard('customer')->user()->id)->orderBy('created_at', 'DESC')->get(),
         ];
 
         return view('web.pages.wishlist.index', $data);
@@ -121,5 +122,32 @@ class WishlistController extends Controller
                 'customerWishlistAmount' => Wishlist::where('customer_id', Auth::guard('customer')->user()->id)->count(),
             ]
         ]);
+    }
+
+    public function wishlistPageDeleteFromWishlist(Request $request)
+    {
+        $allProductsId = join(',', $this->getAllId(Product::get()));
+
+        $validator = Validator::make($request->all(), [
+            'product_id' => "required|in:$allProductsId",
+        ], [
+            'product_id.required' => 'Produk tidak tidak boleh kosong',
+            'product_id.in'       => 'Produk tidak ada / sudah dihapus',
+        ]);
+
+        if($validator->fails()) {
+            return back()->with('failed', $validator->errors()->first());
+        }
+
+        $wishlist = Wishlist::where('customer_id', Auth::guard('customer')->user()->id)
+                        ->where('product_id', $request->product_id);
+
+        if( $wishlist->count() < 1 ) {
+            return back()->with('failed', $validator->errors()->first());
+        }
+
+        $wishlist->delete();
+
+        return back()->with('success', 'Produk sudah dihapus dari daftar wishlist');
     }
 }

@@ -2826,3 +2826,32 @@ h1.related-product-title.real {
         margin-bottom: -.4rem;
     }
 }
+
+.wishlist-delete-from-wishlist-wrapper button {
+    background-color: #DB2777;
+    color: #fff;
+    width: 100%;
+    border: none;
+    padding: .5rem 0;
+    cursor: pointer;
+    font-weight: 700;
+    border-radius: 2px;
+    margin-top: .6rem;
+}
+
+.wishlist-delete-from-wishlist-wrapper button:hover {
+    background: #d6528d;
+}
+
+.wishlist-delete-from-wishlist-wrapper button:focus {
+    outline: none;
+}
+
+@media screen and (max-width: 1280px) {
+    .wishlist-delete-from-wishlist-wrapper button {
+        padding: .5rem .2rem;
+        font-weight: 600;
+        margin-top: .9rem;
+        font-size: 11px;
+    }
+}
