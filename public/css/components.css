@@ -2740,5 +2740,6 @@ h1.title-cart {
     .empty-cart-wrapper h3 {
         color: #333;
         margin-top: .7rem;
+        font-size: 15px;
     }
 }

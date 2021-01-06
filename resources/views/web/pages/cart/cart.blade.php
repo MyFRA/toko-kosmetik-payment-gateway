@@ -47,6 +47,7 @@
                 <div class="empty-cart-wrapper">
                     <img src="{{ asset('/images/assets/undraw_empty_cart_co35.png') }}" alt="empty-cart">
                     <h3>Tidak ada produk di keranjang</h3>
+                    <hr>
                 </div>
                 @endforelse
             </div>
@@ -253,7 +254,14 @@
                                         <img src="${cart.image_src}" alt="product-image">
                                         <div class="price-and-detail">
                                             <h4 class="name">${cart.product_name}</h4>
-                                            <h5 class="price">${'Rp ' + formatRupiah(cart.product_price)}</h5>
+                                            ${cart.discount ? 
+                                                `<div class="cart-product-discount">
+                                                    <span class="discount-percent">${cart.discount}%</span>
+                                                    <span class="real-price">Rp. ${formatRupiah(cart.price)}</span>
+                                                </div>` 
+                                                : 
+                                                ``}
+                                            <h5 class="price">Rp. ${formatRupiah(cart.price_after_discount)}</h5>
                                         </div>
                                     </div>
                                     <div class="action-product">
@@ -274,11 +282,18 @@
                                         </div>
                                     </div>
                                     <div class="product-check">
-                                        <input type="checkbox" name="checked_products[]" multiple="multiple" onchange="checkProduct(this)" data-product_id="${cart.product_id}" data-price="${cart.product_price}">
+                                        <input type="checkbox" name="checked_products[]" multiple="multiple" onchange="checkProduct(this)" data-product_id="${cart.product_id}" data-price="${cart.price_after_discount}">
                                     </div>
                                 </div>`;
                                 products_cart += product_cart;
                         });
+                        if(res.data.carts.length == 0) {
+                            products_cart = `<div class="empty-cart-wrapper">
+                                                <img src="{{ asset('/images/assets/undraw_empty_cart_co35.png') }}" alt="empty-cart">
+                                                <h3>Tidak ada produk di keranjang</h3>
+                                                <hr>
+                                            </div>`;
+                        }
                         products_cart_wrapper.innerHTML = products_cart;
                         Toast.fire({
                             icon: 'success',
