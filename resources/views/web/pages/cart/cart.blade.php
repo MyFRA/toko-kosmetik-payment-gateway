@@ -1,18 +1,25 @@
 @extends('web.layouts.app')
 
 @section('content')
+    <h1 class="padding-responsive related-product-title text-555 title-cart"><i class="zmdi zmdi-shopping-cart mr-4"></i> Keranjang </h1>
     <div class="cart-wrapper">
         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
         <div class="cart-product">
             <hr>
             <div class="products-cart" id="products-cart">
-                @foreach ($carts as $cart)
+                @forelse ($carts as $cart)
                 <div class="product-cart">
                     <div class="product">
                         <img src="{{ $cart['image_src'] }}" alt="product-image">
                         <div class="price-and-detail">
                             <h4 class="name">{{ $cart['product_name'] }}</h4>
-                            <h5 class="price">Rp. {{ number_format($cart['product_price'], 0, '.', '.') }}</h5>
+                            @if ($cart['discount'])
+                                <div class="cart-product-discount">
+                                    <span class="discount-percent">{{$cart['discount']}}%</span>
+                                    <span class="real-price">Rp. {{ number_format($cart['price'], 0, '.', '.') }}</span>
+                                </div>
+                            @endif
+                            <h5 class="price">Rp. {{ number_format($cart['price_after_discount'], 0, '.', '.') }}</h5>
                         </div>
                     </div>
                     <div class="action-product">
@@ -33,10 +40,15 @@
                         </div>
                     </div>
                     <div class="product-check">
-                        <input type="checkbox" name="checked_products[]" multiple="multiple" onchange="checkProduct(this)" data-product_id="{{ $cart['product_id'] }}" data-price="{{ $cart['product_price'] }}" {{ $cart['is_checked'] ? 'checked' : ''}}>
+                        <input type="checkbox" name="checked_products[]" multiple="multiple" onchange="checkProduct(this)" data-product_id="{{ $cart['product_id'] }}" data-price="{{ $cart['price_after_discount'] }}" {{ $cart['is_checked'] ? 'checked' : ''}}>
                     </div>
                 </div>
-                @endforeach
+                @empty
+                <div class="empty-cart-wrapper">
+                    <img src="{{ asset('/images/assets/undraw_empty_cart_co35.png') }}" alt="empty-cart">
+                    <h3>Tidak ada produk di keranjang</h3>
+                </div>
+                @endforelse
             </div>
         </div>
         <div class="cart-total-price">
@@ -50,41 +62,58 @@
             </div>
         </div>
     </div>
-    <div class="products-container">
+    <div class="products-container cart-margin-bottom">
         <div class="products-text-wrapper">
-            <h4 class="related-product-title">Produk Lainya</h4>
+            <h1 class="related-product-title real">Produk Lainya</h1>
         </div>
-        <div class="products-wrapper home-recommendation-products-wrapper not-using-slick">
-            <div class="product">
+        <div class="products-wrapper home-recommendation-products-wrapper not-using-slick {{ count($related_products) >= 5 ? 'justify-content-space-between' : '' }}">
+            @foreach ($related_products as $product)
+            <a href="{{ url('/product/' . $product->product_slug) }}" class="product {{ count($related_products) < 5 ? 'mr-lg-18' : '' }}">
                 <div class="thumb-product">
-                    <img class="product-image" src="https://htmldemo.hasthemes.com/boria-preview/boria/assets/img/product/size-normal/product-home-3-img-2.jpg" alt="thumb-product">
+                    <img class="product-image" src="{{ asset('/storage/images/products/' . json_decode($product->product_images)[0]->name) }}" alt="thumb-product">
                 </div>
                 <div class="desc-product">
-                    <h5>{{ substr('Garnier White Skin Body Lotion', 0, 23) }}...</h5>
+                    <h5>{{ strlen($product->product_name) >= 23 ? substr($product->product_name, 0, 23) . '...' : $product->product_name }}</h5>
                     <div class="price-wrapper">
-                        <h4>Rp. 103.500</h4>
-                        <div class="discount">
-                            <h5><strike>Rp. 200.000</strike></h5>
-                            <span>30% OFF</span>
-                        </div>
+                        @if (!is_null($product->discount))
+                            @if ( $product->discount->forever == true )
+                                <h4>Rp. {{ number_format(floor($product->price - ($product->price * $product->discount->discount_percent / 100)), 0, '.', '.') }}</h4>
+                            @elseif(strtotime($product->discount->end_date) >= strtotime(date('d-m-y')))
+                                <h4>Rp. {{ number_format(floor($product->price - ($product->price * $product->discount->discount_percent / 100)), 0, '.', '.') }}</h4>
+                            @else
+                                <h4>Rp. {{ number_format($product->price, 0, '.', '.') }}</h4>
+                            @endif
+                        @else
+                            <h4>Rp. {{ number_format($product->price, 0, '.', '.') }}</h4>
+                        @endif
+                        @if (!is_null($product->discount))
+                            @if ( $product->discount->forever == true )
+                                <div class="discount">
+                                    <h5 class="text-555"><strike>Rp. {{ number_format($product->price, 0, '.', '.') }}</strike></h5>
+                                    <span>{{ $product->discount->discount_percent }}% OFF</span>
+                                </div>  
+                            @elseif(strtotime($product->discount->end_date) >= strtotime(date('d-m-y')))
+                                <div class="discount">
+                                    <h5 class="text-555"><strike>Rp. {{ number_format($product->price, 0, '.', '.') }}</strike></h5>
+                                    <span>{{ $product->discount->discount_percent }}% OFF</span>
+                                </div>  
+                            @endif
+                        @endif
                     </div>
                     <div class="info-product">
-                        <span class="stok">Stok 50</span>
-                        <span class="sold">154 Terjual</span>
+                        <span class="stok">Stok {{ number_format($product->amount, 0, '.', '.') }}</span>
+                        @if ($product->sold > 0)
+                            <span class="sold">{{ number_format($product->sold, 0, '.', '.') }} Terjual</span>
+                        @endif
                     </div>
                 </div>
-            </div>
+            </a>
+            @endforeach
         </div>
     </div>
 @endsection
 
-@section('stylesheet')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@3/dark.css">
-@endsection
-
 @section('script')
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
     <script>
         const Toast = Swal.mixin({
             toast: true,
@@ -292,9 +321,9 @@
                             title: res.message,
                         })
                     }
+                generatePriceTotal();
                 });
             }
-            generatePriceTotal();
         }
 
         function decreaseAmount(element) {
@@ -323,9 +352,9 @@
                             title: res.message,
                         })
                     }
+                generatePriceTotal();
                 });
             }
-            generatePriceTotal();
         }
     </script>
     <script>
@@ -347,41 +376,18 @@
             .then((res) => {
                 if(res.code == 200 && res.success) {
                     customerWishlistAmount.innerHTML = res.data.customerWishlistAmount;
-                    element.classList.add('active');
-
+                    if(res.data.alreadyInFavorite) {
+                            if( !element.classList.contains('active') ) {
+                                element.classList.add('active');
+                            }
+                        } else {
+                            if( element.classList.contains('active') ) {
+                                element.classList.remove('active');
+                            }
+                        }
                     Toast.fire({
                             icon: 'success',
                             title: res.message
-                        })
-                } else {
-                    const urlDeleteFromWishlist = '{{ url('/delete-from-wishlists') }}';
-                    fetch(urlDeleteFromWishlist, {
-                        method : 'POST',
-                        headers : {
-                            'Content-Type' : 'application/json',
-                        },
-                        body : JSON.stringify({
-                            '_token' : document.getElementById('token').value,
-                            'product_id' : product_id,
-                        }),
-                    }).then(response => response.json())
-                        .then((res) => {
-                            if(res.code == 200 && res.success) {
-                                customerWishlistAmount.innerHTML = res.data.customerWishlistAmount;
-                               if(element.classList.contains('active')) {
-                                   element.classList.remove('active')
-                               }
-
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: res.message
-                                })
-                            } else {
-                                Toast.fire({
-                                    icon: 'error',
-                                    title: res.message
-                                })
-                            }
                         })
                 }
             })
@@ -390,7 +396,6 @@
     <script>
         generatePriceTotal();
     </script>
-
     <script>
         function gotoShipment(element, url) {
             if(!element.classList.contains('disabled')) {

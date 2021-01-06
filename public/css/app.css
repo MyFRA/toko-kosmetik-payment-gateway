@@ -1946,7 +1946,7 @@ footer.footer .copyright {
         display: flex;
         justify-content: space-between;
         padding: 0 5rem;
-        margin-top: 8rem;
+        margin-top: 1.6rem;
     }
 
     .cart-wrapper .cart-product {
@@ -1991,6 +1991,18 @@ footer.footer .copyright {
         flex-direction: column;
     }
 
+    .products-cart .product-cart .product .price-and-detail .name {
+        color: #333;
+        font-weight: 600;
+    }
+
+    .products-cart .product-cart .product .price-and-detail .price {
+        margin-top: .3rem;
+        font-size: 16px;
+        color: #333;
+    }
+
+
     .products-cart .product-cart .action-product {
         margin-top: 1rem;
         display: flex;
@@ -2019,6 +2031,15 @@ footer.footer .copyright {
         background-color: #e95d9c;
         color: #fff;
         cursor: pointer;
+        transition: all 100ms ease;
+    }
+
+    .products-cart .product-cart .action-product .action .sub-action button:hover {
+        background-color: #e778aa;
+    }
+
+    .products-cart .product-cart .action-product .action .sub-action button:focus {
+        outline: none;
     }
 
     .products-cart .product-cart .action-product .action .sub-action input {
@@ -2031,14 +2052,20 @@ footer.footer .copyright {
         font-size: 19px;
         padding-bottom: 6px;
         margin-top: 3px;
+        color: #333;
+        cursor: default;
+    }
+
+    .products-cart .product-cart .action-product .action .sub-action input:focus {
+        outline: none;
     }
 
     .products-cart .product-cart .action-product .action .sub-action a {
         font-size: 20px;
         margin-right: .5rem;
         padding: .7rem;
-        color: #666;
-        transition: all 150ms ease;
+        color: #888;
+        transition: all 250ms ease;
     }
 
     .products-cart .product-cart .action-product .action .sub-action a:hover {
@@ -2088,6 +2115,15 @@ footer.footer .copyright {
         margin-top: 2rem;
         border-radius: 4px;
         cursor: pointer;
+        transition: all 200ms ease;
+    }
+
+    .cart-wrapper .cart-total-price .total-wrapper button:hover {
+        background-color: #e7629e;
+    }
+
+    .cart-wrapper .cart-total-price .total-wrapper button:focus {
+        outline: none;
     }
 
     .cart-wrapper .cart-total-price .total-wrapper button.disabled {
@@ -2096,11 +2132,38 @@ footer.footer .copyright {
         cursor: default;
     }
 
+    .cart-product-discount {
+        display: flex;
+        margin-top: .55rem;
+        margin-bottom: .2rem;
+    }
+
+    .cart-product-discount span.discount-percent {
+        font-size: 12px;
+        background: #F8E2EC;
+        color: #DB2777;
+        font-weight: 700;
+        padding: .1rem .45rem;
+        border-radius: 1px;
+    }
+
+    .cart-product-discount span.real-price {
+        font-size: 13px;
+        font-weight: 700;
+        color: #777;
+        text-decoration: line-through;
+        margin-left: 8px;
+    }
+
     @media screen and (max-width: 1280px) {
+        .cart-margin-bottom {
+            margin-bottom: 13rem;
+        }
+
         .cart-wrapper {
             flex-direction: column;
             padding: 0 1rem;
-            margin-top: 6rem;
+            margin-top: 1rem;
         }
     
         .cart-wrapper .cart-product {
@@ -2149,7 +2212,7 @@ footer.footer .copyright {
         }
 
         .products-cart .product-cart .product .price-and-detail .price {
-            font-size: 13px;
+            font-size: 14px;
             margin-top: .2rem;
         }
     
@@ -2216,6 +2279,29 @@ footer.footer .copyright {
     
         .cart-wrapper .cart-total-price .total-wrapper button {
             margin-top: 1.7rem;
+        }
+
+        .cart-product-discount {
+            display: flex;
+            margin-top: .45rem;
+            margin-bottom: .2rem;
+        }
+    
+        .cart-product-discount span.discount-percent {
+            font-size: 11px;
+            background: #F8E2EC;
+            color: #DB2777;
+            font-weight: 700;
+            padding: .1rem .45rem;
+            border-radius: 1px;
+        }
+    
+        .cart-product-discount span.real-price {
+            font-size: 12px;
+            font-weight: 700;
+            color: #777;
+            text-decoration: line-through;
+            margin-left: 8px;
         }
     }
 

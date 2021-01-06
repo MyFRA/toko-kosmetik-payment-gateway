@@ -2702,3 +2702,43 @@ ul.pagination li span {
         font-weight: 600;
     }
 }
+
+.padding-responsive {
+    padding: 0 5rem;
+}
+@media screen and (max-width: 1280px) {
+    .padding-responsive {
+        padding: 0 1rem;
+    }
+}
+
+h1.title-cart {
+    font-family: 'Open Sans', sans-serif;
+    margin-top: 6rem !important;
+}
+
+.empty-cart-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.empty-cart-wrapper img {
+    width: 50%;
+}
+
+.empty-cart-wrapper h3 {
+    color: #333;
+    margin-top: .3rem;
+}
+
+@media screen and (max-width: 1280px) {
+    .empty-cart-wrapper img {
+        width: 90%;
+    }
+
+    .empty-cart-wrapper h3 {
+        color: #333;
+        margin-top: .7rem;
+    }
+}

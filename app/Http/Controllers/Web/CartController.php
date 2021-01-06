@@ -23,23 +23,38 @@ class CartController extends Controller
             $amount_wishlist = Wishlist::where('customer_id', $cart->customer_id)
                                         ->where('product_id', $cart->product->id)
                                         ->count();
+            $price                  = $cart->product->price;
+            $price_after_discount   = $cart->product->price;
+            $discount               = null;
+            if(!is_null($cart->product->discount)) {
+                if($cart->product->discount->forever == true) {
+                    $price_after_discount   = floor($price - ($price * $cart->product->discount->discount_percent / 100));
+                    $discount               = $cart->product->discount->discount_percent;
+                } elseif(strtotime($cart->product->discount->end_date) >= strtotime(date('d-m-y'))) {
+                    $price_after_discount   = floor($price - ($price * $cart->product->discount->discount_percent / 100));
+                    $discount               = $cart->product->discount->discount_percent;
+                }
+            }
             $validCarts[] = [
-                'product_id'        => $cart->product_id,
-                'image_src'         => asset('/storage/images/products/' . json_decode($cart->product->product_images)[0]->name),
-                'product_name'      => $cart->product->product_name,
-                'product_price'     => $cart->product->price,
-                'product_amount'    => $cart->product->amount,
-                'cart_amount'       => $cart->amount,
-                'is_wishlist'       => $amount_wishlist > 0 ? true : false,
-                'is_checked'        => $cart->is_checked
+                'product_id'            => $cart->product_id,
+                'image_src'             => asset('/storage/images/products/' . json_decode($cart->product->product_images)[0]->name),
+                'product_name'          => $cart->product->product_name,
+                'price'                 => $price,
+                'price_after_discount'  => $price_after_discount,
+                'discount'              => $discount,
+                'product_amount'        => $cart->product->amount,
+                'cart_amount'           => $cart->amount,
+                'is_wishlist'           => $amount_wishlist > 0 ? true : false,
+                'is_checked'            => $cart->is_checked
             ];
         }
 
         $data = [
-            'title'                     => 'cart',
+            'title'                     => 'Keranjang Produk Kosmetik dan Aksesoris',
             'nav'                       => 'cart',
             'remove_bottom_navigation'  => true,
             'carts'                     => $validCarts,
+            'related_products'          => Product::inRandomOrder()->limit(15)->get(),
         ];
 
         return view('web.pages.cart.cart', $data);
@@ -143,7 +158,7 @@ class CartController extends Controller
         $cart = Cart::where('customer_id', Auth::guard('customer')->user()->id)->where('product_id', $request->product_id);
         
         if( $cart->count() > 0 ) {
-            $cart->delete();
+            $cart->first()->delete();
         }
 
         $carts = Cart::where('customer_id', Auth::guard('customer')->user()->id)->orderBy('created_at', 'DESC')->get();
