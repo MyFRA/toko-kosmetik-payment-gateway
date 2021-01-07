@@ -13,6 +13,9 @@
                         <img src="{{ $cart['image_src'] }}" alt="product-image">
                         <div class="price-and-detail">
                             <h4 class="name">{{ $cart['product_name'] }}</h4>
+                            @if ($cart['variant'])
+                                <h6><span>Varian : {{ $cart['variant'] }}</span></h6>
+                            @endif
                             @if ($cart['discount'])
                                 <div class="cart-product-discount">
                                     <span class="discount-percent">{{$cart['discount']}}%</span>
@@ -254,6 +257,9 @@
                                         <img src="${cart.image_src}" alt="product-image">
                                         <div class="price-and-detail">
                                             <h4 class="name">${cart.product_name}</h4>
+                                            ${cart.variant ? 
+                                                `<h6><span>Varian : ${cart.variant}</span></h6>`
+                                                : ``}
                                             ${cart.discount ? 
                                                 `<div class="cart-product-discount">
                                                     <span class="discount-percent">${cart.discount}%</span>

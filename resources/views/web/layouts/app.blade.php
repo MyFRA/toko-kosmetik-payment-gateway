@@ -111,7 +111,9 @@
         function logoutAction()
         {
             event.preventDefault();
-            document.getElementById('logout-action').submit();
+            if(confirm("Apakah anda yakin akan logout?")) {
+                document.getElementById('logout-action').submit();
+            }
         }
     </script>
     <script>

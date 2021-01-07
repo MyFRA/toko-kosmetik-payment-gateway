@@ -45,7 +45,8 @@ class CartController extends Controller
                 'product_amount'        => $cart->product->amount,
                 'cart_amount'           => $cart->amount,
                 'is_wishlist'           => $amount_wishlist > 0 ? true : false,
-                'is_checked'            => $cart->is_checked
+                'is_checked'            => $cart->is_checked,
+                'variant'               => $cart->variant,
             ];
         }
 
@@ -190,7 +191,8 @@ class CartController extends Controller
                 'product_amount'        => $cart->product->amount,
                 'cart_amount'           => $cart->amount,
                 'is_wishlist'           => $amount_wishlist > 0 ? true : false,
-                'is_checked'            => $cart->is_checked
+                'is_checked'            => $cart->is_checked,
+                'variant'               => $cart->variant,
             ];
         }
 

@@ -1,7 +1,7 @@
 <div class="account-profile">
     <div class="link-wrapper">
-        <a href="" class="active">Biodata Diri</a>
-        <a href="">Daftar Alamat</a>
+        <a href="{{ url('/account') }}" class="active">Biodata Diri</a>
+        <a href="{{ url('/account/address') }}">Daftar Alamat</a>
     </div>
     <div class="content-wrapper">
         <div class="px-15 py-20">
@@ -10,14 +10,14 @@
                     <form method="POST" action="{{ url('/account/photo/update') }}" id="update-photo-profil" enctype="multipart/form-data">
                         @csrf
                         <img src="{{ is_null(Auth::guard('customer')->user()->photo) ? 'https://i.pinimg.com/736x/4d/b8/3d/4db83d1b757657acf5edc8bd66e50abf.jpg' : asset('/storage/images/customer-profiles/' . Auth::guard('customer')->user()->photo) }}" alt="photo-profile" id="photo-profile">
-                        <button>Pilih Foto</button>
+                        <button><i class="zmdi zmdi-image mr-3"></i> Pilih Foto</button>
                         <button class="bg-success text-white border-0 mb-4 d-none" id="submit-photo-button">Simpan</button>
                         <input type="file" id="photo" name="photo">
                         <div class="desc">
                             <p>Besar file: maksimum (10 Megabytes)</p>
                             <p>Ekstensi file : .JPG .JPEG .PNG</p>
                         </div>
-                        <a href=""><i class="zmdi zmdi-key"></i> Ubah Kata Sandi</a>
+                        <a href="{{ url('/account/change-password') }}"><i class="zmdi zmdi-key mr-3"></i> Ubah Kata Sandi</a>
                     </form>
                 </div>
                 <div class="explain-wrapper">

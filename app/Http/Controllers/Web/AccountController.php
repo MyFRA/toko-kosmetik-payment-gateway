@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+use App\Models\Product;
 use App\Models\Customer;
 use App\Models\CustomerDetail;
 
@@ -17,8 +18,9 @@ class AccountController extends Controller
     public function index()
     {
         $data = [
-            'title'     => 'Account',
-            'nav'       => 'account'
+            'title'             => 'Informasi Akun',
+            'nav'               => 'account',
+            'related_products'  => Product::inRandomOrder()->limit(15)->get(),
         ];
 
         return view('web.pages.account.index', $data);

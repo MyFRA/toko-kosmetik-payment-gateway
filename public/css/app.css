@@ -1665,6 +1665,11 @@ footer.footer .copyright {
         color: #888;
     }
 
+    .account-profile .link-wrapper a:hover {
+        color: #DB2777;
+        border-bottom: 2px solid #DB2777;
+    }
+
     .account-profile .link-wrapper a.active {
         color: #DB2777;
         border-bottom: 2px solid #DB2777;
@@ -1703,6 +1708,12 @@ footer.footer .copyright {
         border: 1px solid #ddd;
         color: #555;
         border-radius: 3px;
+        transition: all 200ms ease;
+    }
+
+    .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form button:hover {
+        background-color: #aaa;
+        color: #fff;
     }
 
     .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form input {
@@ -1729,6 +1740,12 @@ footer.footer .copyright {
         color: #333;
         text-decoration: none;
         margin-top: 2rem;
+        transition: all 150ms ease;
+    }
+
+    .account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form a:hover {
+        background-color: #db2745;
+        color: #fff;
     }
 
     .account-profile .content-wrapper .explain-wrapper {
@@ -1788,6 +1805,14 @@ footer.footer .copyright {
         margin-left: 4px;
         font-size: 12px;
         border-radius: 3px
+    }
+
+    .account-profile .content-wrapper .explain-wrapper .data-group .row-group .value button:focus {
+        outline: none;
+    }
+
+    .account-profile .content-wrapper .explain-wrapper .data-group .row-group .value button:hover {
+        background-color: #d6528d;
     }
 
     .account-profile .content-wrapper .explain-wrapper .data-group .row-group .value input:focus {
@@ -1856,6 +1881,25 @@ footer.footer .copyright {
         .account-profile .content-wrapper .explain-wrapper .data-group .row-group {
             font-size: 12px;
             margin: 1.2rem 0;
+        }
+
+        .account-profile .content-wrapper .explain-wrapper .data-group .row-group .value input {
+            display: block;
+            width: 100%;
+        }
+
+        .account-profile .content-wrapper .explain-wrapper .data-group .row-group .value select {
+            display: block;
+            width: 100%;
+        }
+
+        .account-profile .content-wrapper .explain-wrapper .data-group .row-group .value button {
+            width: 100%;
+            padding: 7px 0px !important;
+            margin-left: 0;
+            height: auto;
+            font-size: 13px;       
+            margin-top: 8px;     
         }
     
         .account-profile .content-wrapper .explain-wrapper .data-group .row-group .value a {
@@ -2002,6 +2046,19 @@ footer.footer .copyright {
         color: #333;
     }
 
+    .products-cart .product-cart .product .price-and-detail h6 {
+        margin: 6px 0 4px;
+        font-weight: 600;
+        font-size: 11px;
+        color: #fff;
+        display: flex;
+    }
+
+    .products-cart .product-cart .product .price-and-detail h6 span {
+        background-color: rgb(42, 143, 59);
+        padding: .24rem .5rem;
+        border-radius: 2.5px;
+    }
 
     .products-cart .product-cart .action-product {
         margin-top: 1rem;
@@ -2853,5 +2910,32 @@ h1.related-product-title.real {
         font-weight: 600;
         margin-top: .9rem;
         font-size: 11px;
+    }
+}
+
+.account-page-logout-button {
+    color: #fff;
+    text-decoration: none;
+    display: inline-flex;
+}
+
+.account-page-logout-button h3 {
+    background-color: #db2745;
+    margin-top: 2.5rem;
+    padding: .3rem 1rem;
+    font-size: 17px;
+    border-radius: 3px;
+    transition: all 150ms ease;
+}
+
+.account-page-logout-button h3:hover {
+    background-color: #af152e;
+}
+
+@media screen and (max-width: 1280px) {
+    .account-page-logout-button h3 {
+        background-color: #db2745;
+        margin-top: 1.5rem;
+        font-size: 14px;
     }
 }

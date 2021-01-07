@@ -2,14 +2,12 @@
 
 @section('content')
     <div class="account-index">
-        <h3 class="font-weight-bold title padding-responsive text-666">Muhammad Tomy</h3>
+        <h3 class="font-weight-bold title padding-responsive text-666">{{ Auth::guard('customer')->user()->fullname }}</h3>
         @include('web.pages.account.components.index.account')
         @include('web.pages.account.components.index.daftar-transaksi')
-        @include('web.pages.account.components.index.faq')
-        @include('web.pages.account.components.index.hubungi-kami')
         <div class="padding-responsive">
-            <a href="" onclick="logoutAction()">
-                <h3 class="title-account-daftar-transaksi">Logout</h3>
+            <a  class="account-page-logout-button" href="" onclick="logoutAction()">
+                <h3><i class="zmdi zmdi-power mr-3"></i> Logout</h3>
             </a>
         </div>
         @include('web.pages.account.components.index.product-recommendation')
@@ -22,6 +20,33 @@
 
 
 @section('script')
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'center',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+        })
+    </script>
+    <script>
+        if(`{{session('success')}}` != `` ? true : false) {
+            console.log('ok')
+            Toast.fire({
+                icon: 'success',
+                title: `{{session('success')}}`,
+            });
+        } else if(`{{session('failed')}}` != `` ? true : false   ) {
+            Toast.fire({
+                icon: 'error',
+                title: `{{session('failed')}}`,
+            });
+        }
+    </script>
     <script>
         const product_image = document.querySelector('.account-profile .content-wrapper .profile-wrapper .photo-profile-wrapper form img');
         product_image.style.height = product_image.offsetWidth + 'px';
@@ -75,19 +100,19 @@
             parent.text = '';
 
             if( name == 'birth' ) {
-                parent.innerHTML = `<input type="date" name="${name}" value="{{ Auth::guard('customer')->user()->customerDetail->birth }}" onchange="changeValueSubmit(this)" />`;
+                parent.innerHTML = `<input type="date" name="${name}" value="{{ Auth::guard('customer')->user()->customerDetail->birth ? Auth::guard('customer')->user()->customerDetail->birth : '' }}" onchange="changeValueSubmit(this)" />`;
             } else if( name == 'gender' ) {
                 parent.innerHTML = `
                     <select onchange="changeValueSubmit(this)" name="${name}">
-                        <option value="laki-laki">Laki laki</option>
-                        <option value="perempuan">Perempuan</option> 
+                        <option value="laki-laki" {{ Auth::guard('customer')->user()->customerDetail->gender == 'laki-laki' ? 'selected' : '' }}>Laki laki</option>
+                        <option value="perempuan" {{ Auth::guard('customer')->user()->customerDetail->gender == 'perempuan' ? 'selected' : '' }}>Perempuan</option> 
                     </select>`;
             } else if( name == 'fullname' ) {
-                parent.innerHTML = `<input type="text" name="${name}" value="{{ Auth::guard('customer')->user()->fullname }}" onkeydown="changeValueSubmit(this)" />`;
+                parent.innerHTML = `<input type="text" name="${name}" value="{{ Auth::guard('customer')->user()->fullname }}" onkeydown="changeValueSubmit(this)" autocomplete="off" />`;
             } else if( name == 'email') {
-                parent.innerHTML = `<input type="email" name="${name}" value="{{ Auth::guard('customer')->user()->email }}" onkeydown="changeValueSubmit(this)" />`;
+                parent.innerHTML = `<input type="email" name="${name}" value="{{ Auth::guard('customer')->user()->email }}" onkeydown="changeValueSubmit(this)" autocomplete="off" />`;
             } else if( name == 'number_phone') {
-                parent.innerHTML = `<input type="number" name="${name}" value="{{ Auth::guard('customer')->user()->customerDetail->number_phone }}" onkeydown="changeValueSubmit(this)" />`;
+                parent.innerHTML = `<input type="number" name="${name}" value="{{ Auth::guard('customer')->user()->customerDetail->number_phone }}" onkeydown="changeValueSubmit(this)" autocomplete="off" />`;
             }
 
             // Adding Button
@@ -117,9 +142,5 @@
 
             elementWantToChanged.setAttribute('onclick', `submitValue(this, '${name}', '${value}')`);
         }
-    </script>
-
-    <script>
-        
     </script>
 @endsection
