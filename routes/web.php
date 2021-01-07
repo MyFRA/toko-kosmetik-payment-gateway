@@ -37,6 +37,8 @@ Route::middleware(['customer.auth'])->group(function() {
     Route::post('/account/email/update', 'Web\AccountController@updateEmail');
     Route::post('/account/number_phone/update', 'Web\AccountController@updateNumberPhone');
     Route::post('/account/photo/update', 'Web\AccountController@updatePhoto');
+    Route::get('/account/change-password', 'Web\AccountController@indexChangePassword');
+    Route::post('/account/change-password', 'Web\AccountController@actionChangePassword');
 
     // Cart
     Route::get('/cart', 'Web\CartController@index');

@@ -2743,3 +2743,14 @@ h1.title-cart {
         font-size: 15px;
     }
 }
+
+.alert {
+    padding: .6rem 1rem; 
+    border-radius: 3px;
+    font-size: 15px;
+}
+
+.alert-success {
+    background-color: rgb(42, 146, 42);
+    color: #fff;
+}

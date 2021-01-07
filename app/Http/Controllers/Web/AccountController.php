@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Hash;
 
 use App\Models\Product;
 use App\Models\Customer;
@@ -167,5 +168,47 @@ class AccountController extends Controller
         ]);
 
         return back()->with('success', 'Foto Profil Telah diupdate');
+    }
+
+    public function indexChangePassword()
+    {
+        $data = [
+            'title'   => 'Ubah Kata Sandi',
+            'nav'     => 'account'
+        ];
+
+        return view('web.pages.account.change-password', $data);
+    }
+
+    public function actionChangePassword(Request $request) 
+    {
+        $customer = Auth::guard('customer')->user();
+        if(!Hash::check($request->current_password, $customer->password)) {
+            return back()->with('error_current_password', true)
+                        ->with('current_password_message', 'password saat ini tidak cocok')
+                        ->with('current_password_value', $request->current_password);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'new_password'    => 'required|min:8|string|confirmed',
+        ], [
+            'new_password.required'  => 'password baru tidak boleh kosong',
+            'new_password.min'       => 'password baru minimal 8 karakter',
+            'new_password.string'    => 'password baru harus berupa teks',
+            'new_password.confirmed' => 'ulangi password baru tidak cocok',
+        ]);
+
+        if($validator->fails()) {
+            return back()->withErrors($validator)
+                        ->with('current_password_value', $request->current_password)
+                        ->withInput();
+        }
+
+        // Pass Validation
+        $customer->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        return redirect('/account')->with('success', 'Password telah diupdate');
     }
 }

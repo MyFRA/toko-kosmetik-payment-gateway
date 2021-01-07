@@ -5,6 +5,11 @@
     </div>
     <div class="content-wrapper">
         <div class="px-15 py-20">
+            @if (session('success'))
+                <div class="alert alert-success mb-11 mt-n7">
+                    <span class="font-weight-bold">Berhasil</span>, {{ session('success') }}
+                </div>
+            @endif
             <div class="profile-wrapper">
                 <div class="photo-profile-wrapper">
                     <form method="POST" action="{{ url('/account/photo/update') }}" id="update-photo-profil" enctype="multipart/form-data">

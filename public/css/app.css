@@ -2939,3 +2939,188 @@ h1.related-product-title.real {
         font-size: 14px;
     }
 }
+
+/* Change Password page */
+section.change-password-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Open Sans', sans-serif;
+}
+
+section.change-password-wrapper .change-password {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    margin: 3rem 0;
+    border-radius: 3px;
+    padding: 1rem;
+}
+
+section.change-password-wrapper .change-password .head {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: .8rem;
+}
+
+section.change-password-wrapper .change-password .head h3 {
+    color: #333;
+    font-weight: 600;
+}
+
+section.change-password-wrapper .change-password .head p {
+    font-size: 14px;
+    margin-top: .2rem;
+    color: #444;
+}
+
+section.change-password-wrapper .change-password .body {
+    border-bottom: 1px solid #ddd;
+    padding-top: 1rem;
+}
+
+section.change-password-wrapper .change-password .body .form-group {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+section.change-password-wrapper .change-password .body .form-group label {
+    width: 38%;
+    font-weight: 600;
+    color: #666;
+    font-size: 15px;
+    margin-right: 1rem;
+}
+
+section.change-password-wrapper .change-password .body .form-group .input-and-error {
+    width: 60%;
+}
+
+section.change-password-wrapper .change-password .body .form-group input {
+    padding: .4rem .7rem;
+    letter-spacing: 2px;
+    color: #666;
+    font-size: 15px;
+    border: none;    
+    background: #eaeaea;
+    border-radius: 3px;
+    width: 100%;
+}
+
+section.change-password-wrapper .change-password .body .form-group input.is-invalid {
+    border: 1px solid #db2745;
+}
+
+section.change-password-wrapper .change-password .body .form-group input:focus {
+    outline: none;
+}
+
+section.change-password-wrapper .change-password .body .form-group button {
+    width: 100%;
+    margin-top: 1rem;
+    background: #db2745;
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    padding: .6rem 0;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 150ms ease;
+}
+
+section.change-password-wrapper .change-password .body .form-group:last-child {
+    border-top: 1px solid #ddd;
+    margin-top: 2.5rem;
+}
+
+section.change-password-wrapper .change-password .body .form-group button:hover {
+    background-color: #bd1f39;
+}
+
+@media screen and (max-width: 1280px) {
+    section.change-password-wrapper .change-password {
+        margin: 3rem .8rem;
+        border-radius: 3px;
+        padding: 1rem;
+        width: 100%;
+    }
+    
+    section.change-password-wrapper .change-password .head {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: .8rem;
+    }
+    
+    section.change-password-wrapper .change-password .head h3 {
+        font-size: 16px;
+    }
+    
+    section.change-password-wrapper .change-password .head p {
+        font-size: 12px;
+    }
+    
+    section.change-password-wrapper .change-password .body {
+        border-bottom: 1px solid #ddd;
+        padding-top: 1rem;
+    }
+    
+    section.change-password-wrapper .change-password .body .form-group {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+    }
+    
+    section.change-password-wrapper .change-password .body .form-group label {
+        width: 100%;
+        font-weight: 600;
+        color: #666;
+        font-size: 14px;
+        margin-right: 1rem;
+    }
+
+    section.change-password-wrapper .change-password .body .form-group .input-and-error {
+        width: 100%;
+    }
+    
+    section.change-password-wrapper .change-password .body .form-group input {
+        width: 100%;
+        padding: .4rem .7rem;
+        letter-spacing: 2px;
+        color: #666;
+        font-size: 14px;
+        border: none;    
+        background: #eaeaea;
+        border-radius: 3px;
+        margin-top: .5rem;
+    }
+    
+    section.change-password-wrapper .change-password .body .form-group input:focus {
+        outline: none;
+    }
+    
+    section.change-password-wrapper .change-password .body .form-group button {
+        width: 100%;
+        margin-top: 1rem;
+        background: #db2745;
+        color: #fff;
+        border: none;
+        font-weight: 600;
+        font-size: 14px;
+        padding: .6rem 0;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: all 150ms ease;
+    }
+    
+    section.change-password-wrapper .change-password .body .form-group:last-child {
+        border-top: 1px solid #ddd;
+        margin-top: 2.5rem;
+    }
+    
+    section.change-password-wrapper .change-password .body .form-group button:hover {
+        background-color: #bd1f39;
+    }
+}
