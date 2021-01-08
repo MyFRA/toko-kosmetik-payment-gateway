@@ -2754,3 +2754,192 @@ h1.title-cart {
     background-color: rgb(42, 146, 42);
     color: #fff;
 }
+
+.alert-danger {
+    background-color: #d11067;
+    font-weight: 600;
+    color: #fff;
+}
+
+
+/* Modal Account Address */
+.overlay-modal-form-address {
+    position: fixed;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address {
+    background-color: #fff;
+    position: fixed;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 5px;
+    width: 40%;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address h2.title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form {
+    display: flex;
+    flex-direction: column;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row {
+    margin-bottom: .4rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row label {
+    color: #444;
+    font-size: 13px;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row input {
+    padding: .5rem .8rem;
+    background: #f1f1f1;
+    border: none;
+    color: #444;
+    font-size: 15px;
+    margin-top: .4rem;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row textarea {
+    padding: .5rem .8rem;
+    background: #f1f1f1;
+    border: none;
+    color: #444;
+    font-size: 15px;
+    margin-top: .4rem;
+    width: 100%;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row textarea:focus {
+    outline: none;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row select {
+    padding: .5rem .8rem;
+    background: #f1f1f1;
+    border: none;
+    color: #444;
+    font-size: 15px;
+    margin-top: .4rem;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row select.is-invalid {
+    border: 1px solid #e00c6c;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row input:focus {
+    outline: none;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row small {
+    color: #666;
+    font-size: 11px;
+    margin-top: .45rem;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row .form-group .invalid-feedback {
+    font-size: 12px;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row.address-name .form-group {
+    width: 100%;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row.receiver-number-phone .form-group:first-child {
+    width: 54%;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row.receiver-number-phone .form-group:last-child {
+    width: 42%;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row.district-postal-code .form-group:first-child {
+    width: 64%;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row.district-postal-code .form-group:last-child {
+    width: 32%;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .row.address .form-group {
+    width: 100%;
+    margin-top: .3rem;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .button-wrapper button {
+    width: 47%;
+    border: none;
+    padding: .6rem 0;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 200ms ease;
+    color: #fff;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .button-wrapper button:focus {
+    outline: none;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .button-wrapper button.close {
+    background-color: #999;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .button-wrapper button.close:hover {
+    background-color: #777;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .button-wrapper button.save {
+    background-color: #DB2777;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address .form .button-wrapper button.save:hover {
+    background-color: #b81860;
+}
+
+.overlay-modal-form-address .modal-wrapper-form-address button.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 12px;
+    color: #DB2777;
+    background-color: #fff;
+    border: 2px solid #DB2777;
+    font-size: 15px;
+    cursor: pointer;
+}

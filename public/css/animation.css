@@ -1,0 +1,14 @@
+/* Animation */
+.popup {
+    animation: popup 700ms ease;
+}
+
+@keyframes popup {
+    0% {
+        transform: scale(0);
+    }
+    
+    100% {
+        transform: scale(1);
+    }
+}

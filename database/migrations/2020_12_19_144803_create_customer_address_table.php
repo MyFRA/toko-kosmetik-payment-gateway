@@ -16,12 +16,14 @@ class CreateCustomerAddressTable extends Migration
         Schema::create('customer_address', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
-            $table->string('vilage', 100);
-            $table->string('sub_district', 100);
-            $table->string('regency', 100);
-            $table->string('province', 100);
-            $table->string('postcode', 5);
-            $table->text('full_address')->nullable();
+            $table->string('address_name');
+            $table->string('customer_name');
+            $table->string('number_phone');
+            $table->string('province');
+            $table->string('city');
+            $table->string('postal_code', 5);
+            $table->text('full_address');
+            $table->boolean('main_address')->default(false);
             $table->timestamps();
 
             $table->index(['customer_id']);

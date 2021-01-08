@@ -39,6 +39,12 @@ Route::middleware(['customer.auth'])->group(function() {
     Route::post('/account/photo/update', 'Web\AccountController@updatePhoto');
     Route::get('/account/change-password', 'Web\AccountController@indexChangePassword');
     Route::post('/account/change-password', 'Web\AccountController@actionChangePassword');
+    Route::get('/account/address', 'Web\AccountController@indexAddress');
+    Route::post('/account/address', 'Web\AccountController@postAddress');
+    Route::post('/account/address/set-active', 'Web\AccountController@setActive');
+    Route::post('/account/delete-address', 'Web\AccountController@deleteAddress');
+    Route::get('/account/address/{address_id}/json', 'Web\AccountController@findAddress');
+    Route::post('/account/address/{address_id}/update', 'Web\AccountController@updateAddress');
 
     // Cart
     Route::get('/cart', 'Web\CartController@index');

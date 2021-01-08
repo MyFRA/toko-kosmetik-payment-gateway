@@ -10,3 +10,13 @@ function formatRupiah(bilangan) {
 
     return rupiah;
 }
+
+function insertAfter(referenceNode, newNode) {
+    referenceNode.parentElement.insertBefore(newNode, referenceNode.nextElementSibling);
+}
+
+function createSimpleElement(tag, text) {
+    const element       = document.createElement(tag);
+    element.innerHTML   = text;  
+    return element;
+}

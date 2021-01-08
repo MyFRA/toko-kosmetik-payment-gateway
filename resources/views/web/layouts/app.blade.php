@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/components.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/inline-class.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/animation.css') }}">
     @yield('stylesheet')
     <title>{{ $title }} | Indah Jaya Kosmetik dan Aksesoris </title>
 </head>

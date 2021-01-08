@@ -3124,3 +3124,137 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
         background-color: #bd1f39;
     }
 }
+
+/* Account Address Information */
+.daftar-alamat button.button-tambah-alamat {
+    background-color: #e03884;
+    color: #fff;
+    border: none;
+    padding: .6rem 1.5rem;
+    border-radius: 2.5px;
+    transition: all 150ms ease;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.daftar-alamat button.button-tambah-alamat:focus {
+    outline: none;
+}
+
+.daftar-alamat button.button-tambah-alamat:hover {
+    background-color: #c72970;
+}
+
+/* List address wrapper */
+.daftar-alamat .list-address-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+}
+
+.daftar-alamat .list-address-wrapper h3 {
+    font-size: 18px;
+    color: #333;
+}
+
+.daftar-alamat .list-address-wrapper .list-address {
+    display: flex;
+    flex-direction: column;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address {
+    box-shadow: 0px 3px 7px rgba(0, 0, 0, .3);
+    padding: 1rem;
+    margin-top: 1.4rem;
+    border-radius: 4px;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address h5.address-name {
+    font-size: 14px;
+    color: #222;
+    display: flex;
+    align-items: center;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address h5.address-name span {
+    margin-left: .5rem;
+    font-size: 11px;
+    font-weight: 600;
+    background: #eee;
+    padding: .2rem .4rem;
+    border-radius: 3px;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address h4.customer-name {
+    margin-top: .7rem;
+    color: #222;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: .8rem;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address .alamat-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .8rem;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address .alamat-wrapper h5 {
+    color: #222;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address .alamat-wrapper p {
+    font-size: 13px;
+    color: #666;
+    margin-top: .15rem;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address .list-alamat-button-wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address .list-alamat-button-wrapper button {
+    border: none;
+    padding: .5rem 1.2rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: all 150ms ease;
+    font-weight: 600;
+    border-radius: 2px;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address .list-alamat-button-wrapper button:focus {
+    outline: none;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address .list-alamat-button-wrapper button.edit-alamat {
+    background-color: #fff;
+    border: 1px solid #aaa;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address .list-alamat-button-wrapper button.edit-alamat:hover {
+    background-color: #777;
+    color: #fff;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address .list-alamat-button-wrapper button.delete-alamat {
+    background-color: #e6363f;
+    color: #fff;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address .list-alamat-button-wrapper button.delete-alamat:hover {
+    background-color: #b62028;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address .list-alamat-button-wrapper button.set-active {
+    background-color: rgb(36, 148, 36);
+    color: #fff;
+}
+
+.daftar-alamat .list-address-wrapper .list-address .address .list-alamat-button-wrapper button.set-active:hover {
+    background-color: rgb(17, 104, 17);
+}
