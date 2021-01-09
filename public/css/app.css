@@ -1639,6 +1639,8 @@ footer.footer .copyright {
 
     .account-index .title {
         font-family: 'Open Sans', sans-serif;
+        margin-top: 6rem;
+        margin-bottom: 1rem;
     }
 
     .account-profile {
@@ -3126,6 +3128,10 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
 }
 
 /* Account Address Information */
+.daftar-alamat {
+    margin-bottom: 3rem;
+}
+
 .daftar-alamat button.button-tambah-alamat {
     background-color: #e03884;
     color: #fff;
@@ -3257,4 +3263,71 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
 
 .daftar-alamat .list-address-wrapper .list-address .address .list-alamat-button-wrapper button.set-active:hover {
     background-color: rgb(17, 104, 17);
+}
+
+@media screen and (max-width: 1280px) {
+    .daftar-alamat {
+        margin-bottom: 0rem;
+    }
+
+    .daftar-alamat button.button-tambah-alamat {
+        padding: .5rem 1rem;
+        border-radius: 2px;
+        font-size: 12px;
+    }
+    
+    /* List address wrapper */
+    .daftar-alamat .list-address-wrapper {
+        margin-top: 1.2rem;
+    }
+    
+    .daftar-alamat .list-address-wrapper h3 {
+        font-size: 16px;
+    }
+    
+    .daftar-alamat .list-address-wrapper .list-address .address {
+        padding: .8rem;
+        margin-top: 1.2rem;
+    }
+    
+    .daftar-alamat .list-address-wrapper .list-address .address h5.address-name {
+        font-size: 13px;
+    }
+    
+    .daftar-alamat .list-address-wrapper .list-address .address h5.address-name span {
+        font-size: 10px;
+        border-radius: 2px;
+    }
+    
+    .daftar-alamat .list-address-wrapper .list-address .address h4.customer-name {
+        margin-top: .5rem;
+        color: #222;
+        font-size: 14px;
+        margin-bottom: .8rem;
+    }
+    
+    .daftar-alamat .list-address-wrapper .list-address .address .alamat-wrapper {
+        margin-bottom: .7rem;
+    }
+    
+    .daftar-alamat .list-address-wrapper .list-address .address .alamat-wrapper h5 {
+        font-size: 12px;
+    }
+    
+    .daftar-alamat .list-address-wrapper .list-address .address .alamat-wrapper p {
+        font-size: 12px;
+    }
+    
+    .daftar-alamat .list-address-wrapper .list-address .address .list-alamat-button-wrapper {
+        flex-direction: column;
+        margin-top: 1.3rem;
+    }
+    
+    .daftar-alamat .list-address-wrapper .list-address .address .list-alamat-button-wrapper button {
+        padding: .5rem 1.2rem;
+        margin-right: 0;
+        width: 100%;
+        margin-top: .55rem;
+        font-size: 12px;
+    }
 }

@@ -231,7 +231,6 @@ class AccountController extends Controller
 
     public function postAddress(Request $request)
     {
-        return false;
         $validator = Validator::make($request->all(), [
             'address_name'   => 'required|string|max:200',
             'customer_name'  => 'required|string|max:200',
@@ -340,7 +339,7 @@ class AccountController extends Controller
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'code'      => 401,
+                'code'      => 500,
                 'success'   => (boolean) false,
                 'message'   => 'Error, if you get this message. Please tell the website operator, thanks.'
             ]);
@@ -411,6 +410,89 @@ class AccountController extends Controller
 
     public function updateAddress(Request $request, $address_id)
     {
-        return response()->json([$address_id]);
+        try {
+            if($address_id == '' || is_null($address_id)) {
+                return response()->json([
+                    'code'      => 401,
+                    'success'   => (boolean) false,
+                    'message'   => 'Error, alamat tidak boleh kosong',
+                    'data'      => [
+                        'errors'    => [],
+                    ]
+                ]);
+            }
+
+            $validator = Validator::make($request->all(), [
+                'address_name'   => 'required|string|max:200',
+                'customer_name'  => 'required|string|max:200',
+                'number_phone'   => 'required|string|max:16',
+                'region'         => 'required|string|max:200',
+                'postal_code'    => 'required|max:5',
+                'address'        => 'required',
+            ], [
+                'address_name.required'  => 'nama alamat tidak boleh kosong',
+                'address_name.string'    => 'nama alamat harus berupa teks',
+                'address_name.max'       => 'nama alamat maksimal 200 karakter',
+                'customer_name.required' => 'nama penerima tidak boleh kosong',
+                'customer_name.string'   => 'nama penerima harus berupa teks',
+                'customer_name.max'      => 'nama penerima maksimal 200 karakter',
+                'number_phone.required'  => 'nomor hp tidak boleh kosong',
+                'number_phone.string'    => 'nomor hp harus berupa teks',
+                'region.required'        => 'alamat kota maksimal 200 karakter',
+                'postal_code.required'   => 'kode pos tidak boleh kosong',
+                'postal_code.max'        => 'kode pos maksimal 5 karakter',
+                'address.required'       => 'alamat lengkap tidak boleh kosong'
+            ]);
+    
+            if($validator->fails()) {
+                return response()->json([
+                    'code'      => 401,
+                    'success'   => (boolean) false,
+                    'message'   => $validator->errors()->first(),
+                    'data'      => [
+                        'errors'    => $validator->messages(),
+                    ]
+                ]);
+            }
+
+            $address = CustomerAddress::where('customer_id', Auth::guard('customer')->user()->id)       
+                                        ->where('id', $address_id)->first();
+
+            $region   = explode(',', $request->region);
+            $province = $region[0];
+            $city     = $region[1];
+
+            $address->update([
+                'customer_id'   => Auth::guard('customer')->user()->id,
+                'address_name'  => $request->address_name,
+                'customer_name' => $request->customer_name,
+                'number_phone'  => $request->number_phone,
+                'province'      => $request->province,
+                'city'          => $city,
+                'province'      => $province,
+                'postal_code'   => $request->postal_code,
+                'full_address'  => $request->address
+            ]);
+    
+            $addresses = CustomerAddress::where('customer_id', Auth::guard('customer')->user()->id)
+                                        ->orderBy('main_address', 'DESC')
+                                        ->orderBy('created_at', 'DESC')->get();
+    
+            return response()->json([
+                'code'      => 200,
+                'success'   => (boolean) true,
+                'message'   => 'Alamat telah diupdate',
+                'data'      => [
+                    'addresses' => $addresses,
+                ]
+            ]);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'code'      => 500,
+                'success'   => (boolean) false,
+                'message'   => 'Error, if you get this message. Please tell the website operator, thanks.',
+            ]);
+        }
     }
 }
