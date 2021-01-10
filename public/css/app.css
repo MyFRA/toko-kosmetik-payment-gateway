@@ -2439,6 +2439,10 @@ section.cart-shipment .shipment-wrapper .info-wrapper button.choose-address:hove
     border: 1px solid #ccc;
 }
 
+section.cart-shipment .shipment-wrapper .info-wrapper button.choose-address:focus {
+    outline: none;
+}
+
 section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products {
     border-top: 5px solid #F3F4F5;
     display: flex;
@@ -2497,72 +2501,59 @@ section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .e
     flex-direction: column;
 }
 
-section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper span.title-choose-expeditions {
-    font-size: 14px;
-    font-weight: 700;
-    color: #31353B;
-    margin-bottom: .55rem;
+section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper .choosed-expedition-wrapper{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
-section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
-    outline: 0;
-    box-shadow: none;
-    border: 0 !important;
-    background: #DB2777;
-    background-image: none;
-    font-weight: 700;
-    font-family: 'Open Sans', sans-serif;
-  }
-  /* Remove IE arrow */
-  section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper select::-ms-expand {
-    display: none;
-  }
-  /* Custom Select */
-  section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper .select {
-    position: relative;
+section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper div {
     display: flex;
-    width: 20em;
-    height: 3em;
-    line-height: 3;
-    background: #DB2777;
-    overflow: hidden;
-    border-radius: .25em;
-  }
+    justify-content: space-between;
+}
 
-  section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper select {
-    flex: 1;
-    padding: 0 .5em;
-    cursor: pointer;
-    color: #fff;
-  }
+section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper div span.type {
+    font-weight: 700;
+    font-size: 15px;
+}
 
-  section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper select option {
-      background-color: #fff;
-      color: #31353B;
-  }
-  /* Arrow */
-  section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper .select::after {
-    content: '\25BC';
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0 1em;
+section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper div span.price {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper span.estimation{
+    margin-top: .6rem;
+    font-size: 14px;
+}
+
+section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper span.desc{
+    font-size: 13px;
+    margin-top: .3rem;
+}
+
+section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper button.choose-expedition {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
     background: #DB2777;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    padding: .8rem .7rem;
     cursor: pointer;
-    pointer-events: none;
-    -webkit-transition: .25s all ease;
-    -o-transition: .25s all ease;
-    transition: .25s all ease;
-    color: #fff;
-  }
-  /* Transition */
-  section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper .select:hover::after {
-    color: #fff;
-  }
+    transition: all 150ms ease;
+    border-radius: 4px;
+}
+
+section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper button.choose-expedition:hover {
+    background-color: #e03884;
+}
+
+section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .expeditions-wrapper button.choose-expedition:focus {
+    outline: none;
+}
 
 section.cart-shipment .shipment-wrapper .total-price-wrapper {
     width: 34%;

@@ -11,6 +11,7 @@ use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Wishlist;
 use App\Models\ProductVariant;
+use App\Models\CustomerAddress;
 
 class CartController extends Controller
 {
@@ -36,6 +37,7 @@ class CartController extends Controller
                 }
             }
             $validCarts[] = [
+                'cart_id'               => $cart->id,
                 'product_id'            => $cart->product_id,
                 'image_src'             => asset('/storage/images/products/' . json_decode($cart->product->product_images)[0]->name),
                 'product_name'          => $cart->product->product_name,
@@ -302,7 +304,7 @@ class CartController extends Controller
     {
         $carts = Cart::where('customer_id', Auth::guard('customer')->user()->id)
                     ->where('is_checked', true)    
-                    ->orderBy('created_at', 'DESC')->get();
+                    ->orderBy('updated_at', 'DESC')->get();
         $validCarts = [];
         
         foreach ($carts as $cart) {
@@ -321,11 +323,22 @@ class CartController extends Controller
             ];
         }
 
+        $address = CustomerAddress::where('customer_id', Auth::guard('customer')->user()->id)
+        ->where('main_address', true)->first();
+
+        $address = $address ? $address : CustomerAddress::where('customer_id', Auth::guard('customer')->user()->id)
+                                                        ->orderBy('created_at', 'ASC')->first();
+
+        $addresses = CustomerAddress::where('customer_id', Auth::guard('customer')->user()->id)
+                                        ->orderBy('main_address', 'DESC')
+                                        ->orderBy('updated_at', 'DESC')->get();
         $data = [
-            'title'  => '',
-            'nav'    => 'cart',
-            'carts'  => $validCarts,
-            'remove_bottom_navigation' => true,
+            'title'                     => 'Checkout Produk Kosmetik dan Aksesoris',
+            'nav'                       => 'cart',
+            'carts'                     => $validCarts,
+            'remove_bottom_navigation'  => true,
+            'address'                   => $address,
+            'addresses'                 => $addresses,
         ];
 
         return view('web.pages.cart.shipment', $data);

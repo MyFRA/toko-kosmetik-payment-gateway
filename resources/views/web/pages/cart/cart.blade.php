@@ -38,7 +38,7 @@
                             <div class="sub-action">
                                 <button onclick="decreaseAmount(this)" data-product_id="{{ $cart['product_id'] }}">-</button>
                                 <input type="number" id="product-amount" value="{{ $cart['cart_amount'] }}" readonly>
-                                <button onclick="increaseAmount(this, {{ $cart['product_amount'] }})" data-product_id="{{ $cart['product_id'] }}">+</button>
+                                <button onclick="increaseAmount(this, {{ $cart['product_amount'] }})" data-cart_id="{{ $cart['cart_id'] }}">+</button>
                             </div>
                         </div>
                     </div>
@@ -135,7 +135,6 @@
         function checkProduct(element) {
             const setCheckedUrl = '{{url('/checked-cart')}}';
             const product_id    = element.getAttribute('data-product_id');
-
             if(!element.hasAttribute('checked')) {
                 fetch(setCheckedUrl, {
                     method: 'POST',
@@ -149,6 +148,7 @@
                     }),
                 }).then(response => response.json())
                     .then((res) => {
+                        console.log(res);
                         if(res.code == 200 && res.success) {
                             element.setAttribute('checked', true);
                             generatePriceTotal();

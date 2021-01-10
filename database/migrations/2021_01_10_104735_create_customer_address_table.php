@@ -19,8 +19,8 @@ class CreateCustomerAddressTable extends Migration
             $table->string('address_name');
             $table->string('customer_name');
             $table->string('number_phone');
-            $table->string('province');
-            $table->string('city');
+            $table->unsignedBigInteger('province_id');
+            $table->unsignedBigInteger('city_id');
             $table->string('postal_code', 5);
             $table->text('full_address');
             $table->boolean('main_address')->default(false);
@@ -28,6 +28,8 @@ class CreateCustomerAddressTable extends Migration
 
             $table->index(['customer_id']);
             $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('province_id')->references('id')->on('provinces');
+            $table->foreign('city_id')->references('id')->on('cities');
         });
     }
 

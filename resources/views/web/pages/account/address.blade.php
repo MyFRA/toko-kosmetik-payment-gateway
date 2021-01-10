@@ -38,8 +38,8 @@
                                 <div class="form-group">
                                     <label for="region">Kota atau Kecamatan</label>
                                     <select name="region" id="region">
-                                        @foreach ($regions as $region)
-                                            <option value="{{ $region->province->province . ',' . $region->city_name}}">{{ $region->province->province . ', ' . $region->city_name}}</option>
+                                        @foreach ($cities as $city)
+                                            <option value="{{ $city->province->id . ',' . $city->id}}">{{ $city->province->province . ', ' . $city->city_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -72,11 +72,15 @@
                                 <h4 class="customer-name">{{ $address->customer_name }}</h4>
                                 <div class="alamat-wrapper">
                                     <h5>Alamat Pengiriman</h5>
-                                    <p>{{ $address->province }}, {{ $address->city }}, {{ $address->postal_code }}</p>
+                                    <p>{{ $address->province->province }}, {{ $address->city->city_name }}, {{ $address->postal_code }}</p>
                                 </div>
                                 <div class="alamat-wrapper">
                                     <h5>Alamat Lengkap</h5>
                                     <p>{{ $address->full_address }}</p>
+                                </div>
+                                <div class="alamat-wrapper">
+                                    <h5>Nomor HP</h5>
+                                    <p>{{ $address->number_phone }}</p>
                                 </div>
                                 <div class="list-alamat-button-wrapper">
                                     <button class="edit-alamat" onclick="showFormAddressUpdate({{$address->id}})"><i class="zmdi zmdi-edit mr-2"></i> Ubah Alamat</button>
@@ -120,8 +124,8 @@
                 <div class="form-group">
                     <label for="region">Kota atau Kecamatan</label>
                     <select name="region" id="region-update">
-                        @foreach ($regions as $region)
-                            <option value="{{ $region->province->province . ',' . $region->city_name}}">{{ $region->province->province . ', ' . $region->city_name}}</option>
+                        @foreach ($cities as $city)
+                            <option value="{{ $city->province->id . ',' . $city->id}}">{{ $city->province->province . ', ' . $city->city_name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -243,11 +247,15 @@
                                                                     <h4 class="customer-name">${ address.customer_name }</h4>
                                                                     <div class="alamat-wrapper">
                                                                         <h5>Alamat Pengiriman</h5>
-                                                                        <p>${ address.province }, ${ address.city }, ${ address.postal_code }</p>
+                                                                        <p>${ address.province_name }, ${ address.city_name }, ${ address.postal_code }</p>
                                                                     </div>
                                                                     <div class="alamat-wrapper">
                                                                         <h5>Alamat Lengkap</h5>
                                                                         <p>${ address.full_address }</p>
+                                                                    </div>
+                                                                    <div class="alamat-wrapper">
+                                                                        <h5>Nomor HP</h5>
+                                                                        <p>${ address.number_phone }</p>
                                                                     </div>
                                                                     <div class="list-alamat-button-wrapper">
                                                                         <button class="edit-alamat" onclick="showFormAddressUpdate(${address.id})"><i class="zmdi zmdi-edit mr-2"></i> Ubah Alamat</button>
@@ -309,11 +317,15 @@
                                                                 <h4 class="customer-name">${ address.customer_name }</h4>
                                                                 <div class="alamat-wrapper">
                                                                     <h5>Alamat Pengiriman</h5>
-                                                                    <p>${ address.province }, ${ address.city }, ${ address.postal_code }</p>
+                                                                    <p>${ address.province_name }, ${ address.city_name }, ${ address.postal_code }</p>
                                                                 </div>
                                                                 <div class="alamat-wrapper">
                                                                     <h5>Alamat Lengkap</h5>
                                                                     <p>${ address.full_address }</p>
+                                                                </div>
+                                                                <div class="alamat-wrapper">
+                                                                    <h5>Nomor HP</h5>
+                                                                    <p>${ address.number_phone }</p>
                                                                 </div>
                                                                 <div class="list-alamat-button-wrapper">
                                                                     <button class="edit-alamat" onclick="showFormAddressUpdate(${address.id})"><i class="zmdi zmdi-edit mr-2"></i> Ubah Alamat</button>
@@ -362,11 +374,15 @@
                                                                     <h4 class="customer-name">${ address.customer_name }</h4>
                                                                     <div class="alamat-wrapper">
                                                                         <h5>Alamat Pengiriman</h5>
-                                                                        <p>${ address.province }, ${ address.city }, ${ address.postal_code }</p>
+                                                                        <p>${ address.province_name }, ${ address.city_name }, ${ address.postal_code }</p>
                                                                     </div>
                                                                     <div class="alamat-wrapper">
                                                                         <h5>Alamat Lengkap</h5>
                                                                         <p>${ address.full_address }</p>
+                                                                    </div>
+                                                                    <div class="alamat-wrapper">
+                                                                        <h5>Nomor HP</h5>
+                                                                        <p>${ address.number_phone }</p>
                                                                     </div>
                                                                     <div class="list-alamat-button-wrapper">
                                                                         <button class="edit-alamat" onclick="showFormAddressUpdate(${address.id})"><i class="zmdi zmdi-edit mr-2"></i> Ubah Alamat</button>
@@ -423,7 +439,7 @@
                         address_name.value  = data.address_name;
                         customer_name.value = data.customer_name;
                         number_phone.value  = data.number_phone;
-                        region.value        = `${data.province},${data.city}`;
+                        region.value        = `${data.province_id},${data.city_id}`;
                         postal_code.value   = data.postal_code;
                         address.value       = data.full_address;
                     }
@@ -493,11 +509,15 @@
                                                                     <h4 class="customer-name">${ address.customer_name }</h4>
                                                                     <div class="alamat-wrapper">
                                                                         <h5>Alamat Pengiriman</h5>
-                                                                        <p>${ address.province }, ${ address.city }, ${ address.postal_code }</p>
+                                                                        <p>${ address.province_name }, ${ address.city_name }, ${ address.postal_code }</p>
                                                                     </div>
                                                                     <div class="alamat-wrapper">
                                                                         <h5>Alamat Lengkap</h5>
                                                                         <p>${ address.full_address }</p>
+                                                                    </div>
+                                                                    <div class="alamat-wrapper">
+                                                                        <h5>Nomor HP</h5>
+                                                                        <p>${ address.number_phone }</p>
                                                                     </div>
                                                                     <div class="list-alamat-button-wrapper">
                                                                         <button class="edit-alamat" onclick="showFormAddressUpdate(${address.id})"><i class="zmdi zmdi-edit mr-2"></i> Ubah Alamat</button>

@@ -219,7 +219,7 @@ class AccountController extends Controller
         $data = [
             'title'     => 'Informasi Alamat',
             'nav'       => 'account',
-            'regions'   => City::orderBy('province_id', 'ASC')
+            'cities'    => City::orderBy('province_id', 'ASC')
                                 ->orderBy('city_name', 'ASC')->get(),
             'addresses' => CustomerAddress::where('customer_id', Auth::guard('customer')->user()->id)
                                         ->orderBy('main_address', 'DESC')
@@ -235,7 +235,7 @@ class AccountController extends Controller
             'address_name'   => 'required|string|max:200',
             'customer_name'  => 'required|string|max:200',
             'number_phone'   => 'required|string|max:16',
-            'region'         => 'required|string|max:200',
+            'region'         => 'required',
             'postal_code'    => 'required|max:5',
             'address'        => 'required',
         ], [
@@ -265,22 +265,24 @@ class AccountController extends Controller
         }
 
         $region   = explode(',', $request->region);
-        $province = $region[0];
-        $city     = $region[1];
+        $province_id = $region[0];
+        $city_id     = $region[1];
 
         CustomerAddress::create([
-            'customer_id'   => Auth::guard('customer')->user()->id,
-            'address_name'  => $request->address_name,
-            'customer_name' => $request->customer_name,
-            'number_phone'  => $request->number_phone,
-            'province'      => $request->province,
-            'city'          => $city,
-            'province'      => $province,
-            'postal_code'   => $request->postal_code,
-            'full_address'  => $request->address
+            'customer_id'       => Auth::guard('customer')->user()->id,
+            'address_name'      => $request->address_name,
+            'customer_name'     => $request->customer_name,
+            'number_phone'      => $request->number_phone,
+            'city_id'           => $city_id,
+            'province_id'       => $province_id,
+            'postal_code'       => $request->postal_code,
+            'full_address'      => $request->address
         ]);
 
-        $addresses = CustomerAddress::where('customer_id', Auth::guard('customer')->user()->id)
+        $addresses = CustomerAddress::select('customer_address.*', 'cities.city_name', 'provinces.province as province_name')
+                                    ->join('cities', 'customer_address.city_id', 'cities.id')
+                                    ->join('provinces', 'customer_address.province_id', 'provinces.id')
+                                    ->where('customer_id', Auth::guard('customer')->user()->id)
                                     ->orderBy('main_address', 'DESC')
                                     ->orderBy('created_at', 'DESC')->get();
 
@@ -325,9 +327,12 @@ class AccountController extends Controller
             $address->update([
                 'main_address'  => true,
             ]);
-            $addresses = CustomerAddress::where('customer_id', Auth::guard('customer')->user()->id)
-                                            ->orderBy('main_address', 'DESC')
-                                            ->orderBy('created_at', 'DESC')->get();
+            $addresses =CustomerAddress::select('customer_address.*', 'cities.city_name', 'provinces.province as province_name')
+                                    ->join('cities', 'customer_address.city_id', 'cities.id')
+                                    ->join('provinces', 'customer_address.province_id', 'provinces.id')
+                                    ->where('customer_id', Auth::guard('customer')->user()->id)
+                                    ->orderBy('main_address', 'DESC')
+                                    ->orderBy('created_at', 'DESC')->get();
     
             return response()->json([
                 'code'      => 200,
@@ -367,9 +372,12 @@ class AccountController extends Controller
                                     ->where('id', $request->address_id)
                                     ->first();
             $address->delete();
-            $addresses = CustomerAddress::where('customer_id', Auth::guard('customer')->user()->id)
-                                            ->orderBy('main_address', 'DESC')
-                                            ->orderBy('created_at', 'DESC')->get();
+            $addresses = CustomerAddress::select('customer_address.*', 'cities.city_name', 'provinces.province as province_name')
+                                        ->join('cities', 'customer_address.city_id', 'cities.id')
+                                        ->join('provinces', 'customer_address.province_id', 'provinces.id')
+                                        ->where('customer_id', Auth::guard('customer')->user()->id)
+                                        ->orderBy('main_address', 'DESC')
+                                        ->orderBy('created_at', 'DESC')->get();
     
             return response()->json([
                 'code'      => 200,
@@ -402,8 +410,11 @@ class AccountController extends Controller
             'success'   => (boolean) true,
             'message'   => 'success, data is getted',
             'data'      => [
-                'address'   => CustomerAddress::where('customer_id', Auth::guard('customer')->user()->id)
-                                            ->where('id', $address_id)->first(),
+                'address'   => CustomerAddress::select('customer_address.*', 'cities.city_name', 'provinces.province as province_name')
+                                            ->join('cities', 'customer_address.city_id', 'cities.id')
+                                            ->join('provinces', 'customer_address.province_id', 'provinces.id')
+                                            ->where('customer_id', Auth::guard('customer')->user()->id)
+                                            ->where('customer_address.id', $address_id)->first(),
             ],
         ]);
     }
@@ -458,9 +469,9 @@ class AccountController extends Controller
             $address = CustomerAddress::where('customer_id', Auth::guard('customer')->user()->id)       
                                         ->where('id', $address_id)->first();
 
-            $region   = explode(',', $request->region);
-            $province = $region[0];
-            $city     = $region[1];
+            $region         = explode(',', $request->region);
+            $province_id    = $region[0];
+            $city_id        = $region[1];
 
             $address->update([
                 'customer_id'   => Auth::guard('customer')->user()->id,
@@ -468,13 +479,16 @@ class AccountController extends Controller
                 'customer_name' => $request->customer_name,
                 'number_phone'  => $request->number_phone,
                 'province'      => $request->province,
-                'city'          => $city,
-                'province'      => $province,
+                'city_id'       => $city_id,
+                'province_id'   => $province_id,
                 'postal_code'   => $request->postal_code,
                 'full_address'  => $request->address
             ]);
     
-            $addresses = CustomerAddress::where('customer_id', Auth::guard('customer')->user()->id)
+            $addresses = CustomerAddress::select('customer_address.*', 'cities.city_name', 'provinces.province as province_name')
+                                        ->join('cities', 'customer_address.city_id', 'cities.id')
+                                        ->join('provinces', 'customer_address.province_id', 'provinces.id')
+                                        ->where('customer_id', Auth::guard('customer')->user()->id)
                                         ->orderBy('main_address', 'DESC')
                                         ->orderBy('created_at', 'DESC')->get();
     
@@ -494,5 +508,22 @@ class AccountController extends Controller
                 'message'   => 'Error, if you get this message. Please tell the website operator, thanks.',
             ]);
         }
+    }
+
+    public function getAllAddressByCustomerJson()
+    {
+        return response()->json([
+            'code'      => 200,
+            'success'   => (boolean) true,
+            'message'   => 'success, data is getted',
+            'data'      => [
+                'addresses'   => CustomerAddress::select('customer_address.*', 'cities.city_name', 'provinces.province as province_name')
+                                                ->join('cities', 'customer_address.city_id', 'cities.id')
+                                                ->join('provinces', 'customer_address.province_id', 'provinces.id')
+                                                ->where('customer_id', Auth::guard('customer')->user()->id)
+                                                ->orderBy('main_address', 'DESC')
+                                                ->orderBy('created_at', 'DESC')->get(),
+            ],
+        ]);
     }
 }

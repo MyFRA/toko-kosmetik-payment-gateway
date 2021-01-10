@@ -45,6 +45,7 @@ Route::middleware(['customer.auth'])->group(function() {
     Route::post('/account/delete-address', 'Web\AccountController@deleteAddress');
     Route::get('/account/address/{address_id}/json', 'Web\AccountController@findAddress');
     Route::post('/account/address/{address_id}/update', 'Web\AccountController@updateAddress');
+    Route::get('/account/address/json', 'Web\AccountController@getAllAddressByCustomerJson');
 
     // Cart
     Route::get('/cart', 'Web\CartController@index');
@@ -64,6 +65,9 @@ Route::middleware(['customer.auth'])->group(function() {
 
     // Test
     Route::get('/cek-ongkir', 'Test\CekOngkirController@cekOngkir');
+
+    // Get Consts
+    Route::get('/api/get-costs/{id_kota_tujuan}/{weight}', 'Api\ApiController@getCostsCourier');
 });
 
 Route::get('/verify', 'Auth\Customer\RegisterController@verify')->name('customer.verify');

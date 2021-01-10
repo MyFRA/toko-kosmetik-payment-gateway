@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 
 use App\Models\Product;
 use App\Models\ProductComment;
@@ -110,6 +111,36 @@ class ApiController extends Controller
             'data'      => [
                 'comments' => $valid_comment,
             ],
+        ]);
+    }
+
+    public function getCostsCourier($id_kota_tujuan, $weight) {
+        if( $id_kota_tujuan == '' || is_null($id_kota_tujuan) || $weight == '' || is_null($weight) ) {
+            return response()->json([
+                'code'      => 401,
+                'success'   => (boolean) false,
+                'message'   => 'parameter wajib tidak boleh kosong',
+            ]);
+        }
+
+        $client = new Client();
+        $res = $client->request('POST', 'https://api.rajaongkir.com/starter/cost', [
+            'form_params' => [
+                'key'           => 'ee1571301ce06a6cd9a9db8967e5e375',
+                'origin'        => 375,
+                'destination'   => $id_kota_tujuan,
+                'weight'        => $weight,
+                'courier'       => 'jne',
+            ]
+        ]);
+        
+        return response()->json([
+            'code'      => 200,
+            'success'   => (boolean) true,
+            'message'   => 'success, expeditions is getted',
+            'data'      => [
+                'expeditions'   => json_decode((string) $res->getBody()),
+            ]
         ]);
     }
 }
