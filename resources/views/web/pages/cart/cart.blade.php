@@ -33,17 +33,17 @@
                                 <a href="" onclick="addToWishlist(this, {{$cart['product_id']}})" class="{{ $cart['is_wishlist'] ? 'active' : ''}}"><i class="zmdi zmdi-favorite"></i></a>
                             </div>
                             <div class="sub-action">
-                                <a href="" onclick="deleteProductFromCart({{$cart['product_id']}})"><i class="zmdi zmdi-delete"></i></a>
+                                <a href="" onclick="deleteProductFromCart({{$cart['cart_id']}})"><i class="zmdi zmdi-delete"></i></a>
                             </div>
                             <div class="sub-action">
-                                <button onclick="decreaseAmount(this)" data-product_id="{{ $cart['product_id'] }}">-</button>
+                                <button onclick="decreaseAmount(this)" data-product_id="{{ $cart['product_id'] }}" data-cart_id="{{ $cart['cart_id'] }}">-</button>
                                 <input type="number" id="product-amount" value="{{ $cart['cart_amount'] }}" readonly>
                                 <button onclick="increaseAmount(this, {{ $cart['product_amount'] }})" data-cart_id="{{ $cart['cart_id'] }}">+</button>
                             </div>
                         </div>
                     </div>
                     <div class="product-check">
-                        <input type="checkbox" name="checked_products[]" multiple="multiple" onchange="checkProduct(this)" data-product_id="{{ $cart['product_id'] }}" data-price="{{ $cart['price_after_discount'] }}" {{ $cart['is_checked'] ? 'checked' : ''}}>
+                        <input type="checkbox" name="checked_products[]" multiple="multiple" onchange="checkProduct(this)" data-cart_id="{{ $cart['cart_id'] }}" data-product_id="{{ $cart['product_id'] }}" data-price="{{ $cart['price_after_discount'] }}" {{ $cart['is_checked'] ? 'checked' : ''}}>
                     </div>
                 </div>
                 @empty
@@ -134,7 +134,7 @@
     <script>
         function checkProduct(element) {
             const setCheckedUrl = '{{url('/checked-cart')}}';
-            const product_id    = element.getAttribute('data-product_id');
+            const cart_id    = element.getAttribute('data-cart_id');
             if(!element.hasAttribute('checked')) {
                 fetch(setCheckedUrl, {
                     method: 'POST',
@@ -143,12 +143,11 @@
                     },
                     body : JSON.stringify({
                         '_token'     : document.getElementById('token').value,
-                        'product_id' : product_id,
+                        'cart_id'    : cart_id,
                         'is_checked' : true,
                     }),
                 }).then(response => response.json())
                     .then((res) => {
-                        console.log(res);
                         if(res.code == 200 && res.success) {
                             element.setAttribute('checked', true);
                             generatePriceTotal();
@@ -166,9 +165,9 @@
                         'Content-Type' : 'application/json',
                     },
                     body : JSON.stringify({
-                        '_token'     : document.getElementById('token').value,
-                        'product_id' : product_id,
-                        'is_checked' : false,
+                        '_token'        : document.getElementById('token').value,
+                        'cart_id'       : cart_id,
+                        'is_checked'    : false,
                     }),
                 }).then(response => response.json())
                     .then((res) => {
@@ -227,13 +226,13 @@
             return rupiah;
         }
         
-        function deleteProductFromCart(product_id) {
+        function deleteProductFromCart(cart_id) {
             event.preventDefault();
             if(confirm('Yakin akan menghapus produk dari keranjang?')) {
                 const url = '{{url('/delete-from-cart')}}';
                 const data = {
-                    '_token'     : document.getElementById('token').value,
-                    'product_id' : product_id,
+                    '_token'    : document.getElementById('token').value,
+                    'cart_id'   : cart_id,
                 }
 
                 fetch(url, {
@@ -275,20 +274,20 @@
                                         </div>
                                         <div class="action">
                                             <div class="sub-action">
-                                                <a href=""><i class="zmdi zmdi-favorite"></i></a>
+                                                <a href="" onclick="addToWishlist(this, ${cart.product_id})" class="${ cart.is_wishlist ? 'active' : ''}"><i class="zmdi zmdi-favorite"></i></a>
                                             </div>
                                             <div class="sub-action">
-                                                <a href="" onclick="deleteProductFromCart(${cart.product_id})"><i class="zmdi zmdi-delete"></i></a>
+                                                <a href="" onclick="deleteProductFromCart(${cart.cart_id})"><i class="zmdi zmdi-delete"></i></a>
                                             </div>
                                             <div class="sub-action">
-                                                <button onclick="decreaseAmount(this)">-</button>
-                                                <input type="number" id="product-amount" value="${cart.cart_amount}">
-                                                <button onclick="increaseAmount(this, ${cart.product_amount})">+</button>
+                                                <button onclick="decreaseAmount(this)" data-cart_id="${cart.cart_id}">-</button>
+                                                <input type="number" id="product-amount" value="${cart.cart_amount}" readonly>
+                                                <button onclick="increaseAmount(this, ${cart.product_amount})" data-cart_id="${cart.cart_id}">+</button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-check">
-                                        <input type="checkbox" name="checked_products[]" multiple="multiple" onchange="checkProduct(this)" data-product_id="${cart.product_id}" data-price="${cart.price_after_discount}">
+                                        <input type="checkbox" name="checked_products[]" multiple="multiple" onchange="checkProduct(this)" data-product_id="${cart.product_id}"  data-cart_id="${cart.cart_id}" data-price="${cart.price_after_discount}">
                                     </div>
                                 </div>`;
                                 products_cart += product_cart;
@@ -317,9 +316,9 @@
     </script>
     <script>
         function increaseAmount(element, max) {
-            const product_amount = element.parentElement.querySelector('input');
-            const product_id     = element.getAttribute('data-product_id');
-            const url            = '{{url('/increase-cart')}}';
+            const product_amount    = element.parentElement.querySelector('input');
+            const cart_id           = element.getAttribute('data-cart_id');
+            const url               = '{{url('/increase-cart')}}';
 
             if( parseInt(product_amount.value) < max ) {
                 fetch(url, {
@@ -328,9 +327,9 @@
                         'Content-Type' : 'application/json',
                     },
                     body : JSON.stringify({
-                        _token : document.getElementById('token').value,
-                        product_id : product_id,
-                        is_increased : true,
+                        _token          : document.getElementById('token').value,
+                        cart_id         : cart_id,
+                        is_increased    : true,
                     }),
                 }).then(response => response.json())
                 .then((res) => {
@@ -348,9 +347,9 @@
         }
 
         function decreaseAmount(element) {
-            const product_amount = element.parentElement.querySelector('input');
-            const product_id     = element.getAttribute('data-product_id');
-            const url            = '{{url('/increase-cart')}}';
+            const product_amount    = element.parentElement.querySelector('input');
+            const cart_id           = element.getAttribute('data-cart_id');
+            const url               = '{{url('/increase-cart')}}';
 
             if( parseInt(product_amount.value) > 1 ) {
                 fetch(url, {
@@ -359,9 +358,9 @@
                         'Content-Type' : 'application/json',
                     },
                     body : JSON.stringify({
-                        _token : document.getElementById('token').value,
-                        product_id : product_id,
-                        is_increased : false,
+                        _token          : document.getElementById('token').value,
+                        cart_id         : cart_id,
+                        is_increased    : false,
                     }),
                 }).then(response => response.json())
                 .then((res) => {
@@ -397,19 +396,21 @@
             .then((res) => {
                 if(res.code == 200 && res.success) {
                     customerWishlistAmount.innerHTML = res.data.customerWishlistAmount;
+                    console.log(res.data.alreadyInFavorite);
+                    console.log(element.classList.contains('active'));
                     if(res.data.alreadyInFavorite) {
-                            if( !element.classList.contains('active') ) {
-                                element.classList.add('active');
-                            }
-                        } else {
-                            if( element.classList.contains('active') ) {
-                                element.classList.remove('active');
-                            }
+                        if( !element.classList.contains('active') ) {
+                            element.classList.add('active');
                         }
+                    } else {
+                        if( element.classList.contains('active') ) {
+                            element.classList.remove('active');
+                        }
+                    }
                     Toast.fire({
-                            icon: 'success',
-                            title: res.message
-                        })
+                        icon: 'success',
+                        title: res.message
+                    })
                 }
             })
         }

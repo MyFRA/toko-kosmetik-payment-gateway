@@ -138,13 +138,10 @@ class CartController extends Controller
 
     public function deleteFromCart(Request $request)
     {
-        $allProductsId = join(',', $this->getAllId(Product::get()));
-
         $validator = Validator::make($request->all(), [
-            'product_id'             => "required|in:$allProductsId",
+            'cart_id'             => "required",
         ], [
-            'product_id.required' => 'Produk tidak boleh kosong',
-            'product_id.in'       => 'Produk tidak ada / sudah dihapus',
+            'cart_id.required' => 'Produk tidak boleh kosong',
         ]);
 
         if($validator->fails()) {
@@ -158,8 +155,7 @@ class CartController extends Controller
             ]);
         }
 
-        $cart = Cart::where('customer_id', Auth::guard('customer')->user()->id)->where('product_id', $request->product_id);
-        
+        $cart = Cart::where('customer_id', Auth::guard('customer')->user()->id)->where('id', $request->cart_id);
         if( $cart->count() > 0 ) {
             $cart->first()->delete();
         }
@@ -184,6 +180,7 @@ class CartController extends Controller
                 }
             }
             $validCarts[] = [
+                'cart_id'               => $cart->id,
                 'product_id'            => $cart->product_id,
                 'image_src'             => asset('/storage/images/products/' . json_decode($cart->product->product_images)[0]->name),
                 'product_name'          => $cart->product->product_name,
@@ -211,14 +208,12 @@ class CartController extends Controller
 
     public function checkedCart(Request $request)
     {
-        $allProductsId = join(',', $this->getAllId(Product::get()));
-
         $validator = Validator::make($request->all(), [
-            'product_id'          => "required|in:$allProductsId",
+            'cart_id'             => "required",
             'is_checked'          => 'required|boolean',
         ], [
-            'product_id.required' => 'Produk tidak boleh kosong',
-            'product_id.in'       => 'Produk tidak ada / sudah dihapus',
+            'cart_id.required'    => 'Produk tidak boleh kosong',
+            'is_checked'          => 'nilai input tidak valid'
         ]);
 
         if($validator->fails()) {
@@ -230,7 +225,7 @@ class CartController extends Controller
         }
 
         $cart = Cart::where('customer_id', Auth::guard('customer')->user()->id)
-                    ->where('product_id', $request->product_id)->first();
+                    ->where('id', $request->cart_id)->first();
 
         if( $request->is_checked ) {
             $cart->update([
@@ -257,16 +252,14 @@ class CartController extends Controller
 
     public function increaseDecreaseCart(Request $request)
     {
-        $allProductsId = join(',', $this->getAllId(Product::get()));
 
         $validator = Validator::make($request->all(), [
-            'product_id'          => "required|in:$allProductsId",
-            'is_increased'        => 'required|boolean',
+            'cart_id'               => "required",
+            'is_increased'          => 'required|boolean',
         ], [
-            'product_id.required'       => 'Produk tidak boleh kosong',
-            'product_id.in'             => 'Produk tidak ada / sudah dihapus',
-            'is_increased.required'     => 'Status tidak boleh kosong',
-            'is_increased.boolean'      => 'Status tidak valid',
+            'cart_id.required'       => 'Produk tidak boleh kosong',
+            'is_increased.required'  => 'Status tidak boleh kosong',
+            'is_increased.boolean'   => 'Status tidak valid',
         ]);
 
         if($validator->fails()) {
@@ -278,7 +271,7 @@ class CartController extends Controller
         }
 
         $cart = Cart::where('customer_id', Auth::guard('customer')->user()->id)
-                    ->where('product_id', $request->product_id)->first();
+                    ->where('id', $request->cart_id)->first();
 
         if( $request->is_increased ) {
             $cart->update([
