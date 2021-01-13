@@ -3129,6 +3129,77 @@ h1.title-cart {
     background: #ac0852;
 }
 
+@media screen and (max-width: 1280px) {
+    .overlay-choose-address .modal-choose-address {
+        padding: .8rem .8rem 1.3rem;
+        width: 96%;
+        position: relative;
+    }
+    
+    .overlay-choose-address .modal-choose-address h2 {
+        margin-bottom: 1rem;
+        font-size: 16px;
+    }
+    
+    .overlay-choose-address .modal-choose-address .address-wrapper {
+        height: 60vh;
+    }
+    
+    .overlay-choose-address .modal-choose-address .address-wrapper .address {
+        padding: .6rem;
+        margin-bottom: .7rem;
+    }
+    
+    .overlay-choose-address .modal-choose-address .address-wrapper .address h5.address-name {
+        font-size: 10px;
+    }
+    
+    .overlay-choose-address .modal-choose-address .address-wrapper .address h5.address-name span {
+        margin-left: .3rem;
+        font-size: 9px;
+        padding: .1rem .3rem;
+    }
+    
+    .overlay-choose-address .modal-choose-address .address-wrapper .address .customer-name {
+        margin-top: .2rem;
+        color: #222;
+        font-size: 12px;
+        margin-bottom: .4rem;
+    }
+    
+    .overlay-choose-address .modal-choose-address .address-wrapper .address .alamat-wrapper {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: .4rem;
+    }
+    
+    .overlay-choose-address .modal-choose-address .address-wrapper .address .alamat-wrapper h5 {
+        font-size: 12px;
+    }
+    
+    .overlay-choose-address .modal-choose-address .address-wrapper .address .alamat-wrapper p {
+        font-size: 12px;
+        margin-top: .11rem;
+    }
+    
+    .overlay-choose-address .modal-choose-address .address-wrapper .address .list-alamat-button-wrapper {
+        margin-top: .7rem;
+    }
+    
+    .overlay-choose-address .modal-choose-address .address-wrapper .address .list-alamat-button-wrapper button {
+        padding: .3rem 1rem;
+        font-size: 12px;
+    }
+    
+    .overlay-choose-address .modal-choose-address .close-button-choose-address {
+        width: 18px;
+        height: 18px;
+        top: 8px;
+        right: 8px;
+        border-radius: 9px;
+    }
+}
+
 /* Overlay Choose Expedition */
 .overlay-choose-expedition {
     position: fixed;
