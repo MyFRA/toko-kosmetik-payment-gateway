@@ -6,3 +6,7 @@
 .font-weight-bold {
     font-weight: 600 !important;
 }
+
+.pointer-not-allowed {
+    cursor: not-allowed !important;
+}

@@ -3201,3 +3201,54 @@ h1.title-cart {
 .overlay-choose-expedition .modal-choose-expedition .close-button-choose-expedition:hover {
     background: #ac0852;
 }
+
+@media screen and (max-width: 1280px) {
+    .overlay-choose-expedition .modal-choose-expedition {
+        background-color: #fff;
+        padding: 1rem .5rem 1.5rem;
+        border-radius: 5px;
+        width: 96%;
+        position: relative;
+    }
+    
+    .overlay-choose-expedition .modal-choose-expedition h2 {
+        margin-bottom: 1rem;
+        font-size: 16px;
+    }
+    
+    .overlay-choose-expedition .modal-choose-expedition .modal-expeditions-wrapper {
+        max-height: 80vh;
+        overflow-y: scroll;
+    }
+    
+    .overlay-choose-expedition .modal-choose-expedition .modal-expeditions-wrapper .expedition {
+        padding: .4rem .8rem;
+    }
+    
+    .overlay-choose-expedition .modal-choose-expedition .modal-expeditions-wrapper .expedition div span.type {
+        font-weight: 700;
+        font-size: 13px;
+    }
+    
+    .overlay-choose-expedition .modal-choose-expedition .modal-expeditions-wrapper .expedition div span.price {
+        font-weight: 600;
+        font-size: 13px;
+    }
+    
+    .overlay-choose-expedition .modal-choose-expedition .modal-expeditions-wrapper .expedition span.estimation{
+        margin-top: .2rem;
+        font-size: 12px;
+    }
+    
+    .overlay-choose-expedition .modal-choose-expedition .modal-expeditions-wrapper .expedition span.desc{
+        font-size: 11px;
+        margin-top: .3rem;
+    }
+    
+    .overlay-choose-expedition .modal-choose-expedition .close-button-choose-expedition {
+        width: 18px;
+        height: 18px;
+        top: 8px;
+        right: 8px;
+    }
+}

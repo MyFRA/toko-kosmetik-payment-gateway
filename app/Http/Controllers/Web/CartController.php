@@ -295,6 +295,9 @@ class CartController extends Controller
 
     public function getShipment()
     {
+        $price_product_total = 0;
+        $amount_product_total = 0;
+        $weight_product_total = 0;
         $carts = Cart::where('customer_id', Auth::guard('customer')->user()->id)
                     ->where('is_checked', true)    
                     ->orderBy('updated_at', 'DESC')->get();
@@ -304,15 +307,31 @@ class CartController extends Controller
             $amount_wishlist = Wishlist::where('customer_id', $cart->customer_id)
                                         ->where('product_id', $cart->product->id)
                                         ->count();
+            $price                  = $cart->product->price;
+            $price_after_discount   = $cart->product->price;
+            $discount               = null;
+            if(!is_null($cart->product->discount)) {
+                if($cart->product->discount->forever == true) {
+                    $price_after_discount   = floor($price - ($price * $cart->product->discount->discount_percent / 100));
+                    $discount               = $cart->product->discount->discount_percent;
+                } elseif(strtotime($cart->product->discount->end_date) >= strtotime(date('d-m-y'))) {
+                    $price_after_discount   = floor($price - ($price * $cart->product->discount->discount_percent / 100));
+                    $discount               = $cart->product->discount->discount_percent;
+                }
+            }
+            $price_product_total += $price_after_discount;
+            $amount_product_total += $cart->amount;
             $validCarts[] = [
                 'product_id'        => $cart->product_id,
                 'image_src'         => asset('/storage/images/products/' . json_decode($cart->product->product_images)[0]->name),
                 'product_name'      => $cart->product->product_name,
                 'product_price'     => $cart->product->price,
                 'product_amount'    => $cart->product->amount,
+                'product_weight'    => $cart->product->weight,
                 'cart_amount'       => $cart->amount,
                 'is_wishlist'       => $amount_wishlist > 0 ? true : false,
-                'is_checked'        => $cart->is_checked
+                'is_checked'        => $cart->is_checked,
+                'price_after_diskon' => $price_after_discount,
             ];
         }
 
@@ -332,6 +351,9 @@ class CartController extends Controller
             'remove_bottom_navigation'  => true,
             'address'                   => $address,
             'addresses'                 => $addresses,
+            'price_product_total'       => $price_product_total,
+            'amount_product_total'      => $amount_product_total,
+            'weight_product_total'      => $weight_product_total,
         ];
 
         return view('web.pages.cart.shipment', $data);
