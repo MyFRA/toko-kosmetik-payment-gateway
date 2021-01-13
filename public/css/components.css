@@ -2781,10 +2781,10 @@ h1.title-cart {
     background-color: #fff;
     position: fixed;
     padding: 1.5rem;
-    margin: 2rem 0;
+    margin: 0 0;
     border-radius: 5px;
     width: 40%;
-    min-height: 50vh;
+    max-height: 100vh;
 }
 
 .overlay-modal-form-address .modal-wrapper-form-address h2.title {
@@ -2950,7 +2950,7 @@ h1.title-cart {
 @media screen and (max-width: 1280px) {
     .overlay-modal-form-address .modal-wrapper-form-address {
         padding: 1rem;
-        margin: 1.3rem 0;
+        margin: 0 0;
         width: 95%;
     }
     
@@ -2960,11 +2960,31 @@ h1.title-cart {
     }
     
     .overlay-modal-form-address .modal-wrapper-form-address .form .row {
-        margin-bottom: .6rem;
+        margin-bottom: .4rem;
     }
     
     .overlay-modal-form-address .modal-wrapper-form-address .form .row label {
         font-size: 12px;
+    }
+
+    .overlay-modal-form-address .modal-wrapper-form-address .form .row input {
+        font-size: 12px;
+    }
+
+    .overlay-modal-form-address .modal-wrapper-form-address .form .row select {
+        font-size: 12px;
+    }
+
+    .overlay-modal-form-address .modal-wrapper-form-address .form .row textarea {
+        font-size: 12px;
+        height: 6.5rem;
+    }
+
+    .overlay-modal-form-address .modal-wrapper-form-address .form .button-wrapper button {
+        width: 48%;
+        padding: .4rem 0;
+        font-size: 13px;
+        font-weight: 600;
     }
 }
 
