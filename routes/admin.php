@@ -8,4 +8,7 @@ Route::middleware(['admin.auth'])->group(function() {
     Route::resource('/discount', 'Admin\DiscountController');
 });
 
-Route::get('/login', 'Auth\Admin\LoginController@showLoginForm');
+Route::middleware(['admin.guest'])->group(function() {
+    Route::get('/login', 'Auth\Admin\LoginController@showLoginForm');
+    Route::post('/login', 'Auth\Admin\LoginController@login');
+});

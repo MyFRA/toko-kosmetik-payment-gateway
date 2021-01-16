@@ -17,29 +17,30 @@
             </div>
             <div class="form-login-wrapper">
                 <div class="inner-form-login-wrapper">
-                    <form action="">
+                    <form action="{{ url('/app-admin/login') }}" method="POST">
+                        @csrf
                         <div class="logo-text-section">
                             <img src="{{ asset('/images/icons/logo-no-text.png') }}" alt="logo">
                             <h3>Masuk Administrator</h3>
                         </div>
                         <div class="form-section">
                             <div class="form-group">
-                                <input type="email" name="email" id="email" placeholder="Email" class="@error('email') is-invalid @enderror" value="{{old('email')}}">
+                                <input type="email" name="email" id="email" placeholder="Email" class="{{ session('errorEmail') ? 'is-invalid' : '' }}" value="{{session('old_value') ? session('old_value')['email'] : ''}}">
                                 
-                                @error('email')
+                                @if (session('errorEmail'))
                                     <div class="invalid-feedback">
-                                        {{ $message }}
+                                        {{ session('errorEmail')['message'] }}
                                     </div>
-                                @enderror
+                                @endif
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" id="password" placeholder="Password" class="@error('password') is-invalid @enderror" value="{{old('password')}}">
+                                <input type="password" name="password" id="password" placeholder="Password" class="{{ session('errorPassword') ? 'is-invalid' : '' }}" value="{{session('old_value') ? session('old_value')['password'] : ''}}">
                             
-                                @error('password')
+                                @if (session('errorPassword'))
                                     <div class="invalid-feedback">
-                                        {{ $message }}
+                                        {{ session('errorPassword')['message'] }}
                                     </div>
-                                @enderror
+                                @endif
                             </div>
                             <div class="form-group">
                                 <button type="submit">Masuk</button>
