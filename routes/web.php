@@ -16,10 +16,13 @@ Route::get('/categories', 'Web\CategoriesController@index');
 Route::get('/promo', 'Web\PromoController@index');
 
 // Customer Authentication Route
-Route::get('/login', 'Auth\Customer\LoginController@showLoginForm')->middleware(['customer.guest'])->name('customer.login');
+Route::get('/login', 'Auth\Customer\LoginController@showLoginForm')->middleware(['customer.guest']);
 Route::post('/login', 'Auth\Customer\LoginController@login');
-Route::get('/register', 'Auth\Customer\RegisterController@showRegistrationForm')->name('customer.signup-form');
+Route::get('/register', 'Auth\Customer\RegisterController@showRegistrationForm');
 Route::post('/register', 'Auth\Customer\RegisterController@register');
+Route::get('/email', function() {
+    return view('email');
+});
 
 // Product Route
 Route::get('/product/{slug}', 'Web\ProductController@show');

@@ -18,7 +18,12 @@ class CustomerGuest
     {
         if (Auth::guard('customer')->check()) {
             return redirect('/account');
+        } else if( Auth::guard('admin')->check() ) {
+            return redirect('/app-admin');
+        } else if( Auth::check() ) {
+            Auth::logout();
         }
+        
         return $next($request);
     }
 }

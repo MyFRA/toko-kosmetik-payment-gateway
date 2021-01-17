@@ -1,0 +1,300 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .register-container {
+    width: 94%;
+    min-height: 90vh;
+    display: flex;
+    border-radius: 20px;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.2);
+}
+
+.register-container .bg-wrapper {
+    flex: 1;
+    background-image: url('/images/assets/bg-register-customer.jpeg');
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.register-container .form-wrapper {
+    flex: 1.3;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.register-container .form-wrapper .inner-form-wrapper {
+    padding: 2rem 3rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .top-section {
+    display: flex;
+    align-items: flex-start;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section {
+    flex: 6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 5rem;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .bottom-section {
+    display: flex;
+    align-items: flex-end;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .top-section img {
+    text-align: left;
+    width: 75px;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section h3 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+    color: #333;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section p {
+    text-align: center;
+    color: #888;
+    font-size: 13px;
+    margin-top: .2rem;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper {
+    margin-top: 1rem;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .7rem;
+    position: relative;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group label {
+    color: #888;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group .input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group .input input {
+    width: 100%;
+    padding: .7rem 2.5rem;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    color: #333;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group .input input.is-invalid {
+    border: 1px solid #DB2777;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group .input input:focus {
+    outline: none;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group .input span {
+    position: absolute;
+    left: 1rem;
+    color: #ccc;
+    margin-top: 5px;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group .invalid-feedback {
+    color: #DB2777;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group button {
+    width: 100%;
+    background: #DB2777;
+    color: #fff;
+    border: none;
+    padding: .7rem 0;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 8px;
+    cursor: pointer;
+    transition: all 150ms ease;
+    display: inline;
+    border: 1px solid rgba(0,0,0,0.0);;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group button:focus {
+    outline: none;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group button:hover {
+    background: #fff;
+    color: #DB2777;
+    border: 1px solid #DB2777;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group.button {
+    text-align: center;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group.button span {
+    font-size: 14px;
+    color: #555;
+    margin-top: 7px;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group.button span a {
+    text-decoration: none;
+    color: #DB2777;
+    font-weight: 600;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group.button span a:hover {
+    text-decoration: underline;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .bottom-section {
+    text-align: left;
+    color: #555;
+    font-size: 14px;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .bottom-section span a {
+    color: #DB2777;
+    text-decoration: none;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .bottom-section span a:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 1280px) {
+    .container .register-container {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        border-radius: 20px;
+        box-shadow: none;
+    }
+    
+    .register-container .bg-wrapper {
+        display: none;
+    }
+    
+    .register-container .form-wrapper {
+        width: 100%;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper {
+        padding: 1.5rem;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form {
+        height: 100%;
+        width: 100%;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form .top-section {
+        display: flex;
+        align-items: flex-start;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form .center-section {
+        padding: 0;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form .top-section img {
+        text-align: left;
+        width: 50px;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form .center-section h3 {
+        font-size: 23px;
+        margin-top: -1rem;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form .center-section p {
+        font-size: 12px;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper {
+        margin-top: .7rem;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group {
+        margin-bottom: .5rem;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group label {
+        font-size: 12px;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group .input input {
+        width: 100%;
+        padding: .5rem 2.3rem;
+        margin-top: 3px;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group .input input:focus {
+        outline: none;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group .input span {
+        left: .85rem;
+        margin-top: 4px;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group .invalid-feedback {
+        font-size: 11px;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group button {
+        padding: .5rem 0;
+        font-size: 14px;
+        margin-top: 6px;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper .form-group.button span {
+        font-size: 13px;
+        margin-top: 6px;
+    }
+    
+    .register-container .form-wrapper .inner-form-wrapper form .bottom-section {
+        font-size: 13px;
+    }
+}

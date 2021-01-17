@@ -52,4 +52,10 @@ class LoginController extends Controller
             return redirect('/app-admin');
         }
     }
+
+    public function logout()
+    {
+        Auth::guard('admin')->logout();
+        return redirect('/app-admin/login');
+    }
 }
