@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 
 use App\Models\Cart;
+use App\Models\Sales;
 use App\Models\Product;
 use App\Models\Wishlist;
+use App\Models\Customer;
 use App\Models\ProductVariant;
 use App\Models\CustomerAddress;
 
@@ -319,19 +322,24 @@ class CartController extends Controller
                     $discount               = $cart->product->discount->discount_percent;
                 }
             }
-            $price_product_total += $price_after_discount;
+            
+            $hasDiscount = $discount ? true : false;
+            $price_product_total += $price_after_discount * $cart['amount'];
             $amount_product_total += $cart->amount;
+            $weight_product_total += $cart->product->weight * $cart->amount;
             $validCarts[] = [
-                'product_id'        => $cart->product_id,
-                'image_src'         => asset('/storage/images/products/' . json_decode($cart->product->product_images)[0]->name),
-                'product_name'      => $cart->product->product_name,
-                'product_price'     => $cart->product->price,
-                'product_amount'    => $cart->product->amount,
-                'product_weight'    => $cart->product->weight,
-                'cart_amount'       => $cart->amount,
-                'is_wishlist'       => $amount_wishlist > 0 ? true : false,
-                'is_checked'        => $cart->is_checked,
-                'price_after_diskon' => $price_after_discount,
+                'product_id'            => $cart->product_id,
+                'image_src'             => asset('/storage/images/products/' . json_decode($cart->product->product_images)[0]->name),
+                'product_name'          => $cart->product->product_name,
+                'product_price'         => $cart->product->price,
+                'product_amount'        => $cart->product->amount,
+                'product_weight'        => $cart->product->weight,
+                'cart_amount'           => $cart->amount,
+                'is_wishlist'           => $amount_wishlist > 0 ? true : false,
+                'is_checked'            => $cart->is_checked,
+                'price_after_diskon'    => $price_after_discount,
+                'has_discount'          => $hasDiscount,
+                'discount_percent'      => $discount,
             ];
         }
 
@@ -357,5 +365,113 @@ class CartController extends Controller
         ];
 
         return view('web.pages.cart.shipment', $data);
+    }
+
+    public function checkout(Request $request)
+    {
+        $customer = Customer::find(1);
+
+        if(!in_array($request->address_id, $this->getAllId($customer->customerAddress))) {
+            return response()->json([
+                'code'      => 401,
+                'success'   => (boolean) false,
+                'message'   => 'Alamat tidak valid',
+            ]);
+        };
+
+        $customerAddress    = CustomerAddress::find($request->address_id);
+        $carts              = Cart::where('customer_id', $customer->id)
+                                ->where('is_checked', true)    
+                                ->orderBy('updated_at', 'DESC')->get();
+        $weightTotal        = 0;
+        foreach ($carts as $cart) {
+            $weightTotal  += $cart->product->weight * $cart->amount;
+        }
+
+        $client = new Client();
+        $ongkirValid = $client->request('POST', 'https://api.rajaongkir.com/starter/cost', [
+            'form_params' => [
+                'key'           => 'ee1571301ce06a6cd9a9db8967e5e375',
+                'origin'        => 375,
+                'destination'   => $customerAddress->city_id,
+                'weight'        => $weightTotal,
+                'courier'       => 'jne',
+            ]
+        ]);
+        $ongkirValid = json_decode((string) $ongkirValid->getBody())->rajaongkir;
+        // Check Type Expedition
+        $passValidationTypeExpedition = false;
+        $costObj = null;
+
+        foreach($ongkirValid->results[0]->costs as $cost) {
+            if( $cost->service == $request->type_expedition ) {
+                $passValidationTypeExpedition = true;
+                $costObj = $cost;
+            }
+        }
+
+        if( !$passValidationTypeExpedition ) {
+            return response()->json([
+                'code'      => 401,
+                'success'   => (boolean) false,
+                'message'   => 'Layanan Expedisi tidak valid',
+            ]);
+        }
+
+        if( $costObj->cost[0]->value != $request->price_expedition ) {
+            return response()->json([
+                'code'      => 401,
+                'success'   => (boolean) false,
+                'message'   => 'Biaya Expedisi tidak valid',
+            ]);
+        }
+
+        $sales = [];
+        foreach ($carts as $cart) {
+            $product_discount_percent       = $cart->product->discount ? $cart->product->discount->discount_percent : 0;
+            $product_price                  = $cart->product->price;
+            $product_price_after_discount   = $product_price - ( $product_price * $product_discount_percent / 100 );
+            
+            $sales[] = Sales::create([
+                'customer_id'                   => $customer->id,
+                'product_name'                  => $cart->product->product_name,
+                'product_image_url'             => url('/product/' . $cart->product->slug),
+                'product_url'                   => url('/product/' . $cart->product->slug),
+                'product_amount'                => $cart->amount,
+                'product_discount_percent'      => $product_discount_percent,
+                'product_price'                 => $product_price,
+                'product_price_after_discount'  => $product_price_after_discount,
+                'product_weight'                => $cart->product->weight,
+                'product_variant'               => $cart->variant,
+                'address_name'                  => $customerAddress->address_name,
+                'customer_name'                 => $customerAddress->customer_name,
+                'number_phone'                  => $customerAddress->number_phone,
+                'province'                      => $customerAddress->province->province,
+                'city'                          => $customerAddress->city->city_name,
+                'postal_code'                   => $customerAddress->postal_code,
+                'full_address'                  => $customerAddress->full_address,
+                'type_expedition'               => $costObj->service,
+                'price_expedition'              => $costObj->cost[0]->value,
+                'estimation_expedition'         => $costObj->cost[0]->etd,
+                'desc_expedition'               => $costObj->cost[0]->etd,
+                'price_total_payment'           => $product_price_after_discount * $cart->amount,
+                'product_weight_total'          => $cart->product->weight * $cart->amount,
+                'proof_of_payment'              => null,
+                'status'                        => 'menunggu bukti pembayaran',
+            ]);
+
+            $cart->product->update([
+                'amount'    => $cart->product->amount - $cart->amount,
+            ]);
+        }
+
+        return response()->json([
+            'code'      => 200,
+            'success'   => (boolean) true,
+            'message'   => 'success, chechkout product is successfully',
+            'data'      => [
+                'sales' => $sales
+            ],
+        ]);
     }
 }

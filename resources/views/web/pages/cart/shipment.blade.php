@@ -30,7 +30,13 @@
                             <img src="{{ $cart['image_src'] }}" alt="thumb-product" class="thumb-product">
                             <div class="desc-product">
                                 <span class="title-product">{{ $cart['product_name'] }}</span>
-                                <span class="price-product">Rp {{ number_format($cart['product_price'], 0, '.', '.') }}</span>
+                                @if ($cart['has_discount'])
+                                    <div class="has-discount">
+                                        <span class="total-discount">{{ $cart['discount_percent'] }}%</span>
+                                        <span class="normal-price">Rp. {{ number_format($cart['product_price'], 0, '.', '.') }}</span>
+                                    </div>
+                                @endif
+                                <span class="price-product">Rp {{ number_format($cart['price_after_diskon'], 0, '.', '.') }}</span>
                                 <span class="amount-weight">{{ $cart['cart_amount'] }} barang ({{ number_format($cart['cart_amount'] * $cart['product_weight'], 0, '.', '.') }} gr)</span>
                             </div>
                         </div>
@@ -66,7 +72,7 @@
                         <span class="bill-text">Total Tagihan</span>
                         <span class="bill-amount">-</span>
                     </div>
-                    <button class="choose-payment-buton {{ !$address ? 'pointer-not-allowed' : '' }}">PILIH PEMBAYARAN</button>
+                    <button class="choose-payment-buton {{ !$address ? 'pointer-not-allowed' : '' }}">Checkout Sekarang</button>
                 </div>
             </div>
         </div>
@@ -127,6 +133,7 @@
     </div>
 
     <form action="" id="shipment-form">
+        <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
         <input type="hidden" name="address_id" data-name="alamat" value="{{$address ? $address->id : ''}}">
         <input type="hidden" name="type_expedition" data-name="tipe ekspedisi">
         <input type="hidden" name="price_expedition" data-name="harga expedisi">
@@ -290,7 +297,7 @@
                 const element_address_city_id   = document.querySelector('.shipment-address-title');
                 const city_id                   = element_address_city_id.getAttribute('data-address_city_id');
 
-                const url_get_costs = `{{url('/api/get-costs')}}/` + `${city_id}` + `/${500}`;
+                const url_get_costs = `{{url('/api/get-costs')}}/` + `${city_id}` + `/{{$weight_product_total}}`;
 
                 title_choose_expeditions.innerHTML = 'Harap Tunggu';
                 fetch(url_get_costs).then(response => response.json())
@@ -381,9 +388,33 @@
                         icon: 'error',
                     });
                 }
-            });
 
-            
+                const address_id_element            = document.querySelector('form#shipment-form input[name="address_id"]');
+                const type_expedition_element       = document.querySelector('form#shipment-form input[name="type_expedition"]');
+                const price_expedition_element      = document.querySelector('form#shipment-form input[name="price_expedition"]');
+                const price_total_payment           = document.querySelector('form#shipment-form input[name="price_total_payment"]');
+
+                const data = {
+                    address_id                      : address_id_element.value,
+                    type_expedition                 : type_expedition_element.value,
+                    price_expedition                : price_expedition_element.value,
+                    price_total_payment             : price_total_payment.value, 
+                    _token                          : document.getElementById('token').value,
+                };
+
+                const url = `{{url('/cart/checkout')}}`;
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                }).then(response => response.json())
+                .then((res) => {
+                    console.log(res);
+                });
+            });
         });
     </script>
 @endsection

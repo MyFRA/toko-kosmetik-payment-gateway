@@ -2510,6 +2510,28 @@ section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .l
     font-weight: 600;
 }
 
+section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .list-products .product .desc-product .has-discount {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .list-products .product .desc-product .has-discount span.total-discount {
+    background-color: #df3c85;
+    padding: .1rem .3rem;
+    font-size: 11px;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 2px;
+}
+
+section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .list-products .product .desc-product .has-discount span.normal-price {
+    margin-left: 8px;
+    text-decoration: line-through;
+    font-weight: 600;
+    color: #777;
+}
+
 section.cart-shipment .shipment-wrapper .info-wrapper .shipment-cart-products .list-products .product .desc-product span.title-product {
     color: #31353B;
 }
