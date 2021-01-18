@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="{{ asset('/css/customer/register.css') }}">
-    <title>Customer Login | Toko Indah Jaya Kosmetik & Aksesoris</title>
+    <title>Customer Register | Toko Indah Jaya Kosmetik & Aksesoris</title>
 </head>
 <body>
     <div class="container">
@@ -25,6 +25,9 @@
                         <div class="center-section">
                             <h3>Daftar Akun</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni eum eius suscipit consequuntur asperiores impedit atque dolores aut ipsam corrupti.</p>
+                            <div class="alert-danger">
+                                <span>Kesalahan, </span> Maaf registrasi akun gagal, periksa koneksi internet anda kembali atau coba lagi nanti
+                            </div>
                             <div class="form-group-wrapper">
                                 <div class="form-group">
                                     <label for="fullname">Nama Lengkap</label>

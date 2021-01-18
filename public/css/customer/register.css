@@ -90,6 +90,21 @@
     margin-top: .2rem;
 }
 
+.register-container .form-wrapper .inner-form-wrapper form .center-section .alert-danger {
+    background-color: #db2754;
+    color: #fff;
+    font-size: 14px;
+    padding: .3rem .5rem;
+    border-radius: 3px;
+    margin-top: 10px;
+    margin-bottom: -5px;
+    line-height: 22px;
+}
+
+.register-container .form-wrapper .inner-form-wrapper form .center-section .alert-danger span {
+    font-weight: 600;
+}
+
 .register-container .form-wrapper .inner-form-wrapper form .center-section .form-group-wrapper {
     margin-top: 1rem;
 }

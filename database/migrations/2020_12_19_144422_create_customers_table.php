@@ -20,6 +20,7 @@ class CreateCustomersTable extends Migration
             $table->string('password');
             $table->string('photo')->nullable();
             $table->enum('status', ['pending', 'activated'])->default('pending');
+            $table->string('email_verification_token', 60);
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });

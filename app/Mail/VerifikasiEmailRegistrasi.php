@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TestEmail extends Mailable
+class VerifikasiEmailRegistrasi extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,9 +16,9 @@ class TestEmail extends Mailable
      *
      * @return void
      */
-    public function __construct($nama)
+    public function __construct($email_verification_token)
     {
-        $this->nama = $nama;
+        $this->email_verification_token = $email_verification_token;
     }
 
     /**
@@ -28,11 +28,11 @@ class TestEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('ilmucoding.com@gmail.com')
+        return $this->from('official.indahjaya@gmail.com')
             ->view('email')
             ->with(
             [
-                'nama' => $this->nama
+                'email_verification_token' => $this->email_verification_token
             ]);
     }
 } 
