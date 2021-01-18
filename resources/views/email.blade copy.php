@@ -45,19 +45,7 @@
     }
 
     .email-wrapper-box a.button-verification {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #DB2777;
-        color: #fff;
-        font-weight: 700;
-        font-size: 18px;
-        text-decoration: none;
-        padding: .8rem 0;
-        margin-top: 1rem;
-        border-radius: 4px;
-        transition: all 150ms ease;
+        
     }
 
     .email-wrapper-box a.button-verification:hover {

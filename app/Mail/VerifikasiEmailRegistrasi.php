@@ -28,11 +28,12 @@ class VerifikasiEmailRegistrasi extends Mailable
      */
     public function build()
     {
+        $data = [
+            'email_verification_token' => $this->email_verification_token,
+        ];
+
         return $this->from('official.indahjaya@gmail.com')
             ->view('email')
-            ->with(
-            [
-                'email_verification_token' => $this->email_verification_token
-            ]);
+            ->with($data);
     }
 } 
