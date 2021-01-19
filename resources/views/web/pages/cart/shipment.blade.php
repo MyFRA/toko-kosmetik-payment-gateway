@@ -72,7 +72,7 @@
                         <span class="bill-text">Total Tagihan</span>
                         <span class="bill-amount">-</span>
                     </div>
-                    <button class="choose-payment-buton {{ !$address ? 'pointer-not-allowed' : '' }}">Checkout Sekarang</button>
+                    <button class="choose-payment-buton {{ !$address ? 'pointer-not-allowed' : '' }}">Pilih Pembayaran</button>
                 </div>
             </div>
         </div>
@@ -132,13 +132,34 @@
         </div>
     </div>
 
+    <div class="overlay-choose-payment-method" data-modal_show="false">
+        <div class="modal-choose-payment-method">
+            <h2 class="title">Pilih Metode Pembayaran</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In maxime nemo non, velit vitae vero.</p>
+            <div class="payments-wrapper">
+                @foreach ($bank_accounts as $bank_account)
+                    <div class="payment">
+                        <div class="logo">
+                            <img src="{{ url('/storage/images/bank-accounts/' . $bank_account->bank_logo) }}" alt="">
+                        </div>
+                        <div class="bank-name">
+                            <span>{{ $bank_account->bank_name }}</span>       
+                        </div>                 
+                    </div>
+                @endforeach
+            </div>
+            <button>Checkout Sekarang</button>
+            <div class="close-button-payment-method">
+                <i class="zmdi zmdi-close"></i>
+            </div>
+        </div>
+    </div>
+
     <form action="" id="shipment-form">
         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
         <input type="hidden" name="address_id" data-name="alamat" value="{{$address ? $address->id : ''}}">
         <input type="hidden" name="type_expedition" data-name="tipe ekspedisi">
         <input type="hidden" name="price_expedition" data-name="harga expedisi">
-        <input type="hidden" name="estimation_expedition" data-name="estimasi expedisi">
-        <input type="hidden" name="desc_expedition" data-name="deskripsi ekspedisi">
         <input type="hidden" name="price_total_payment" data-name="total harga pembayaran">
     </form>
 </section>
@@ -252,15 +273,11 @@
                                 const address_id_element = document.querySelector('form#shipment-form input[name="address_id"]');
                                 const type_expedition_element = document.querySelector('form#shipment-form input[name="type_expedition"]');
                                 const price_expedition_element = document.querySelector('form#shipment-form input[name="price_expedition"]');
-                                const estimation_expedition_element = document.querySelector('form#shipment-form input[name="estimation_expedition"]');
-                                const desc_expedition = document.querySelector('form#shipment-form input[name="desc_expedition"]');
                                 const price_total_payment = document.querySelector('form#shipment-form input[name="price_total_payment"]');
 
                                 address_id_element.value = address_id;
                                 type_expedition_element.value = '';
                                 price_expedition_element.value = '';
-                                estimation_expedition_element.value = '';
-                                desc_expedition.value = '';
                                 price_total_payment.value = '';
 
                                 Toast.fire({
@@ -359,14 +376,10 @@
             
             const type_expedition_element = document.querySelector('form#shipment-form input[name="type_expedition"]');
             const price_expedition_element = document.querySelector('form#shipment-form input[name="price_expedition"]');
-            const estimation_expedition_element = document.querySelector('form#shipment-form input[name="estimation_expedition"]');
-            const desc_expedition = document.querySelector('form#shipment-form input[name="desc_expedition"]');
             const price_total_payment = document.querySelector('form#shipment-form input[name="price_total_payment"]');
 
             type_expedition_element.value = service;
             price_expedition_element.value = price;
-            estimation_expedition_element.value = etd;
-            desc_expedition.value = desc;
             price_total_payment.value = parseInt(price_total_product.innerHTML.match(/\d+/g).join('')) + parseInt(price);
 
             if( modal_show == 'true' ) {
@@ -379,7 +392,7 @@
     <script>
         const button_pilih_pembayaran = document.querySelector('button.choose-payment-buton');
         button_pilih_pembayaran.addEventListener('click', () => {
-            const array_input = ['price_total_payment', 'desc_expedition', 'estimation_expedition', 'price_expedition', 'type_expedition'];
+            const array_input = ['price_total_payment', 'price_expedition', 'type_expedition'];
             array_input.forEach((name) => {
                 const element = document.querySelector(`form#shipment-form input[name="${name}"]`);
                 if(element.value == '' || !element.value) {
@@ -404,16 +417,16 @@
 
                 const url = `{{url('/cart/checkout')}}`;
 
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type' : 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                }).then(response => response.json())
-                .then((res) => {
-                    console.log(res);
-                });
+                // fetch(url, {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type' : 'application/json',
+                //     },
+                //     body: JSON.stringify(data),
+                // }).then(response => response.json())
+                // .then((res) => {
+                //     console.log(res);
+                // });
             });
         });
     </script>

@@ -13,6 +13,7 @@ use App\Models\Sales;
 use App\Models\Product;
 use App\Models\Wishlist;
 use App\Models\Customer;
+use App\Models\BankAccount;
 use App\Models\ProductVariant;
 use App\Models\CustomerAddress;
 
@@ -362,6 +363,7 @@ class CartController extends Controller
             'price_product_total'       => $price_product_total,
             'amount_product_total'      => $amount_product_total,
             'weight_product_total'      => $weight_product_total,
+            'bank_accounts'             => BankAccount::orderBy('bank_name', 'ASC')->get(),
         ];
 
         return view('web.pages.cart.shipment', $data);

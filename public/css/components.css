@@ -3343,3 +3343,181 @@ h1.title-cart {
         right: 8px;
     }
 }
+
+.overlay-choose-payment-method {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    font-family: 'Open Sans', sans-serif;
+    z-index: 9999999999999;
+}
+
+.overlay-choose-payment-method .modal-choose-payment-method {
+    background-color: #fff;
+    border-radius: 4px;
+    width: 40%;
+    padding: 1.5rem;
+    position: relative;
+}
+
+.overlay-choose-payment-method .modal-choose-payment-method h2.title {
+    text-align: center;
+}
+
+.overlay-choose-payment-method .modal-choose-payment-method p {
+    text-align: justify;
+    margin-top: .8rem;
+    color: #777;
+    font-size: 14px;
+    text-indent: 15px;
+}
+
+.overlay-choose-payment-method .modal-choose-payment-method .payments-wrapper {
+    padding: .2rem;
+    max-height: 55vh;
+    overflow: scroll;
+}
+
+.overlay-choose-payment-method .modal-choose-payment-method .payments-wrapper .payment {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: .8rem;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    padding: .5rem 1rem;
+    height: 75px;
+}
+
+.overlay-choose-payment-method .modal-choose-payment-method .payments-wrapper .payment.active {
+    border: 2px solid #cf3e80;
+    box-shadow: none;
+}
+
+.overlay-choose-payment-method .modal-choose-payment-method .payments-wrapper .payment .logo {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay-choose-payment-method .modal-choose-payment-method .payments-wrapper .payment .logo img {
+    max-height: 60px;
+    border-radius: 4px;
+    max-width: 100%;
+}
+
+.overlay-choose-payment-method .modal-choose-payment-method .payments-wrapper .payment .bank-name {
+    flex: 4;
+    padding-left: 2rem;
+}
+
+.overlay-choose-payment-method .modal-choose-payment-method .payments-wrapper .payment .bank-name span {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+.overlay-choose-payment-method .modal-choose-payment-method button {
+    width: 100%;
+    border: none;
+    font-size: 17px;
+    padding: 1rem 0;
+    font-weight: 600;
+    background: #DB2777;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 2rem;
+    transition: all 150ms ease;
+}
+
+.overlay-choose-payment-method .modal-choose-payment-method button:hover {
+    background: #e7418c;
+}
+
+.overlay-choose-payment-method .modal-choose-payment-method .close-button-payment-method {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #DB2777;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    color: #fff;
+    border-radius: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 150ms ease;
+}
+
+.overlay-choose-payment-method .modal-choose-payment-method .close-button-payment-method:hover {
+    background: #df478b;
+}
+
+@media screen and (max-width: 1280px) {
+    .overlay-choose-payment-method .modal-choose-payment-method {
+        background-color: #fff;
+        border-radius: 3px;
+        width: 96%;
+        padding: 1rem;
+    }
+    
+    .overlay-choose-payment-method .modal-choose-payment-method h2.title {
+        font-size: 17px;
+    }
+    
+    .overlay-choose-payment-method .modal-choose-payment-method p {
+        margin-top: .5rem;
+        font-size: 13px;
+    }
+    
+    .overlay-choose-payment-method .modal-choose-payment-method .payments-wrapper {
+        max-height: 50vh;
+    }
+    
+    .overlay-choose-payment-method .modal-choose-payment-method .payments-wrapper .payment {
+        margin-top: .8rem;
+        padding: .3rem .7rem;
+        height: 60px;
+    }
+    
+    .overlay-choose-payment-method .modal-choose-payment-method .payments-wrapper .payment .logo {
+        flex: 1;
+    }
+    
+    .overlay-choose-payment-method .modal-choose-payment-method .payments-wrapper .payment .logo img {
+        max-height: 50px;
+        border-radius: 3px;
+    }
+    
+    .overlay-choose-payment-method .modal-choose-payment-method .payments-wrapper .payment .bank-name {
+        padding-left: 1.5rem;
+    }
+    
+    .overlay-choose-payment-method .modal-choose-payment-method .payments-wrapper .payment .bank-name span {
+        font-size: 12px;
+    }
+    
+    .overlay-choose-payment-method .modal-choose-payment-method button {
+        font-size: 14px;
+        padding: .8rem 0;
+        margin-top: 1rem;
+    }
+    
+    .overlay-choose-payment-method .modal-choose-payment-method .close-button-payment-method {
+        top: 11px;
+        right: 11px;
+        width: 18px;
+        height: 18px;
+        border-radius: 9px;
+    }
+}
