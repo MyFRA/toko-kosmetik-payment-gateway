@@ -32,6 +32,7 @@ class Sales extends Model
         'price_total_payment', 
         'product_weight_total',
         'bank_name',
+        'bank_logo',
         'bank_account_name',
         'bank_account_number',
         'proof_of_payment', 

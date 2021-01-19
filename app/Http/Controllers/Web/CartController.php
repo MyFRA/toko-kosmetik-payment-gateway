@@ -371,6 +371,28 @@ class CartController extends Controller
 
     public function checkout(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'address_id'            => 'required',
+            'type_expedition'       => 'required',
+            'price_total_payment'   => 'required',
+            'price_expedition'      => 'required',
+            'bank_id'               => 'required',
+        ], [
+            'address_id.required'           => 'alamat tidak boleh kosong',
+            'type_expedition.required'      => 'tipe expedisi tidak boleh kosong',
+            'price_total_payment.required'  => 'total harga tidak boleh kosong',
+            'price_expedition.required'     => 'harga ekspedisi tidak boleh kosong',
+            'bank_id.required'              => 'bank tidak boleh kosong',
+        ]);
+
+        if( $validator->fails() ) {
+            return response()->json([
+                'code'      => 401,
+                'success'   => (boolean) false,
+                'message'   => $validator->errors()->first(),
+            ]);
+        }
+
         $customer = Customer::find(Auth::guard('customer')->user()->id);
 
         if(!in_array($request->address_id, $this->getAllId($customer->customerAddress))) {
@@ -378,6 +400,14 @@ class CartController extends Controller
                 'code'      => 401,
                 'success'   => (boolean) false,
                 'message'   => 'Alamat tidak valid',
+            ]);
+        };
+
+        if(!in_array($request->bank_id, $this->getAllId(BankAccount::get()))) {
+            return response()->json([
+                'code'      => 401,
+                'success'   => (boolean) false,
+                'message'   => 'Bank tidak valid',
             ]);
         };
 
@@ -428,6 +458,7 @@ class CartController extends Controller
             ]);
         }
 
+        $bank  = BankAccount::find($request->bank_id);
         $sales = [];
         foreach ($carts as $cart) {
             $product_discount_percent       = $cart->product->discount ? $cart->product->discount->discount_percent : 0;
@@ -459,6 +490,10 @@ class CartController extends Controller
                 'price_total_payment'           => $product_price_after_discount * $cart->amount,
                 'product_weight_total'          => $cart->product->weight * $cart->amount,
                 'proof_of_payment'              => null,
+                'bank_name'                     => $bank->bank_name,
+                'bank_logo'                     => $bank->bank_logo,
+                'bank_account_name'             => $bank->bank_account_name,
+                'bank_account_number'           => $bank->bank_account_number, 
                 'status'                        => 'menunggu bukti pembayaran',
             ]);
 
@@ -470,7 +505,7 @@ class CartController extends Controller
         return response()->json([
             'code'      => 200,
             'success'   => (boolean) true,
-            'message'   => 'success, chechkout product is successfully',
+            'message'   => 'success, checkout product is successfully',
             'data'      => [
                 'sales' => $sales
             ],

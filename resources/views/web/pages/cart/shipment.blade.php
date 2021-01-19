@@ -132,13 +132,13 @@
         </div>
     </div>
 
-    <div class="overlay-choose-payment-method" data-modal_show="false">
+    <div class="overlay-choose-payment-method d-none" data-modal_show="false">
         <div class="modal-choose-payment-method">
             <h2 class="title">Pilih Metode Pembayaran</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In maxime nemo non, velit vitae vero.</p>
             <div class="payments-wrapper">
                 @foreach ($bank_accounts as $bank_account)
-                    <div class="payment">
+                    <div class="payment" onclick="setChoosedPaymentMethod(this)" data-bank_account="{{$bank_account->id}}">
                         <div class="logo">
                             <img src="{{ url('/storage/images/bank-accounts/' . $bank_account->bank_logo) }}" alt="">
                         </div>
@@ -148,7 +148,7 @@
                     </div>
                 @endforeach
             </div>
-            <button>Checkout Sekarang</button>
+            <button id="button-submit-payment-and-finish-shipment">Checkout Sekarang</button>
             <div class="close-button-payment-method">
                 <i class="zmdi zmdi-close"></i>
             </div>
@@ -157,6 +157,7 @@
 
     <form action="" id="shipment-form">
         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+        <input type="hidden" name="bank_id" data-name="bank" value="">
         <input type="hidden" name="address_id" data-name="alamat" value="{{$address ? $address->id : ''}}">
         <input type="hidden" name="type_expedition" data-name="tipe ekspedisi">
         <input type="hidden" name="price_expedition" data-name="harga expedisi">
@@ -184,14 +185,16 @@
         const overlay_choose_address        = document.querySelector('.overlay-choose-address'); 
         const close_button_choose_address   = document.querySelector('.close-button-choose-address');
         
-        button_choose_address.addEventListener('click', () => {
-            const modal_show = overlay_choose_address.getAttribute('data-modal_show');
-            if( modal_show == 'false' ) {
-                overlay_choose_address.classList.remove('d-none');
-                overlay_choose_address.setAttribute('data-modal_show', 'true');
-                overlay_choose_address.children[0].classList.add('popup');
-            }
-        });
+        if( button_choose_address ) {
+            button_choose_address.addEventListener('click', () => {
+                const modal_show = overlay_choose_address.getAttribute('data-modal_show');
+                if( modal_show == 'false' ) {
+                    overlay_choose_address.classList.remove('d-none');
+                    overlay_choose_address.setAttribute('data-modal_show', 'true');
+                    overlay_choose_address.children[0].classList.add('popup');
+                }
+            });
+        }
 
         close_button_choose_address.addEventListener('click', () => {
             const modal_show = overlay_choose_address.getAttribute('data-modal_show');
@@ -392,42 +395,114 @@
     <script>
         const button_pilih_pembayaran = document.querySelector('button.choose-payment-buton');
         button_pilih_pembayaran.addEventListener('click', () => {
-            const array_input = ['price_total_payment', 'price_expedition', 'type_expedition'];
+            if( {{$address ? 'true' : 'false'}} ) {
+                let isError = false;
+                const array_input = ['price_total_payment', 'price_expedition', 'type_expedition'];
+                array_input.forEach((name) => {
+                    const element = document.querySelector(`form#shipment-form input[name="${name}"]`);
+                    if(element.value == '' || !element.value) {
+                        isError = true;
+                        Toast.fire({
+                            title: element.getAttribute('data-name') + ' tidak boleh kosong',
+                            icon: 'error',
+                        });
+                    }
+                })
+                
+                if( !isError ) {
+                    const overlay_choose_payment = document.querySelector('.overlay-choose-payment-method');
+                    const data_modal             = overlay_choose_payment.getAttribute('data-modal_show');
+
+                    if( data_modal == 'false' && overlay_choose_payment.classList.contains('d-none') ) {
+                        overlay_choose_payment.setAttribute('data-modal_show', 'true');
+                        overlay_choose_payment.classList.remove('d-none');
+                        overlay_choose_payment.children[0].classList.add('popup');
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        document.querySelector('.close-button-payment-method').addEventListener('click', () => {
+            const overlay_choose_payment = document.querySelector('.overlay-choose-payment-method');
+            const data_modal             = overlay_choose_payment.getAttribute('data-modal_show');
+
+            if( data_modal == 'true' && !overlay_choose_payment.classList.contains('d-none') ) {
+                overlay_choose_payment.setAttribute('data-modal_show', 'false');
+                overlay_choose_payment.classList.add('d-none');
+                overlay_choose_payment.children[0].classList.remove('popup');
+            }
+        });
+    </script>
+    <script>
+        function setChoosedPaymentMethod(choosedPaymentElement) {
+            const payments_wrapper = document.querySelectorAll('.payments-wrapper .payment');
+            payments_wrapper.forEach((paymentElement) => {
+                if( paymentElement == choosedPaymentElement ) {
+                    !choosedPaymentElement.classList.contains('active') ? choosedPaymentElement.classList.add('active') : '';
+                    const bank_id    = choosedPaymentElement.getAttribute('data-bank_account');                    
+                    const bank_id_el = document.querySelector('input[name="bank_id"]');
+                    bank_id_el.value = bank_id;
+                } else {
+                    paymentElement.classList.contains('active') ? paymentElement.classList.remove('active') : '';
+                }
+            });
+        }
+    </script>
+
+    <script>
+        const button_submit_payment_and_finish_shipment = document.getElementById('button-submit-payment-and-finish-shipment');
+
+        button_submit_payment_and_finish_shipment.addEventListener('click', () => {
+            let isError = false;
+
+            const array_input = ['price_total_payment', 'price_expedition', 'type_expedition', 'bank_id'];
             array_input.forEach((name) => {
                 const element = document.querySelector(`form#shipment-form input[name="${name}"]`);
                 if(element.value == '' || !element.value) {
+                    isError = true;
                     Toast.fire({
                         title: element.getAttribute('data-name') + ' tidak boleh kosong',
                         icon: 'error',
                     });
                 }
+            })
 
+            if( !isError ) {
                 const address_id_element            = document.querySelector('form#shipment-form input[name="address_id"]');
                 const type_expedition_element       = document.querySelector('form#shipment-form input[name="type_expedition"]');
                 const price_expedition_element      = document.querySelector('form#shipment-form input[name="price_expedition"]');
                 const price_total_payment           = document.querySelector('form#shipment-form input[name="price_total_payment"]');
+                const bank_id_element               = document.querySelector('form#shipment-form input[name="bank_id"]')
 
                 const data = {
                     address_id                      : address_id_element.value,
                     type_expedition                 : type_expedition_element.value,
                     price_expedition                : price_expedition_element.value,
                     price_total_payment             : price_total_payment.value, 
+                    bank_id                         : bank_id_element.value,
                     _token                          : document.getElementById('token').value,
                 };
 
                 const url = `{{url('/cart/checkout')}}`;
 
-                // fetch(url, {
-                //     method: 'POST',
-                //     headers: {
-                //         'Content-Type' : 'application/json',
-                //     },
-                //     body: JSON.stringify(data),
-                // }).then(response => response.json())
-                // .then((res) => {
-                //     console.log(res);
-                // });
-            });
+                // Create Waiting Animation
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                }).then(response => response.json())
+                .then((res) => {
+                    if( res.code == 200 && res.success == true ) {
+                        // Do Something
+                    } else {
+                        // Do Something
+                    }
+                });
+            }
         });
     </script>
 @endsection
