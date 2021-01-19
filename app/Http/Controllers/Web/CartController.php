@@ -369,7 +369,7 @@ class CartController extends Controller
 
     public function checkout(Request $request)
     {
-        $customer = Customer::find(1);
+        $customer = Customer::find(Auth::guard('customer')->user()->id);
 
         if(!in_array($request->address_id, $this->getAllId($customer->customerAddress))) {
             return response()->json([
@@ -473,5 +473,15 @@ class CartController extends Controller
                 'sales' => $sales
             ],
         ]);
+    }
+
+    public function paymentTransferPage($sales_id)
+    {
+        $data = [
+            'title'     => 'Halaman Pembayaran',
+            'nav'       => 'payment-page',
+        ];
+
+        return view('web.pages.cart.payment-page', $data);
     }
 }
