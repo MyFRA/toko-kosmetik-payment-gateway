@@ -155,6 +155,21 @@
         </div>
     </div>
 
+    <div class="animation-on-shipment-wrapper d-none" data-loading_show="false">
+        <img src="{{ asset('/images/icons/thanks.gif') }}" alt="thanks">
+        <div class='container'>
+            <div class='loader'>
+              <div class='loader--dot'></div>
+              <div class='loader--dot'></div>
+              <div class='loader--dot'></div>
+              <div class='loader--dot'></div>
+              <div class='loader--dot'></div>
+              <div class='loader--dot'></div>
+              <div class='loader--text'></div>
+            </div>
+        </div>          
+    </div>
+
     <form action="" id="shipment-form">
         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
         <input type="hidden" name="bank_id" data-name="bank" value="">
@@ -484,9 +499,23 @@
                     _token                          : document.getElementById('token').value,
                 };
 
-                const url = `{{url('/cart/checkout')}}`;
+                const animation_loading = document.querySelector('.animation-on-shipment-wrapper');
+                const loading_show      = animation_loading.getAttribute('data-loading_show');
+                if( loading_show == 'false' ) {
+                    animation_loading.setAttribute('data-loading_show', 'true');
+                    animation_loading.classList.contains('d-none') ? animation_loading.classList.remove('d-none') : '';
+                
+                    const overlay_choose_payment = document.querySelector('.overlay-choose-payment-method');
+                    const data_modal             = overlay_choose_payment.getAttribute('data-modal_show');
 
-                // Create Waiting Animation
+                    if( data_modal == 'true' && !overlay_choose_payment.classList.contains('d-none') ) {
+                        overlay_choose_payment.setAttribute('data-modal_show', 'false');
+                        overlay_choose_payment.classList.add('d-none');
+                        overlay_choose_payment.children[0].classList.remove('popup');
+                    }
+                }
+
+                const url = `{{url('/cart/checkout')}}`;
 
                 fetch(url, {
                     method: 'POST',
@@ -497,9 +526,18 @@
                 }).then(response => response.json())
                 .then((res) => {
                     if( res.code == 200 && res.success == true ) {
-                        // Do Something
+                        window.location.href = `{{url('/cart/checkout/payment-transfer')}}/${res.data}`;
                     } else {
-                        // Do Something
+                        const animation_loading = document.querySelector('.animation-on-shipment-wrapper');
+                        const loading_show      = animation_loading.getAttribute('data-loading_show');
+                        if( loading_show == 'true' ) {
+                            animation_loading.setAttribute('data-loading_show', 'false');
+                            !animation_loading.classList.contains('d-none') ? animation_loading.classList.add('d-none') : '';
+                        }
+                        Toast.fire({
+                            icon: 'error',
+                            title: res.message,
+                        });
                     }
                 });
             }

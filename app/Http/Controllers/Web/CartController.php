@@ -371,145 +371,155 @@ class CartController extends Controller
 
     public function checkout(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'address_id'            => 'required',
-            'type_expedition'       => 'required',
-            'price_total_payment'   => 'required',
-            'price_expedition'      => 'required',
-            'bank_id'               => 'required',
-        ], [
-            'address_id.required'           => 'alamat tidak boleh kosong',
-            'type_expedition.required'      => 'tipe expedisi tidak boleh kosong',
-            'price_total_payment.required'  => 'total harga tidak boleh kosong',
-            'price_expedition.required'     => 'harga ekspedisi tidak boleh kosong',
-            'bank_id.required'              => 'bank tidak boleh kosong',
-        ]);
-
-        if( $validator->fails() ) {
-            return response()->json([
-                'code'      => 401,
-                'success'   => (boolean) false,
-                'message'   => $validator->errors()->first(),
+        try {
+            $validator = Validator::make($request->all(), [
+                'address_id'            => 'required',
+                'type_expedition'       => 'required',
+                'price_total_payment'   => 'required',
+                'price_expedition'      => 'required',
+                'bank_id'               => 'required',
+            ], [
+                'address_id.required'           => 'alamat tidak boleh kosong',
+                'type_expedition.required'      => 'tipe expedisi tidak boleh kosong',
+                'price_total_payment.required'  => 'total harga tidak boleh kosong',
+                'price_expedition.required'     => 'harga ekspedisi tidak boleh kosong',
+                'bank_id.required'              => 'bank tidak boleh kosong',
             ]);
-        }
-
-        $customer = Customer::find(Auth::guard('customer')->user()->id);
-
-        if(!in_array($request->address_id, $this->getAllId($customer->customerAddress))) {
-            return response()->json([
-                'code'      => 401,
-                'success'   => (boolean) false,
-                'message'   => 'Alamat tidak valid',
-            ]);
-        };
-
-        if(!in_array($request->bank_id, $this->getAllId(BankAccount::get()))) {
-            return response()->json([
-                'code'      => 401,
-                'success'   => (boolean) false,
-                'message'   => 'Bank tidak valid',
-            ]);
-        };
-
-        $customerAddress    = CustomerAddress::find($request->address_id);
-        $carts              = Cart::where('customer_id', $customer->id)
-                                ->where('is_checked', true)    
-                                ->orderBy('updated_at', 'DESC')->get();
-        $weightTotal        = 0;
-        foreach ($carts as $cart) {
-            $weightTotal  += $cart->product->weight * $cart->amount;
-        }
-
-        $client = new Client();
-        $ongkirValid = $client->request('POST', 'https://api.rajaongkir.com/starter/cost', [
-            'form_params' => [
-                'key'           => 'ee1571301ce06a6cd9a9db8967e5e375',
-                'origin'        => 375,
-                'destination'   => $customerAddress->city_id,
-                'weight'        => $weightTotal,
-                'courier'       => 'jne',
-            ]
-        ]);
-        $ongkirValid = json_decode((string) $ongkirValid->getBody())->rajaongkir;
-        // Check Type Expedition
-        $passValidationTypeExpedition = false;
-        $costObj = null;
-
-        foreach($ongkirValid->results[0]->costs as $cost) {
-            if( $cost->service == $request->type_expedition ) {
-                $passValidationTypeExpedition = true;
-                $costObj = $cost;
+    
+            if( $validator->fails() ) {
+                return response()->json([
+                    'code'      => 401,
+                    'success'   => (boolean) false,
+                    'message'   => $validator->errors()->first(),
+                ]);
             }
-        }
+    
+            $customer = Customer::find(Auth::guard('customer')->user()->id);
+    
+            if(!in_array($request->address_id, $this->getAllId($customer->customerAddress))) {
+                return response()->json([
+                    'code'      => 401,
+                    'success'   => (boolean) false,
+                    'message'   => 'Alamat tidak valid',
+                ]);
+            };
+    
+            if(!in_array($request->bank_id, $this->getAllId(BankAccount::get()))) {
+                return response()->json([
+                    'code'      => 401,
+                    'success'   => (boolean) false,
+                    'message'   => 'Bank tidak valid',
+                ]);
+            };
+    
+            $customerAddress    = CustomerAddress::find($request->address_id);
+            $carts              = Cart::where('customer_id', $customer->id)
+                                    ->where('is_checked', true)    
+                                    ->orderBy('updated_at', 'DESC')->get();
+            $weightTotal        = 0;
+            foreach ($carts as $cart) {
+                $weightTotal  += $cart->product->weight * $cart->amount;
+            }
+    
+            $client = new Client();
+            $ongkirValid = $client->request('POST', 'https://api.rajaongkir.com/starter/cost', [
+                'form_params' => [
+                    'key'           => 'ee1571301ce06a6cd9a9db8967e5e375',
+                    'origin'        => 375,
+                    'destination'   => $customerAddress->city_id,
+                    'weight'        => $weightTotal,
+                    'courier'       => 'jne',
+                ]
+            ]);
+            $ongkirValid = json_decode((string) $ongkirValid->getBody())->rajaongkir;
+            // Check Type Expedition
+            $passValidationTypeExpedition = false;
+            $costObj = null;
+    
+            foreach($ongkirValid->results[0]->costs as $cost) {
+                if( $cost->service == $request->type_expedition ) {
+                    $passValidationTypeExpedition = true;
+                    $costObj = $cost;
+                }
+            }
+    
+            if( !$passValidationTypeExpedition ) {
+                return response()->json([
+                    'code'      => 401,
+                    'success'   => (boolean) false,
+                    'message'   => 'Layanan Expedisi tidak valid',
+                ]);
+            }
+    
+            if( $costObj->cost[0]->value != $request->price_expedition ) {
+                return response()->json([
+                    'code'      => 401,
+                    'success'   => (boolean) false,
+                    'message'   => 'Biaya Expedisi tidak valid',
+                ]);
+            }
+    
+            $bank  = BankAccount::find($request->bank_id);
+            $sales = [];
+            foreach ($carts as $cart) {
+                $product_discount_percent       = $cart->product->discount ? $cart->product->discount->discount_percent : 0;
+                $product_price                  = $cart->product->price;
+                $product_price_after_discount   = $product_price - ( $product_price * $product_discount_percent / 100 );
+                
+                $sales[] = Sales::create([
+                    'customer_id'                   => $customer->id,
+                    'product_name'                  => $cart->product->product_name,
+                    'product_image_url'             => url('/product/' . $cart->product->slug),
+                    'product_url'                   => url('/product/' . $cart->product->slug),
+                    'product_amount'                => $cart->amount,
+                    'product_discount_percent'      => $product_discount_percent,
+                    'product_price'                 => $product_price,
+                    'product_price_after_discount'  => $product_price_after_discount,
+                    'product_weight'                => $cart->product->weight,
+                    'product_variant'               => $cart->variant,
+                    'address_name'                  => $customerAddress->address_name,
+                    'customer_name'                 => $customerAddress->customer_name,
+                    'number_phone'                  => $customerAddress->number_phone,
+                    'province'                      => $customerAddress->province->province,
+                    'city'                          => $customerAddress->city->city_name,
+                    'postal_code'                   => $customerAddress->postal_code,
+                    'full_address'                  => $customerAddress->full_address,
+                    'type_expedition'               => $costObj->service,
+                    'price_expedition'              => $costObj->cost[0]->value,
+                    'estimation_expedition'         => $costObj->cost[0]->etd,
+                    'desc_expedition'               => $costObj->cost[0]->etd,
+                    'price_total_payment'           => $product_price_after_discount * $cart->amount,
+                    'product_weight_total'          => $cart->product->weight * $cart->amount,
+                    'proof_of_payment'              => null,
+                    'bank_name'                     => $bank->bank_name,
+                    'bank_logo'                     => $bank->bank_logo,
+                    'bank_account_name'             => $bank->bank_account_name,
+                    'bank_account_number'           => $bank->bank_account_number, 
+                    'status'                        => 'menunggu bukti pembayaran',
+                ]);
+    
+                $cart->product->update([
+                    'amount'    => $cart->product->amount - $cart->amount,
+                ]);
 
-        if( !$passValidationTypeExpedition ) {
+                $cart->delete();
+            }
+    
+            return response()->json([
+                'code'      => 200,
+                'success'   => (boolean) true,
+                'message'   => 'success, checkout product is successfully',
+                'data'      => [
+                    'sales' => $sales
+                ],
+            ]);
+        } catch (\Throwable $th) {
             return response()->json([
                 'code'      => 401,
                 'success'   => (boolean) false,
-                'message'   => 'Layanan Expedisi tidak valid',
+                'message'   => 'Kesalahan, Error',
             ]);
         }
-
-        if( $costObj->cost[0]->value != $request->price_expedition ) {
-            return response()->json([
-                'code'      => 401,
-                'success'   => (boolean) false,
-                'message'   => 'Biaya Expedisi tidak valid',
-            ]);
-        }
-
-        $bank  = BankAccount::find($request->bank_id);
-        $sales = [];
-        foreach ($carts as $cart) {
-            $product_discount_percent       = $cart->product->discount ? $cart->product->discount->discount_percent : 0;
-            $product_price                  = $cart->product->price;
-            $product_price_after_discount   = $product_price - ( $product_price * $product_discount_percent / 100 );
-            
-            $sales[] = Sales::create([
-                'customer_id'                   => $customer->id,
-                'product_name'                  => $cart->product->product_name,
-                'product_image_url'             => url('/product/' . $cart->product->slug),
-                'product_url'                   => url('/product/' . $cart->product->slug),
-                'product_amount'                => $cart->amount,
-                'product_discount_percent'      => $product_discount_percent,
-                'product_price'                 => $product_price,
-                'product_price_after_discount'  => $product_price_after_discount,
-                'product_weight'                => $cart->product->weight,
-                'product_variant'               => $cart->variant,
-                'address_name'                  => $customerAddress->address_name,
-                'customer_name'                 => $customerAddress->customer_name,
-                'number_phone'                  => $customerAddress->number_phone,
-                'province'                      => $customerAddress->province->province,
-                'city'                          => $customerAddress->city->city_name,
-                'postal_code'                   => $customerAddress->postal_code,
-                'full_address'                  => $customerAddress->full_address,
-                'type_expedition'               => $costObj->service,
-                'price_expedition'              => $costObj->cost[0]->value,
-                'estimation_expedition'         => $costObj->cost[0]->etd,
-                'desc_expedition'               => $costObj->cost[0]->etd,
-                'price_total_payment'           => $product_price_after_discount * $cart->amount,
-                'product_weight_total'          => $cart->product->weight * $cart->amount,
-                'proof_of_payment'              => null,
-                'bank_name'                     => $bank->bank_name,
-                'bank_logo'                     => $bank->bank_logo,
-                'bank_account_name'             => $bank->bank_account_name,
-                'bank_account_number'           => $bank->bank_account_number, 
-                'status'                        => 'menunggu bukti pembayaran',
-            ]);
-
-            $cart->product->update([
-                'amount'    => $cart->product->amount - $cart->amount,
-            ]);
-        }
-
-        return response()->json([
-            'code'      => 200,
-            'success'   => (boolean) true,
-            'message'   => 'success, checkout product is successfully',
-            'data'      => [
-                'sales' => $sales
-            ],
-        ]);
     }
 
     public function paymentTransferPage($sales_id)
