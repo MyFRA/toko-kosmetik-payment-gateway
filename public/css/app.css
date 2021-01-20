@@ -7,9 +7,7 @@
 
 #app {
     margin-top: 11vh !important;
-    max-width: 100%;
     position: relative;
-    overflow: hidden;
 }
 
 @media screen and (max-width: 1280px) {
@@ -3322,7 +3320,9 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
 }
 
 .new-ui-login-container {
-    width: 100%;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
     padding: 4rem 1rem;
     display: flex;
     align-items: center;

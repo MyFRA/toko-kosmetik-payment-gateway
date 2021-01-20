@@ -31,8 +31,7 @@
                 </div>
             </form>
         </div>
+        <div class="new-ui-login-dot-1"></div>
+        <div class="new-ui-login-dot-2"></div>
     </div>
-
-    <div class="new-ui-login-dot-1"></div>
-    <div class="new-ui-login-dot-2"></div>
 @endsection
