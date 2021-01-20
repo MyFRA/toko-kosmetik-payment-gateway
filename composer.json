@@ -13,7 +13,6 @@
         "guzzlehttp/guzzle": "~6.0",
         "laravel/framework": "^6.20",
         "laravel/tinker": "^2.5",
-        "mbezhanov/faker-provider-collection": "^2.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
