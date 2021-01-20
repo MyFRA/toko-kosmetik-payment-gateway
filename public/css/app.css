@@ -3446,7 +3446,6 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
     
     .new-ui-login-container .new-ui-login-wrapper {
         width: 93%;
-        margin-top: 1.5rem;
     }
     
     .new-ui-login-container .new-ui-login-wrapper .title {
@@ -3481,18 +3480,10 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
     }
     
     .new-ui-login-dot-1 {
-        width: 160px;
-        height: 160px;
-        top: 10px;
-        left: -100px;
-        border-radius: 80px;
+        display: none;
     }
     
     .new-ui-login-dot-2 {
-        width: 60px;
-        height: 60px;
-        top: 170px;
-        right: -46px;
-        border-radius: 30px;
+        display: none;
     }
 }

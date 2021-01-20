@@ -7,18 +7,18 @@
             <form method="POST" action="{{ url('/login') }}" class="form-group-wrapper">
                 @csrf
                 <div class="form-group">
-                    <input type="email" name="email" id="email" placeholder="Email" class="@error('email') ora-valid @enderror">
+                    <input type="email" name="email" id="email" placeholder="Email" class="@error('email') ora-valid @enderror" value="{{old('email')}}">
                     @error('email')
-                        <div class="invalid-feedback" style="font-size: 14px; margin-top: 9px; color: #DB2777">
+                        <div class="invalid-feedback" style="margin-top: 9px; color: #DB2777">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <input type="password" name="password" id="password" placeholder="Kata Sandi" class="@error('password') ora-valid @enderror">
+                    <input type="password" name="password" id="password" placeholder="Kata Sandi" class="@error('password') ora-valid @enderror"{{old('password')}}>
                     <div style="display: flex; justify-content: space-between; align-items: center">
                         @error('password')
-                            <div class="invalid-feedback" style="font-size: 14px; margin-top: 9px; color: #DB2777">
+                            <div class="invalid-feedback" style="margin-top: 9px; color: #DB2777">
                                 {{ $message }}
                             </div>
                         @enderror
