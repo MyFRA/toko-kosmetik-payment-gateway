@@ -7,6 +7,9 @@
 
 #app {
     margin-top: 11vh !important;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 1280px) {
@@ -3315,5 +3318,181 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
         width: 100%;
         margin-top: .55rem;
         font-size: 12px;
+    }
+}
+
+.new-ui-login-container {
+    width: 100%;
+    padding: 4rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.new-ui-login-container .new-ui-login-wrapper {
+    width: 40%;
+}
+
+.new-ui-login-container .new-ui-login-wrapper .title {
+    text-align: center;
+    font-size: 34px;
+    color: #333;
+}
+
+.new-ui-login-container .new-ui-login-wrapper .form-group-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.75rem;
+}
+
+.new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group input {
+    border: none;
+    border-bottom: 2px solid #ddd;
+    font-size: 17px;
+    padding: .85rem 0;
+    background: rgba(0, 0, 0, 0.0)
+}
+
+.new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group input.ora-valid {
+    border-bottom: 2px solid #eb9dc0;
+}
+
+.new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group input:focus {
+    outline: none;
+}
+
+.new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group .forgot-password {
+    text-align: right;
+    color: #DB2777;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    margin-top: 10px;
+    position: static;
+}
+
+.new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group .forgot-password:hover {
+    text-decoration: underline;
+    color: #e64c91;
+}
+
+.new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group button {
+    border: none;
+    background: #DB2777;
+    color: #fff;
+    padding: .7rem 0;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 150ms ease;
+    margin-top: 3rem;
+}
+
+.new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group button:hover {
+    background: #eb4891;
+}
+
+.new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group span {
+    text-align: center;
+    margin-top: 15px;
+    color: #666;
+    font-size: 15px;
+}
+
+.new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group span a {
+    color: #DB2777;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group span a:hover {
+    text-decoration: underline;
+}
+
+.new-ui-login-dot-1 {
+    width: 300px;
+    height: 300px;
+    background: #ee63a1;
+    position: absolute;
+    top: -80px;
+    left: -120px;
+    border-radius: 150px;
+}
+
+.new-ui-login-dot-2 {
+    width: 180px;
+    height: 180px;
+    background: #f584b7;
+    position: absolute;
+    top: 150px;
+    right: -70px;
+    border-radius: 90px;
+}
+
+@media screen and (max-width: 1280px) {
+    .new-ui-login-container {
+        padding: 0rem 1rem;
+        min-height: 100vh;
+    }
+    
+    .new-ui-login-container .new-ui-login-wrapper {
+        width: 93%;
+        margin-top: 1.5rem;
+    }
+    
+    .new-ui-login-container .new-ui-login-wrapper .title {
+        font-size: 28px;
+    }
+    
+    .new-ui-login-container .new-ui-login-wrapper .form-group-wrapper {
+        margin-top: .85rem;
+    }
+    
+    .new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group {
+        margin-bottom: .7rem;
+    }
+    
+    .new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group input {
+        font-size: 15px;
+        padding: .8rem 0;
+    }
+    
+    .new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group .forgot-password {
+        font-size: 13px;
+    }
+    
+    .new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group button {
+        padding: .7rem 0;
+        font-size: 16px;
+        margin-top: 1.7rem;
+    }
+    .new-ui-login-container .new-ui-login-wrapper .form-group-wrapper .form-group span {
+        margin-top: 13px;
+        font-size: 14px;
+    }
+    
+    .new-ui-login-dot-1 {
+        width: 160px;
+        height: 160px;
+        top: 10px;
+        left: -100px;
+        border-radius: 80px;
+    }
+    
+    .new-ui-login-dot-2 {
+        width: 60px;
+        height: 60px;
+        top: 170px;
+        right: -46px;
+        border-radius: 30px;
     }
 }

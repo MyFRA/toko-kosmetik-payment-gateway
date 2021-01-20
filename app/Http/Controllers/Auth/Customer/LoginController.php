@@ -48,11 +48,11 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         $data = [
-            'title' => 'Login',
+            'title' => 'Halaman Login',
             'nav'   => 'account'
         ];
 
-        return view('auth.web.login', $data);
+        return view('auth.customer.login', $data);
     }
 
     /**
