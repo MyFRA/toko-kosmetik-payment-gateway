@@ -25,9 +25,11 @@
                         <div class="center-section">
                             <h3>Daftar Akun</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni eum eius suscipit consequuntur asperiores impedit atque dolores aut ipsam corrupti.</p>
+                            @if (session('failed'))
                             <div class="alert-danger">
-                                <span>Kesalahan, </span> Maaf registrasi akun gagal, periksa koneksi internet anda kembali atau coba lagi nanti
-                            </div>
+                                <span>Kesalahan, </span> {{ session('failed') }}
+                            </div>                                
+                            @endif
                             <div class="form-group-wrapper">
                                 <div class="form-group">
                                     <label for="fullname">Nama Lengkap</label>

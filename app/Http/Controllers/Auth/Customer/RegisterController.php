@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Mail\VerifikasiEmailRegistrasi;
+use Carbon\Carbon;
 
 use App\Models\Customer;
 
@@ -65,7 +66,30 @@ class RegisterController extends Controller
             return 'ok';
 
         } catch (\Throwable $th) {
-            dd($th);
+            if($validator->fails()) {
+                return back()
+                        ->withInput()
+                        ->with('failed', 'Maaf registrasi akun gagal, periksa koneksi internet anda kembali atau coba lagi nanti');
+            }
         }
+    }
+
+    public function verifyCustomer($email_verification_token = null) 
+    {
+        if(is_null($email_verification_token)) {
+            return abort(404);
+        }
+        if( !in_array($email_verification_token, $this->getAllOneColumn(Customer::get(), 'email_verification_token')) ) {
+            return abort(404);
+        }
+        $customer = Customer::where('email_verification_token', $email_verification_token)->first();
+        if( is_null($customer->email_verified_at) && $customer->status == 'pending' ) {
+            $customer->update([
+                'email_verified_at' => Carbon::now()->toDateTimeString(),
+                'status'            => 'activated',
+            ]);
+        }
+
+        return view('auth.customer.account-activated');
     }
 }

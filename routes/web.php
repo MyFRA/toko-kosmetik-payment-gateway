@@ -20,6 +20,7 @@ Route::get('/login', 'Auth\Customer\LoginController@showLoginForm')->middleware(
 Route::post('/login', 'Auth\Customer\LoginController@login');
 Route::get('/register', 'Auth\Customer\RegisterController@showRegistrationForm');
 Route::post('/register', 'Auth\Customer\RegisterController@register');
+Route::get('/verify/{email_verification_token}', 'Auth\Customer\RegisterController@verifyCustomer');
 Route::get('/email', function() {
     return view('email');
 });
@@ -74,8 +75,6 @@ Route::middleware(['customer.auth'])->group(function() {
     // Get Consts
     Route::get('/api/get-costs/{id_kota_tujuan}/{weight}', 'Api\ApiController@getCostsCourier');
 });
-
-Route::get('/verify', 'Auth\Customer\RegisterController@verify')->name('customer.verify');
 
 // API (Not Must Logged In)
     Route::get('/api/product-categories', 'Api\ApiController@ProductCategories');
