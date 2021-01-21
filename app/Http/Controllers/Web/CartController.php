@@ -7,9 +7,14 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Carbon\Carbon;
 
 use App\Models\Cart;
 use App\Models\Sales;
+use App\Models\SalesAddress;
+use App\Models\SalesProduct;
+use App\Models\SalesBankAccount;
+use App\Models\SalesExpedition;
 use App\Models\Product;
 use App\Models\Wishlist;
 use App\Models\Customer;
@@ -417,8 +422,15 @@ class CartController extends Controller
                                     ->where('is_checked', true)    
                                     ->orderBy('updated_at', 'DESC')->get();
             $weightTotal        = 0;
+            $price_total        = 0;
+
             foreach ($carts as $cart) {
+                $product_discount_percent       = $cart->product->discount ? $cart->product->discount->discount_percent : 0;
+                $product_price                  = $cart->product->price;
+                $product_price_after_discount   = $product_price - ( $product_price * $product_discount_percent / 100 );
+
                 $weightTotal  += $cart->product->weight * $cart->amount;
+                $price_total  += $product_price_after_discount * $cart->amount;
             }
     
             $client = new Client();
@@ -435,7 +447,7 @@ class CartController extends Controller
             // Check Type Expedition
             $passValidationTypeExpedition = false;
             $costObj = null;
-    
+
             foreach($ongkirValid->results[0]->costs as $cost) {
                 if( $cost->service == $request->type_expedition ) {
                     $passValidationTypeExpedition = true;
@@ -459,17 +471,27 @@ class CartController extends Controller
                 ]);
             }
     
-            $bank  = BankAccount::find($request->bank_id);
-            $sales = [];
+            $bank           = BankAccount::find($request->bank_id);
+            $sales_products = [];
+            $sales  = Sales::create([
+                'customer_id'           => $customer->id,
+                'weight_total'          => $weightTotal,
+                'price_total'           => $price_total,
+                'proof_of_payment'      => null,
+                'status'                => 'menunggu bukti pembayaran',
+                'start_payment_date'    => Carbon::now()->toDateTimeString(),
+                'limit_payment_date'    => Carbon::now()->addDays(1)->toDateTimeString(),
+            ]);
+
             foreach ($carts as $cart) {
                 $product_discount_percent       = $cart->product->discount ? $cart->product->discount->discount_percent : 0;
                 $product_price                  = $cart->product->price;
                 $product_price_after_discount   = $product_price - ( $product_price * $product_discount_percent / 100 );
                 
-                $sales[] = Sales::create([
-                    'customer_id'                   => $customer->id,
+                SalesProduct::create([
+                    'sales_id'                      => $sales->id,
                     'product_name'                  => $cart->product->product_name,
-                    'product_image_url'             => url('/product/' . $cart->product->slug),
+                    'product_image_url'             => url('/storage/images/products/' . [json_decode($cart->product->product_images)][0][0]->name),
                     'product_url'                   => url('/product/' . $cart->product->slug),
                     'product_amount'                => $cart->amount,
                     'product_discount_percent'      => $product_discount_percent,
@@ -477,33 +499,40 @@ class CartController extends Controller
                     'product_price_after_discount'  => $product_price_after_discount,
                     'product_weight'                => $cart->product->weight,
                     'product_variant'               => $cart->variant,
-                    'address_name'                  => $customerAddress->address_name,
-                    'customer_name'                 => $customerAddress->customer_name,
-                    'number_phone'                  => $customerAddress->number_phone,
-                    'province'                      => $customerAddress->province->province,
-                    'city'                          => $customerAddress->city->city_name,
-                    'postal_code'                   => $customerAddress->postal_code,
-                    'full_address'                  => $customerAddress->full_address,
-                    'type_expedition'               => $costObj->service,
-                    'price_expedition'              => $costObj->cost[0]->value,
-                    'estimation_expedition'         => $costObj->cost[0]->etd,
-                    'desc_expedition'               => $costObj->cost[0]->etd,
-                    'price_total_payment'           => $product_price_after_discount * $cart->amount,
-                    'product_weight_total'          => $cart->product->weight * $cart->amount,
-                    'proof_of_payment'              => null,
-                    'bank_name'                     => $bank->bank_name,
-                    'bank_logo'                     => $bank->bank_logo,
-                    'bank_account_name'             => $bank->bank_account_name,
-                    'bank_account_number'           => $bank->bank_account_number, 
-                    'status'                        => 'menunggu bukti pembayaran',
                 ]);
-    
                 $cart->product->update([
                     'amount'    => $cart->product->amount - $cart->amount,
                 ]);
 
                 $cart->delete();
             }
+
+            $sales_address = SalesAddress::create([
+                'sales_id'                      => $sales->id,
+                'address_name'                  => $customerAddress->address_name,
+                'customer_name'                 => $customerAddress->customer_name,
+                'number_phone'                  => $customerAddress->number_phone,
+                'province'                      => $customerAddress->province->province,
+                'city'                          => $customerAddress->city->city_name,
+                'postal_code'                   => $customerAddress->postal_code,
+                'full_address'                  => $customerAddress->full_address,
+            ]);
+
+            $sales_bank_account = SalesBankAccount::create([
+                'sales_id'                      => $sales->id,
+                'bank_name'                     => $bank->bank_name,
+                'bank_logo'                     => $bank->bank_logo,
+                'bank_account_name'             => $bank->bank_account_name,
+                'bank_account_number'           => $bank->bank_account_number, 
+            ]);
+
+            $sales_expedition = SalesExpedition::create([
+                'sales_id'                      => $sales->id,
+                'type_expedition'               => $costObj->service,
+                'price_expedition'              => $costObj->cost[0]->value,
+                'estimation_expedition'         => $costObj->cost[0]->etd,
+                'desc_expedition'               => $costObj->description,
+            ]);
     
             return response()->json([
                 'code'      => 200,
@@ -517,7 +546,7 @@ class CartController extends Controller
             return response()->json([
                 'code'      => 401,
                 'success'   => (boolean) false,
-                'message'   => 'Kesalahan, Error',
+                'message'   => 'Error, terdapat sedikit kesalahan',
             ]);
         }
     }
