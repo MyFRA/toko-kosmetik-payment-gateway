@@ -16,4 +16,9 @@ class Sales extends Model
         'limit_payment_date',
         'status'
     ];
+
+    public function bank()
+    {
+        return $this->hasOne('App\Models\SalesBankAccount', 'sales_id', 'id');
+    }
 }

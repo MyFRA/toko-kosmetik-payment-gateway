@@ -556,6 +556,7 @@ class CartController extends Controller
         $data = [
             'title'     => 'Halaman Pembayaran',
             'nav'       => 'payment-page',
+            'sale'      => Sales::find($sales_id),
         ];
 
         return view('web.pages.cart.payment-page', $data);

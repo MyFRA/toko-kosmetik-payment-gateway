@@ -526,7 +526,7 @@
                 }).then(response => response.json())
                 .then((res) => {
                     if( res.code == 200 && res.success == true ) {
-                        window.location.href = `{{url('/cart/checkout/payment-transfer')}}/${res.data}`;
+                        window.location.href = `{{url('/cart/checkout/payment-transfer')}}/${res.data.sales.id}`;
                     } else {
                         const animation_loading = document.querySelector('.animation-on-shipment-wrapper');
                         const loading_show      = animation_loading.getAttribute('data-loading_show');
