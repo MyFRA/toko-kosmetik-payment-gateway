@@ -17,7 +17,7 @@ class CreateSalesProducts extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('sales_id');
             $table->string('product_name');
-            $table->string('product_image_url');
+            $table->text('product_image_url');
             $table->string('product_url');
             $table->string('product_amount');
             $table->unsignedBigInteger('product_discount_percent')->nullable();
