@@ -81,7 +81,7 @@
                 </form>
 
                 <div class="menu-choose">
-                    <a href="{{ url('/products') }}">Belanja Lagi</a>
+                    <a href="{{ url('/product') }}">Belanja Lagi</a>
                     <a href="{{ url('/purchases') }}">Cek Status Pembelian</a>
                 </div>
             </div>

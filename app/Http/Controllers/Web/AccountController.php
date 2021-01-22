@@ -29,6 +29,17 @@ class AccountController extends Controller
         return view('web.pages.account.index', $data);
     }
 
+    public function indexProfile()
+    {
+        $data = [
+            'title'             => 'Informasi Akun',
+            'nav'               => 'account',
+            'related_products'  => Product::inRandomOrder()->limit(15)->get(),
+        ];
+
+        return view('web.pages.account.index-profile', $data);
+    }
+
     public function updateFullname(Request $request)
     {
         $validator = Validator::make($request->all(), [

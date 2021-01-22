@@ -35,6 +35,7 @@ Route::middleware(['customer.auth'])->group(function() {
 
     // Account
     Route::get('/account', 'Web\AccountController@index');
+    Route::get('/account/profile', 'Web\AccountController@indexProfile');
     Route::post('/account/fullname/update', 'Web\AccountController@updateFullname');
     Route::post('/account/birth/update', 'Web\AccountController@updateBirth');
     Route::post('/account/gender/update', 'Web\AccountController@updateGender');
