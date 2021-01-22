@@ -199,7 +199,7 @@
                             Toast.fire({
                                 icon: 'error',
                                 title: 'Pilih Varian terlebih dahulu'
-                            })
+                            });
                         return;
                     }
                 }

@@ -12,9 +12,10 @@ class Sales extends Model
         'weight_total',
         'price_total',
         'proof_of_payment',
+        'bank_sender_account_name',
         'start_payment_date',
         'limit_payment_date',
-        'status'
+        'status',
     ];
 
     public function bank()

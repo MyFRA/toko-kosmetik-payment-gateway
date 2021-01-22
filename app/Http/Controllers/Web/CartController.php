@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use GuzzleHttp\Client;
 use Carbon\Carbon;
+use Session;
 
 use App\Models\Cart;
 use App\Models\Sales;
@@ -474,13 +477,14 @@ class CartController extends Controller
             $bank           = BankAccount::find($request->bank_id);
             $sales_products = [];
             $sales  = Sales::create([
-                'customer_id'           => $customer->id,
-                'weight_total'          => $weightTotal,
-                'price_total'           => $price_total,
-                'proof_of_payment'      => null,
-                'status'                => 'menunggu bukti pembayaran',
-                'start_payment_date'    => Carbon::now()->toDateTimeString(),
-                'limit_payment_date'    => Carbon::now()->addDays(1)->toDateTimeString(),
+                'customer_id'               => $customer->id,
+                'weight_total'              => $weightTotal,
+                'price_total'               => $price_total,
+                'proof_of_payment'          => null,
+                'status'                    => 'belum bayar',
+                'bank_sender_account_name'  => null,
+                'start_payment_date'        => Carbon::now()->toDateTimeString(),
+                'limit_payment_date'        => Carbon::now()->addDays(1)->toDateTimeString(),
             ]);
 
             foreach ($carts as $cart) {
@@ -560,5 +564,50 @@ class CartController extends Controller
         ];
 
         return view('web.pages.cart.payment-page', $data);
+    }
+
+    public function updateProofPaymentTransfer(Request $request, $id)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'proof_of_payment'          => 'required|mimes:jpg,jpeg,png',
+                'bank_sender_account_name'  => 'required|string|max:100',
+            ], [
+                'proof_of_payment.required'             => 'foto bukti pembayaran tidak boleh kosong',
+                'proof_of_payment.mimes'                => 'ekstensi tidak valid, harus diantara jpg, jpeg dan png',
+                'bank_sender_account_name.required'     => 'nama pengirim tidak boleh kosong',
+                'bank_sender_account_name.string'       => 'nama pengirim harus berupa teks',
+                'bank_sender_account_name.max'          => 'nama pengirim maksimal 100 karakter'
+            ]); 
+        
+            if( $validator->fails() ) {
+                Session::flash('form-failed', 'Validasi gagal'); 
+                return back()->withErrors($validator)
+                            ->withInput();
+            }
+    
+            $sale = Sales::find($id);
+            
+            if( $sale->customer_id != Auth::guard('customer')->user()->id ) {
+                Session::flash('form-failed', 'id pembelian tidak valid'); 
+                return back()->withInput();
+            }
+
+            if($sale->limit_payment_date < Carbon::now()) {
+                Session::flash('form-failed', 'batas waktu pembayaran telah berakhir'); 
+                return back()->withInput();
+            }
+
+            $image_proof_payment_name = $this->uploadFile(Str::random(40), $request->file('proof_of_payment'), 'images/proof-of-payments');
+    
+            $sale->update([
+                'proof_of_payment'              => $image_proof_payment_name,
+                'bank_sender_account_name'      => $request->bank_sender_account_name,
+            ]);
+    
+            return redirect('/purchases')->with('success', 'bukti pembayaran telah dikirimkan');
+        } catch (\Throwable $th) {
+            return abort(404);
+        }
     }
 }

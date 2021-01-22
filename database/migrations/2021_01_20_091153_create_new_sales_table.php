@@ -18,10 +18,11 @@ class CreateNewSalesTable extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('weight_total');
             $table->unsignedBigInteger('price_total');
+            $table->string('bank_sender_account_name')->nullable();
             $table->string('proof_of_payment')->nullable();
             $table->enum('status', [
-                'menunggu bukti pembayaran', 
-                'menunggu konfirmasi bukit pembayaran',
+                'belum bayar', 
+                'menunggu konfirmasi bukti pembayaran',
                 'dikemas',
                 'dikirim',
                 'diterima']);

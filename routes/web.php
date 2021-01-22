@@ -60,6 +60,7 @@ Route::middleware(['customer.auth'])->group(function() {
     Route::post('/increase-cart', 'Web\CartController@increaseDecreaseCart');
     Route::post('/cart/checkout', 'Web\CartController@checkout');
     Route::get('/cart/checkout/payment-transfer/{sales_id}', 'Web\CartController@paymentTransferPage');
+    Route::put('/cart/checkout/payment-transfer/{sales_id}', 'Web\CartController@updateProofPaymentTransfer');
 
     // Wishlist
     Route::post('/add-to-wishlists', 'Web\WishlistController@addToWishlist');

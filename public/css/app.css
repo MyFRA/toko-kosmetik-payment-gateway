@@ -3582,6 +3582,7 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
     font-size: 19px;
     display: flex;
     flex-direction: column;
+    letter-spacing: .5px;
 }
 
 .payment-page-container .inner-payment-page-container .transfer-detail .bank-account-detail .group .left .bank-account span.owner {
@@ -3666,8 +3667,23 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
 
 .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper form .group .preview-proof-payment {
     display: flex;
-    flex-wrap: wrap;
     margin-top: .75rem;
+}
+
+.payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper form .group .preview-proof-payment.clicked {
+    display: flex;
+    margin-top: 0rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999999999999999999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 0;
 }
 
 .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper form .group .preview-proof-payment img {
@@ -3675,6 +3691,35 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
     border-radius: 5px;
     margin-right: 10px;
     cursor: pointer;
+}
+
+.payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper form .group .preview-proof-payment img.img-proof-preview {
+    width: auto;
+    max-width: 80%;
+    max-height: 80vh;
+    border-radius: 10px;
+}
+
+.payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper form .group .preview-proof-payment .close-button {
+    width: 30px;
+    height: 30px;
+    background: #FA591D;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 150ms ease;
+}
+
+.payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper form .group .preview-proof-payment .close-button:hover {
+    background: #fd7b4c;
 }
 
 .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper form .group input {
@@ -3707,4 +3752,188 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
 
 .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper form .group button:focus {
     outline: none;
+}
+
+.payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper .menu-choose {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper .menu-choose a {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    padding: .5rem 0;
+    border-radius: 6px;
+    width: 48%;
+    text-align: center;
+    transition: all 150ms ease; 
+}
+
+.payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper .menu-choose a:first-child {
+    color: #DB2777;
+    border: 2px solid #DB2777;
+}
+
+.payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper .menu-choose a:first-child:hover {
+    color: #e75798;
+    border: 2px solid #e75798;
+}
+
+.payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper .menu-choose a:last-child {
+    background: #DB2777;
+    border: 2px solid #DB2777;
+    color: #fff;
+}
+
+.payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper .menu-choose a:last-child:hover {
+    background: #e75798;
+    border: 2px solid #e75798;
+}
+
+@media screen and (max-width: 1280px) {
+    .payment-page-container {
+        padding: 1.3rem 1rem;
+    }
+    
+    .payment-page-container .inner-payment-page-container {
+        width: 100%;
+    }
+    
+    .payment-page-container .inner-payment-page-container .text-title-payment .text-finish-payment {
+        color: #333;
+        font-size: 17px;
+    }
+    
+    .payment-page-container .inner-payment-page-container .text-title-payment .time-limit-payment {
+        margin-top: 5px;
+        font-size: 25px;
+    }
+    
+    .payment-page-container .inner-payment-page-container .text-title-payment p {
+        margin-top: .7rem;
+        font-size: 15px;
+    }
+    
+    .payment-page-container .inner-payment-page-container .text-title-payment .date-limit-payment {
+        font-size: 16px;
+    }
+    
+    .payment-page-container .inner-payment-page-container .transfer-detail {
+        border-radius: 6px;
+        margin-top: 1.7rem;
+    }
+    
+    .payment-page-container .inner-payment-page-container .transfer-detail .bank-name-wrapper {
+        padding: .5rem .7rem;
+    }
+    
+    .payment-page-container .inner-payment-page-container .transfer-detail .bank-name-wrapper .bank-name {
+        font-size: 15px;
+    }
+    
+    .payment-page-container .inner-payment-page-container .transfer-detail .bank-name-wrapper img {
+        height: 40px;
+    }
+    
+    .payment-page-container .inner-payment-page-container .transfer-detail .bank-account-detail {
+        padding: 1rem .7rem;
+    }
+    
+    .payment-page-container .inner-payment-page-container .transfer-detail .bank-account-detail .group {
+        margin-bottom: 1.4rem;
+    }
+    
+    .payment-page-container .inner-payment-page-container .transfer-detail .bank-account-detail .group .left label {
+        font-size: 14px;
+        margin-bottom: .45rem;
+    }
+    
+    .payment-page-container .inner-payment-page-container .transfer-detail .bank-account-detail .group .left .bank-account {
+        font-weight: bold;
+        color: #333;
+        font-size: 18px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .payment-page-container .inner-payment-page-container .transfer-detail .bank-account-detail .group .left .bank-account span.owner {
+        font-size: 14px;
+        letter-spacing: 0px;
+    }
+    
+    .payment-page-container .inner-payment-page-container .transfer-detail .bank-account-detail .group .left .payment-total {
+        font-size: 18px;
+    }
+    
+    .payment-page-container .inner-payment-page-container .transfer-detail .bank-account-detail .group .right a, 
+    .payment-page-container .inner-payment-page-container .transfer-detail .bank-account-detail .group .right span {
+        font-size: 14.5px;
+    }
+    
+    .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper {
+        margin-top: 1.5rem;
+        position: relative;
+    }
+    
+    .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper hr {
+        border: 1px solid #ddd;
+        width: 100%;
+    }
+    
+    .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper h2 {
+        margin-top: 1.25rem;
+        font-size: 17px;
+    }
+    
+    .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper form .group {
+        margin-bottom: 1.2rem;
+    }
+    
+    .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper form .group label {
+        font-size: 14px;
+        margin-bottom: .4rem;
+    }
+    
+    .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper form .group .upload-trigger {
+        font-size: 15px;
+    }
+    
+    .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper form .group .preview-proof-payment.clicked {
+        padding: 0 0;
+    }
+    
+    .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper form .group .preview-proof-payment img {
+        width: 60px;
+    }
+    
+    .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper form .group .preview-proof-payment .close-button {
+        width: 24px;
+        height: 24px;
+        right: 1rem;
+        top: 1rem;
+        border-radius: 12px;
+        font-size: 20px;
+    }
+    
+    .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper form .group button {
+        padding: .6rem 0;
+        font-size: 15px;
+    }
+    
+    .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper .menu-choose {
+        margin-top: 1rem;
+    }
+    
+    .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper .menu-choose a {
+        text-decoration: none;
+        font-size: 12px;
+        padding: .4rem 0;
+        border-radius: 6px;
+        width: 49%;
+        text-align: center;
+        transition: all 150ms ease; 
+    }
 }
