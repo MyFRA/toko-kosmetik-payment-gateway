@@ -479,12 +479,13 @@ class CartController extends Controller
             $sales  = Sales::create([
                 'customer_id'               => $customer->id,
                 'weight_total'              => $weightTotal,
-                'price_total'               => $price_total,
+                'price_total'               => (int) $price_total + (int) $costObj->cost[0]->value,
                 'proof_of_payment'          => null,
                 'status'                    => 'belum bayar',
                 'bank_sender_account_name'  => null,
                 'start_payment_date'        => Carbon::now()->toDateTimeString(),
                 'limit_payment_date'        => Carbon::now()->addDays(1)->toDateTimeString(),
+                'bank_sender_account_name'  => null,
             ]);
 
             foreach ($carts as $cart) {

@@ -4048,3 +4048,99 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
     line-height: 26px;
     font-size: 16px;
 }
+
+.new-account-index-container .purchases-wrapper .bottom-section-group {
+    padding: .4rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.new-account-index-container .purchases-wrapper .bottom-section-group a {
+    color: #666;
+    text-decoration: none;
+    transition: all 150ms ease;
+    padding: .8rem 1rem;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+.new-account-index-container .purchases-wrapper .bottom-section-group a:hover {
+    background-color: #eee;
+}
+
+.new-account-index-container .purchases-wrapper .bottom-section-group a:last-child {
+    color: rgb(235, 61, 61);
+    font-weight: 600;
+}
+
+@media screen and (max-width: 1280px) {
+    .new-account-index-container {
+        padding: 1rem;
+    }
+    
+    .new-account-index-container .top-section-profile-account {
+        border-radius: 5px;
+        padding: .7rem;
+    }
+    
+    .new-account-index-container .top-section-profile-account .profile-img {
+        width: 20%;
+    }
+    
+    .new-account-index-container .top-section-profile-account .profile-img img {
+        border-radius: 5px;
+    }
+    
+    .new-account-index-container .top-section-profile-account .name-account {
+        width: 75%;
+    }
+    
+    .new-account-index-container .top-section-profile-account .name-account span {
+        font-size: 15px;
+    }
+    
+    .new-account-index-container .top-section-profile-account .name-account a {
+        padding: .25rem 1.3rem;
+        font-size: 14px;
+    }
+    
+    .new-account-index-container .purchases-wrapper {
+        margin-top: 1rem;
+    }
+    
+    .new-account-index-container .purchases-wrapper .top-section-purchases {
+        padding: .6rem .8rem;
+    }
+    
+    .new-account-index-container .purchases-wrapper .top-section-purchases h2 {
+        font-size: 18px;
+    }
+    
+    .new-account-index-container .purchases-wrapper .bottom-section-purchases {
+        padding: .6rem .8rem;
+    }
+    
+    .new-account-index-container .purchases-wrapper .bottom-section-purchases a {
+        width: 24%;
+        padding: .2rem;
+    }
+    
+    .new-account-index-container .purchases-wrapper .bottom-section-purchases a .icon {
+        margin-bottom: .25rem;
+        font-size: 23px;
+    }
+    
+    .new-account-index-container .purchases-wrapper .bottom-section-purchases a .text {
+        line-height: 23px;
+        font-size: 14px;
+    }
+    
+    .new-account-index-container .purchases-wrapper .bottom-section-group {
+        padding: .3rem;
+    }
+    
+    .new-account-index-container .purchases-wrapper .bottom-section-group a {
+        padding: .6rem .8rem;
+        font-size: 15px;
+    }
+}

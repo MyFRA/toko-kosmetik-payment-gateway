@@ -7,7 +7,7 @@
                 <img src="{{ asset('/images/icons/avatar.jpg') }}" alt="photo-profile">
             </div>
             <div class="name-account">
-                <span>Tomy Wibowo</span>
+                <span>{{ Auth::guard('customer')->user()->fullname }}</span>
                 <div>
                     <a href="{{ url('/account/profile') }}">Edit Profil</a>
                 </div>
@@ -52,9 +52,18 @@
                 </a>
             </div>
         </div>
+        <div class="purchases-wrapper">
+            <div class="top-section-purchases">
+                <h2>Pilihan</h2>
+            </div>
+            <div class="bottom-section-group">
+                <a href="{{ url('/faq') }}">
+                    <i class="zmdi zmdi-comments mr-3"></i> FAQ
+                </a>
+                <a href="" onclick="logoutAction()">
+                    <i class="zmdi zmdi-power mr-3"></i> Keluar
+                </a>
+            </div>
+        </div>
     </div>
-@endsection
-
-@section('stylesheet')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
 @endsection

@@ -5,11 +5,6 @@
         <h3 class="font-weight-bold title padding-responsive text-666">{{ Auth::guard('customer')->user()->fullname }}</h3>
         @include('web.pages.account.components.index.account')
         {{-- @include('web.pages.account.components.index.daftar-transaksi') --}}
-        <div class="padding-responsive">
-            <a  class="account-page-logout-button" href="" onclick="logoutAction()">
-                <h3><i class="zmdi zmdi-power mr-3"></i> Logout</h3>
-            </a>
-        </div>
         @include('web.pages.account.components.index.product-recommendation')
 
         <form action="" method="POST" id="form-update">
