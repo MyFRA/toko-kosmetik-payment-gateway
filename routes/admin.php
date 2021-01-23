@@ -7,6 +7,7 @@ Route::middleware(['admin.auth'])->group(function() {
     Route::resource('/promo', 'Admin\PromoController');
     Route::resource('/discount', 'Admin\DiscountController');
     Route::resource('/bank-account', 'Admin\BankAccountController');
+    Route::resource('/faq', 'Admin\FaqController');
 
     Route::post('/logout', 'Auth\Admin\LoginController@logout');
 });

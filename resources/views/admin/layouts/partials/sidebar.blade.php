@@ -21,6 +21,10 @@
           <li class="{{ $sidebar == 'bank-account' ? 'active' : '' }}">
             <a class="nav-link" href="{{ url('/app-admin/bank-account') }}"><i class="far fa-credit-card"></i> <span>Rekening Bank</span></a>
           </li>
+          <li class="menu-header">Lainya</li>
+          <li class="{{ $sidebar == 'faq' ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('/app-admin/faq') }}"><i class="far fa-comments"></i> <span>FAQ</span></a>
+          </li>
           <li class="nav-item dropdown">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-th-large"></i> <span>Components</span></a>
             <ul class="dropdown-menu">
