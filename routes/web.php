@@ -29,6 +29,9 @@ Route::get('/email', function() {
 Route::get('/product/{slug}', 'Web\ProductController@show');
 Route::get('/product', 'Web\ProductController@index');
 
+// Faq
+Route::get('/faq', 'Web\FaqController@index');
+
 Route::middleware(['customer.auth'])->group(function() {
     Route::post('/logout', 'Auth\Customer\LoginController@logout');
     Route::get('/wishlist', 'Web\WishlistController@index');
@@ -76,6 +79,7 @@ Route::middleware(['customer.auth'])->group(function() {
 
     // Get Consts
     Route::get('/api/get-costs/{id_kota_tujuan}/{weight}', 'Api\ApiController@getCostsCourier');
+
 });
 
 // API (Not Must Logged In)

@@ -13,6 +13,20 @@
     }
 }
 
+.easeAnimation {
+  animation: easeAnimation 350ms ease;
+}
+
+@keyframes easeAnimation {
+  0% {
+      margin-left: -20px;
+  }
+
+  100% {
+      margin-left: 0px;
+  }
+}
+
 .animation-on-shipment-wrapper {
     position: fixed;
     top: 0;
