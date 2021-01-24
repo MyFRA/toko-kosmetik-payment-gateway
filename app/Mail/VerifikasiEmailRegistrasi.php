@@ -29,7 +29,7 @@ class VerifikasiEmailRegistrasi extends Mailable
     public function build()
     {
         $data = [
-            'email_verification_token'      => $this->email_verification_token,
+            'link_verify_email'             => 'http://127.0.0.1:8000/verify/' . $this->email_verification_token,
         ];
 
         return $this->from('official.indahjaya@gmail.com')

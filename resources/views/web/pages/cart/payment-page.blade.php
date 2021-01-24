@@ -26,7 +26,7 @@
                                 <input type="hidden" name="bank_account_number" id="bank_account_number" value="{{ $sale->bank->bank_account_number }}">
                             </span>
                         </div>
-                        <div class="right">
+                        <div class="right d-none">
                             <span class="copy-bank-account" onclick="copy_text()">Salin</span>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                             <label for="payment-total">Total Pembayaran</label>
                             <span class="payment-total" id="payment-total">Rp. {{ number_format($sale->price_total, 0, '.', '.') }}</span>
                         </div>
-                        <div class="right">
+                        <div class="right d-none">
                             <a href="{{ url('/sales/' . $sale->id) }}" class="view-detail">Lihat Detail</a>
                         </div>
                     </div>
@@ -82,7 +82,6 @@
 
                 <div class="menu-choose">
                     <a href="{{ url('/product') }}">Belanja Lagi</a>
-                    <a href="{{ url('/purchases/' . $sale->id) }}">Cek Detail Pembelian</a>
                 </div>
             </div>
         </div>

@@ -33,4 +33,14 @@ class Sales extends Model
     {
         return $this->hasOne('App\Models\SalesExpedition', 'sales_id', 'id');
     }
+
+    public function address()
+    {
+        return $this->hasOne('App\Models\SalesAddress', 'sales_id', 'id');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo('App\Models\Customer', 'customer_id', 'id');
+    }
 }

@@ -21,6 +21,9 @@
                 <a href="{{ url('/purchases/belum-bayar') }}" class="sub">
                     <div class="icon">
                         <i class="zmdi zmdi-card"></i>
+                        @if ($belum_bayar > 0)
+                            <span>{{ $belum_bayar }}</span>
+                        @endif
                     </div>
                     <div class="text">
                         Belum Bayar
@@ -29,6 +32,9 @@
                 <a href="{{ url('/purchases/menunggu-konfirmasi-bukti-pembayaran') }}" class="sub">
                     <div class="icon">
                         <i class="zmdi zmdi-assignment"></i>
+                        @if ($menunggu_konfirmasi > 0)
+                            <span>{{ $menunggu_konfirmasi }}</span>
+                        @endif
                     </div>
                     <div class="text">
                         Menunggu Konfirmasi Pembayaran
@@ -37,6 +43,9 @@
                 <a href="dikirim" class="sub">
                     <div class="icon">
                         <i class="zmdi zmdi-truck"></i>
+                        @if ($dikirim > 0)
+                            <span>{{ $dikirim }}</span>
+                        @endif
                     </div>
                     <div class="text">
                         Dikirim
@@ -45,6 +54,9 @@
                 <a href="diterima" class="sub">
                     <div class="icon">
                         <i class="zmdi zmdi-badge-check"></i>
+                        @if ($diterima > 0)
+                            <span>{{ $diterima }}</span>
+                        @endif
                     </div>
                     <div class="text">
                         Diterima

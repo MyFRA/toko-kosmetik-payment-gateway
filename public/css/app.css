@@ -3441,7 +3441,7 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
 @media screen and (max-width: 1280px) {
     .new-ui-login-container {
         padding: 0rem 1rem;
-        min-height: 100vh;
+        min-height: 60vh;
     }
     
     .new-ui-login-container .new-ui-login-wrapper {
@@ -3767,7 +3767,7 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
     font-size: 15px;
     padding: .5rem 0;
     border-radius: 6px;
-    width: 48%;
+    width: 100%;
     text-align: center;
     transition: all 150ms ease; 
 }
@@ -3779,17 +3779,6 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
 
 .payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper .menu-choose a:first-child:hover {
     color: #e75798;
-    border: 2px solid #e75798;
-}
-
-.payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper .menu-choose a:last-child {
-    background: #DB2777;
-    border: 2px solid #DB2777;
-    color: #fff;
-}
-
-.payment-page-container .inner-payment-page-container .confirmation-proof-payment-wrapper .menu-choose a:last-child:hover {
-    background: #e75798;
     border: 2px solid #e75798;
 }
 
@@ -3932,7 +3921,7 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
         font-size: 12px;
         padding: .4rem 0;
         border-radius: 6px;
-        width: 49%;
+        width: 100%;
         text-align: center;
         transition: all 150ms ease; 
     }
@@ -4039,6 +4028,7 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
     color: #DB2777;
     text-decoration: none;
     font-size: 25px;
+    position: relative;
 }
 
 .new-account-index-container .purchases-wrapper .bottom-section-purchases a .text {
@@ -4047,6 +4037,24 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
     margin-top: 5px;
     line-height: 26px;
     font-size: 16px;
+}
+
+.new-account-index-container .purchases-wrapper .bottom-section-purchases a .icon span {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #DB2777;
+    border-radius: 10px;
+    border: 1px solid #DB2777;
+    right: 0;
+    top: 0;
+    right: -15px;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 .new-account-index-container .purchases-wrapper .bottom-section-group {

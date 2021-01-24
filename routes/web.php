@@ -14,6 +14,8 @@
 Route::get('/', 'Web\HomeController@index');
 Route::get('/categories', 'Web\CategoriesController@index');
 Route::get('/promo', 'Web\PromoController@index');
+Route::get('/forgot-password', 'Web\ForgotPasswordController@index');
+Route::post('/forgot-password', 'Web\ForgotPasswordController@sendEmailAddress');
 
 // Customer Authentication Route
 Route::get('/login', 'Auth\Customer\LoginController@showLoginForm')->middleware(['customer.guest']);
@@ -23,6 +25,9 @@ Route::post('/register', 'Auth\Customer\RegisterController@register');
 Route::get('/verify/{email_verification_token}', 'Auth\Customer\RegisterController@verifyCustomer');
 Route::get('/email', function() {
     return view('email');
+});
+Route::get('/test', function() {
+    return view('layout-after-email-send-verification');
 });
 
 // Product Route
@@ -73,6 +78,9 @@ Route::middleware(['customer.auth'])->group(function() {
 
     // Purchases
     Route::get('/purchases/belum-bayar', 'Web\PurchasesController@indexBelumBayar');
+    Route::get('/purchases/menunggu-konfirmasi-bukti-pembayaran', 'Web\PurchasesController@indexMenungguKonfirmasiPembayaran');
+    Route::get('/purchases/dikirim', 'Web\PurchasesController@indexDikirim');
+    Route::get('/purchases/diterima', 'Web\PurchasesController@indexDiterima');
 
     // Comment
     Route::post('/add-comment', 'Web\CommentController@addComment');

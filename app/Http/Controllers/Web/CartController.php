@@ -500,7 +500,7 @@ class CartController extends Controller
                     'sales_id'                      => $sales->id,
                     'product_name'                  => $cart->product->product_name,
                     'product_image_url'             => url('/storage/images/products/' . [json_decode($cart->product->product_images)][0][0]->name),
-                    'product_url'                   => url('/product/' . $cart->product->slug),
+                    'product_url'                   => url('/product/' . $cart->product->product_slug),
                     'product_amount'                => $cart->amount,
                     'product_discount_percent'      => $product_discount_percent,
                     'product_price'                 => $product_price,

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="purchases-web-container">
-    <h1 class="related-product-title text-555 mt-13 mb-5"><i class="zmdi zmdi-card mr-4"></i> Pembayaran ~ Belum Bayar </h1>
+    <h1 class="related-product-title text-555 mt-13 mb-5"><i class="zmdi zmdi-card mr-4"></i> {{ $title }} </h1>
 
     <div class="purchases-wrapper">
         @foreach ($sales as $sale)
@@ -28,6 +28,10 @@
                 @endforeach
                 <div class="amount-total">
                     <div class="row">
+                        <span class="left">Status</span>
+                        <span class="right">{{ $sale->status }}</span>
+                    </div>
+                    <div class="row">
                         <span class="left">Jumlah</span>
                         <span class="right">{{ $sale->amount_total }}</span>
                     </div>
@@ -39,9 +43,16 @@
                         <span class="left">Harga total</span>
                         <span class="right">Rp. {{ number_format($sale->price_total, 0, '.', '.') }}</span>
                     </div>
+                    <div class="row">
+                        <span class="left">Harga total</span>
+                        <span class="right">Rp. {{ number_format($sale->price_total, 0, '.', '.') }}</span>
+                    </div>
                 </div>
-                <a href="{{ url('/cart/checkout/payment-transfer/' . $sale->id) }}" class="bayar-sekarang">BAYAR SEKARANG</a>
-                <a href="{{ url('/cart/checkout/detail/' . $sale->id) }}" class="bayar-sekarang">LIHAT DETAIL</a>
+               @if ($sale->status == 'belum bayar')
+                    <a href="{{ url('/cart/checkout/payment-transfer/' . $sale->id) }}" class="bayar-sekarang">BAYAR SEKARANG</a>
+               @elseif($sale->status == 'dikirim')
+                    <a href="{{ url('/cart/checkout/payment-transfer/' . $sale->id) }}" class="bayar-sekarang">KONFIRMASI BARANG DITERIMA</a>
+               @endif
             </div>
         @endforeach
     </div>

@@ -63,10 +63,11 @@ class RegisterController extends Controller
                 ->send(new VerifikasiEmailRegistrasi($newCustomer->email_verification_token));
 
             // Success Send Email Verification
-            return 'ok';
+            return view('layout-after-email-send-verification');
 
         } catch (\Throwable $th) {
             if($validator->fails()) {
+                dd($th);
                 return back()
                         ->withInput()
                         ->with('failed', 'Maaf registrasi akun gagal, periksa koneksi internet anda kembali atau coba lagi nanti');
@@ -87,7 +88,7 @@ class RegisterController extends Controller
             $customer->update([
                 'email_verified_at' => Carbon::now()->toDateTimeString(),
                 'status'            => 'activated',
-            ]);
+            ]); 
         }
 
         return view('auth.customer.account-activated');

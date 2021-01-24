@@ -25,7 +25,8 @@ class CreateNewSalesTable extends Migration
                 'belum bayar', 
                 'menunggu konfirmasi bukti pembayaran',
                 'dikirim',
-                'diterima']);
+                'diterima',
+                'expired']);
             $table->timestamp('start_payment_date')->nullable();
             $table->timestamp('limit_payment_date')->nullable();
             $table->timestamps();

@@ -1,8 +1,8 @@
 <footer class="footer">
     <div class="footer-text-wrapper">
         <div class="header">
-            <img src="https://demo.hasthemes.com/corano-preview/corano/assets/img/logo/logo.png" alt="logo-footer">
-            <p>Yena is the place where everyone can is able to find some beauty called to highlight one’s individuality! We are waiting right for you!</p>
+            <img src="{{ asset('/images/icons/logo.png') }}" alt="logo-footer">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt neque amet voluptate optio error nulla repudiandae beatae. Doloremque, in impedit?</p>
             <div class="social-media-wrapper">
                 <a href="" class="social-media"><i class="zmdi zmdi-facebook"></i></a>
                 <a href="" class="social-media"><i class="zmdi zmdi-twitter"></i></a>
@@ -10,7 +10,7 @@
                 <a href="" class="social-media"><i class="zmdi zmdi-email"></i></a>
             </div>
         </div>
-        <div class="links-wrapper">
+        {{-- <div class="links-wrapper">
             <ul>
                 <li>
                     <a href="">ABOUT US</a>
@@ -67,9 +67,9 @@
                     <a href="">PO BOX 1622 COLINS STREET WEST VICTORIA 8077 AUSTRALIA</a>
                 </li>
             </ul>
-        </div>
+        </div> --}}
     </div>
     <div class="copyright">
-        <p>© 2020 YENA. DESIGNED BY HASTECH.</p>
+        <p>© 2021 . CREATED WITH <i class="zmdi zmdi-favorite"></i> BY <a href="https://facebook.com/tomy.ntapss/" target="_blank" style="color: #fff; font-weight: bold; text-decoration: none">Weebs Developer</a>.</p>
     </div>
 </footer>

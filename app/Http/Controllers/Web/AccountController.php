@@ -16,14 +16,24 @@ use App\Models\Customer;
 use App\Models\CustomerDetail;
 use App\Models\CustomerAddress;
 
+use App\Models\Sales;
+
 class AccountController extends Controller
 {
     public function index()
     {
         $data = [
-            'title'             => 'Informasi Akun',
-            'nav'               => 'account',
-            'related_products'  => Product::inRandomOrder()->limit(15)->get(),
+            'title'                 => 'Halaman Akun',
+            'nav'                   => 'account',
+            'related_products'      => Product::inRandomOrder()->limit(15)->get(),
+            'belum_bayar'           => Sales::where('customer_id', Auth::guard('customer')->user()->id)
+                                        ->where('status', 'belum bayar')->count(),
+            'menunggu_konfirmasi'   => Sales::where('customer_id', Auth::guard('customer')->user()->id)
+                                            ->where('status', 'menunggu konfirmasi bukti pembayaran')->count(),
+            'dikirim'               => Sales::where('customer_id', Auth::guard('customer')->user()->id)
+                                            ->where('status', 'dikirim')->count(),
+            'diterima'              => Sales::where('customer_id', Auth::guard('customer')->user()->id)
+                                            ->where('status', 'diterima')->count(),                                
         ];
 
         return view('web.pages.account.index', $data);
