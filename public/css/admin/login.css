@@ -79,7 +79,6 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
-    position: relative;
 }
 
 .form-login-wrapper .inner-form-login-wrapper form .form-section .form-group input {
@@ -118,14 +117,32 @@
     padding: .7rem 0;
     cursor: pointer;
     transition: all 150ms ease;
-    position: absolute;
     margin-top: .2rem;
+    border: 1px solid #000;
 }
 
 .form-login-wrapper .inner-form-login-wrapper form .form-section .form-group button:hover {
     background-color: #fff;
     border: 1px solid #000;
     color: #000;
+}
+
+.form-login-wrapper .inner-form-login-wrapper form .form-section .form-group .back {
+    text-align: center;
+    margin-top: 15px;
+    color: #444;
+    font-size: 14px;
+}
+
+.form-login-wrapper .inner-form-login-wrapper form .form-section .form-group .back a {
+    color: #DB2777;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.form-login-wrapper .inner-form-login-wrapper form .form-section .form-group .back a:hover {
+    color: #db518f;
+    text-decoration: underline;
 }
 
 @media screen and (max-width: 1280px) {

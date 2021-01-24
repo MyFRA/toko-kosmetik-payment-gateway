@@ -12,7 +12,7 @@
             <h4>Produk</h4>
           </div>
           <div class="card-body">
-            10
+            {{ $jml_produk }}
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
             <h4>Pelangan</h4>
           </div>
           <div class="card-body">
-            14
+            {{ $jml_customer }}
           </div>
         </div>
       </div>
@@ -42,7 +42,7 @@
             <h4>Total Penjualan</h4>
           </div>
           <div class="card-body">
-            4
+            {{ $jml_penjualan }}
           </div>
         </div>
       </div>
@@ -57,10 +57,18 @@
             <h4>Pendapatan</h4>
           </div>
           <div class="card-body">
-            Rp 135.000
+            Rp {{ $jml_pendapatan ? number_format($jml_pendapatan, 0, '.', '.') : 0 }}
           </div>
         </div>
       </div>
     </div>                  
+  </div>
+  <div class="row">
+      <div class="col">
+        <div class="card p-4">
+          <h3 class="text-center">Selamat Datang {{ Auth::guard('admin')->user()->name }}</h3>
+          <p class="mt-3" style="text-indent: 20px">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellendus possimus fugit animi inventore aperiam. Laboriosam iure quo dolores odit dolorum?</p>
+        </div>
+      </div>
   </div>
 @endsection

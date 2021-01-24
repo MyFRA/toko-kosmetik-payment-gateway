@@ -44,6 +44,7 @@
                             </div>
                             <div class="form-group">
                                 <button type="submit">Masuk</button>
+                                <span class="back">Kembali ke <a href="{{ url('/') }}">Beranda Situs</a></span>
                             </div>
                         </div>
                     </form>

@@ -1,10 +1,10 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
       <div class="sidebar-brand">
-        <a href="index.html">Stisla</a>
+        <a href="{{ url('/app-admin') }}">Indah Jaya</a>
       </div>
       <div class="sidebar-brand sidebar-brand-sm">
-        <a href="index.html">St</a>
+        <a href="{{ url('/app-admin') }}">St</a>
       </div>
       <ul class="sidebar-menu">
           <li class="menu-header">Dashboard</li>
@@ -15,9 +15,9 @@
           <li class="{{ $sidebar == 'promo' ? 'active' : '' }}"><a class="nav-link" href="{{ url('/app-admin/promo') }}"><i class="fas fa-tags"></i> <span>Promo</span></a></li>
           <li class="{{ $sidebar == 'discount' ? 'active' : '' }}"><a class="nav-link" href="{{ url('/app-admin/discount') }}"><i class="fas fa-percent"></i> <span>Diskon</span></a></li>
           <li class="menu-header">Akun</li>
-          <li class="{{ $sidebar == 'profile' ? 'active' : '' }}">
+          {{-- <li class="{{ $sidebar == 'profile' ? 'active' : '' }}">
             <a class="nav-link" href="{{ url('/app-admin/profile') }}"><i class="far fa-user"></i> <span>Profil</span></a>
-          </li>
+          </li> --}}
           <li class="{{ $sidebar == 'bank-account' ? 'active' : '' }}">
             <a class="nav-link" href="{{ url('/app-admin/bank-account') }}"><i class="far fa-credit-card"></i> <span>Rekening Bank</span></a>
           </li>
@@ -47,8 +47,8 @@
         </ul>
 
         <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-          <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
-            <i class="fas fa-rocket"></i> Documentation
+          <a href="" class="btn btn-danger btn-lg btn-block btn-icon-split" onclick="adminLogout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
           </a>
         </div>
     </aside>
