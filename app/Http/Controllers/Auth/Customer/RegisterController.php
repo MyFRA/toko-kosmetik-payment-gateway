@@ -67,7 +67,6 @@ class RegisterController extends Controller
 
         } catch (\Throwable $th) {
             if($validator->fails()) {
-                dd($th);
                 return back()
                         ->withInput()
                         ->with('failed', 'Maaf registrasi akun gagal, periksa koneksi internet anda kembali atau coba lagi nanti');

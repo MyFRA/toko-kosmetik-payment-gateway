@@ -16,6 +16,8 @@ Route::get('/categories', 'Web\CategoriesController@index');
 Route::get('/promo', 'Web\PromoController@index');
 Route::get('/forgot-password', 'Web\ForgotPasswordController@index');
 Route::post('/forgot-password', 'Web\ForgotPasswordController@sendEmailAddress');
+Route::get('/reset-password/token/{token}', 'Web\ForgotPasswordController@resetPasswordShowForm');
+Route::put('/reset-password', 'Web\ForgotPasswordController@resetPasswordAction');
 
 // Customer Authentication Route
 Route::get('/login', 'Auth\Customer\LoginController@showLoginForm')->middleware(['customer.guest']);
@@ -23,12 +25,6 @@ Route::post('/login', 'Auth\Customer\LoginController@login');
 Route::get('/register', 'Auth\Customer\RegisterController@showRegistrationForm');
 Route::post('/register', 'Auth\Customer\RegisterController@register');
 Route::get('/verify/{email_verification_token}', 'Auth\Customer\RegisterController@verifyCustomer');
-Route::get('/email', function() {
-    return view('email');
-});
-Route::get('/test', function() {
-    return view('layout-after-email-send-verification');
-});
 
 // Product Route
 Route::get('/product/{slug}', 'Web\ProductController@show');
