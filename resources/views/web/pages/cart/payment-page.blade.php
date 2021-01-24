@@ -82,7 +82,7 @@
 
                 <div class="menu-choose">
                     <a href="{{ url('/product') }}">Belanja Lagi</a>
-                    <a href="{{ url('/purchases') }}">Cek Status Pembelian</a>
+                    <a href="{{ url('/purchases/' . $sale->id) }}">Cek Detail Pembelian</a>
                 </div>
             </div>
         </div>

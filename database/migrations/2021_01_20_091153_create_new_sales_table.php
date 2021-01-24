@@ -17,13 +17,13 @@ class CreateNewSalesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('weight_total');
+            $table->unsignedBigInteger('amount_total');
             $table->unsignedBigInteger('price_total');
             $table->string('bank_sender_account_name')->nullable();
             $table->string('proof_of_payment')->nullable();
             $table->enum('status', [
                 'belum bayar', 
                 'menunggu konfirmasi bukti pembayaran',
-                'dikemas',
                 'dikirim',
                 'diterima']);
             $table->timestamp('start_payment_date')->nullable();

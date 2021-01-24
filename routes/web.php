@@ -71,6 +71,9 @@ Route::middleware(['customer.auth'])->group(function() {
     Route::post('/delete-from-wishlists', 'Web\WishlistController@deleteFromWishlist');
     Route::post('/wishlist-page-delete-wishlist', 'Web\WishlistController@wishlistPageDeleteFromWishlist');
 
+    // Purchases
+    Route::get('/purchases/belum-bayar', 'Web\PurchasesController@indexBelumBayar');
+
     // Comment
     Route::post('/add-comment', 'Web\CommentController@addComment');
 

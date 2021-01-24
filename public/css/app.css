@@ -4220,3 +4220,232 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
         margin-top: .4rem;
     }
 }
+
+.purchases-web-container {
+    margin-top: 2.5rem;
+    padding: 0 5rem;
+    font-family: 'Open Sans', sans-serif;
+    margin-top: 6rem !important;
+    margin-bottom: 3rem;
+}
+
+.purchases-web-container .purchases-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+}
+
+.purchases-web-container .purchases-wrapper .purchases {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    padding: 2rem 0;
+    border-bottom: 1px solid #888;
+}
+
+.purchases-web-container .purchases-wrapper .purchases:first-child {
+    padding-top: 0;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .product {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .product .photo-product {
+    width: 100px;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .product .photo-product img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 7px;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .product .desc-product {
+    margin-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .product .desc-product .top {
+    display: flex;
+    flex-direction: column;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .product .desc-product .top .name {
+    color: #333;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .product .desc-product .top .variant {
+    color: #555;
+    margin-top: 2px;
+    font-size: 15px;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .product .desc-product .top .price-and-amount {
+    margin-top: 8px;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .product .desc-product .top .price-and-amount span:first-child {
+    font-weight: bold;
+    color: orangered;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .product .desc-product .bottom {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .product .desc-product .bottom a {
+    background: rgb(36, 148, 36);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    padding: .25rem 1rem;
+    border-radius: 3px;
+    transition: all 150ms ease;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .product .desc-product .bottom a:hover {
+    background: rgb(56, 167, 56);
+}
+
+.purchases-web-container .purchases-wrapper .purchases .amount-total {
+    display: flex;
+    flex-direction: column;
+    margin-top: .5rem;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .amount-total .row {
+    display: flex;
+    justify-content: space-between;
+    margin: .2rem 0;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .amount-total .row .left {
+    color: #555;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .amount-total .row:first-child .right {
+    font-weight: 600;
+}
+
+.purchases-web-container .purchases-wrapper .purchases .amount-total .row:last-child .right {
+    font-weight: bold;
+    color: orangered;
+}
+
+.purchases-web-container .purchases-wrapper .purchases a.bayar-sekarang {
+    color: #fff;
+    background: orangered;
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    padding: .4rem 0;
+    text-decoration: none;
+    border-radius: 3px;
+    margin-top: 1rem;
+    transition: all 150ms ease;
+}
+
+.purchases-web-container .purchases-wrapper .purchases a.bayar-sekarang:hover {
+    background: rgb(255, 109, 55);
+}
+
+.purchases-web-container .purchases-wrapper .purchases a.bayar-sekarang:last-child {
+    background: rgb(42, 143, 59);
+    margin-top: .5rem;
+}
+
+.purchases-web-container .purchases-wrapper .purchases a.bayar-sekarang:last-child:hover {
+    background: rgb(57, 179, 77);
+}
+
+@media screen and (max-width: 1280px) {
+    .purchases-web-container {
+        padding: 0 1rem;
+        margin-top: 5.5rem !important;
+        margin-bottom: 1.5rem;
+    }
+
+    .purchases-web-container .related-product-title {
+        font-size: 16px !important;
+    }
+    
+    .purchases-web-container .purchases-wrapper {
+        margin-top: .75rem;
+    }
+    
+    .purchases-web-container .purchases-wrapper .purchases {
+        width: 100%;
+        padding: 1.5rem 0;
+        border-bottom: 1px solid #888;
+    }
+    
+    .purchases-web-container .purchases-wrapper .purchases .product {
+        display: flex;
+        margin-bottom: .7rem;
+    }
+    
+    .purchases-web-container .purchases-wrapper .purchases .product .photo-product {
+        width: 55px;
+    }
+    
+    .purchases-web-container .purchases-wrapper .purchases .product .photo-product img {
+        width: 55px;
+        height: 55px;
+        border-radius: 4px;
+    }
+    
+    .purchases-web-container .purchases-wrapper .purchases .product .desc-product {
+        margin-left: .9rem;
+    }
+    
+    .purchases-web-container .purchases-wrapper .purchases .product .desc-product .top .name {
+        font-size: 13px;
+    }
+    
+    .purchases-web-container .purchases-wrapper .purchases .product .desc-product .top .variant {
+        margin-top: 2px;
+        font-size: 12px;
+    }
+    
+    .purchases-web-container .purchases-wrapper .purchases .product .desc-product .top .price-and-amount {
+        margin-top: 6px;
+    }
+
+    .purchases-web-container .purchases-wrapper .purchases .product .desc-product .top .price-and-amount span {
+        font-size: 15px;
+    }
+    
+    .purchases-web-container .purchases-wrapper .purchases .product .desc-product .top .price-and-amount span:first-child {
+        font-weight: bold;
+        color: orangered;
+        font-size: 15px;
+    }
+    
+    .purchases-web-container .purchases-wrapper .purchases .amount-total {
+        margin-top: .4rem;
+        font-size: 15px;
+    }
+    
+    .purchases-web-container .purchases-wrapper .purchases .amount-total .row {
+        margin: .2rem 0;
+    }
+    
+    .purchases-web-container .purchases-wrapper .purchases a.bayar-sekarang {
+        font-size: 13px;
+        padding: .3rem 0;
+    }
+    
+    .purchases-web-container .purchases-wrapper .purchases a.bayar-sekarang:last-child {
+        margin-top: .3rem;
+    }
+}

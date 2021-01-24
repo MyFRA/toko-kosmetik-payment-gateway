@@ -36,7 +36,7 @@
                             </div>
                             <div class="row district-postal-code">
                                 <div class="form-group">
-                                    <label for="region">Kota atau Kecamatan</label>
+                                    <label for="region">Provinsi atau Kota</label>
                                     <select name="region" id="region">
                                         @foreach ($cities as $city)
                                             <option value="{{ $city->province->id . ',' . $city->id}}">{{ $city->province->province . ', ' . $city->city_name}}</option>
@@ -122,7 +122,7 @@
             </div>
             <div class="row district-postal-code">
                 <div class="form-group">
-                    <label for="region">Kota atau Kecamatan</label>
+                    <label for="region">Provinsi atau Kota</label>
                     <select name="region" id="region-update">
                         @foreach ($cities as $city)
                             <option value="{{ $city->province->id . ',' . $city->id}}">{{ $city->province->province . ', ' . $city->city_name}}</option>

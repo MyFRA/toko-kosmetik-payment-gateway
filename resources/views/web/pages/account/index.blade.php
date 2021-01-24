@@ -18,7 +18,7 @@
                 <h2>Pesanan</h2>
             </div>
             <div class="bottom-section-purchases">
-                <a href="" class="sub">
+                <a href="{{ url('/purchases/belum-bayar') }}" class="sub">
                     <div class="icon">
                         <i class="zmdi zmdi-card"></i>
                     </div>
@@ -26,7 +26,7 @@
                         Belum Bayar
                     </div>
                 </a>
-                <a href="" class="sub">
+                <a href="{{ url('/purchases/menunggu-konfirmasi-bukti-pembayaran') }}" class="sub">
                     <div class="icon">
                         <i class="zmdi zmdi-assignment"></i>
                     </div>
@@ -34,7 +34,7 @@
                         Menunggu Konfirmasi Pembayaran
                     </div>
                 </a>
-                <a href="" class="sub">
+                <a href="dikirim" class="sub">
                     <div class="icon">
                         <i class="zmdi zmdi-truck"></i>
                     </div>
@@ -42,7 +42,7 @@
                         Dikirim
                     </div>
                 </a>
-                <a href="" class="sub">
+                <a href="diterima" class="sub">
                     <div class="icon">
                         <i class="zmdi zmdi-badge-check"></i>
                     </div>

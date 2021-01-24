@@ -426,6 +426,7 @@ class CartController extends Controller
                                     ->orderBy('updated_at', 'DESC')->get();
             $weightTotal        = 0;
             $price_total        = 0;
+            $amount_total       = 0;
 
             foreach ($carts as $cart) {
                 $product_discount_percent       = $cart->product->discount ? $cart->product->discount->discount_percent : 0;
@@ -434,6 +435,7 @@ class CartController extends Controller
 
                 $weightTotal  += $cart->product->weight * $cart->amount;
                 $price_total  += $product_price_after_discount * $cart->amount;
+                $amount_total += $cart->amount;
             }
     
             $client = new Client();
@@ -479,6 +481,7 @@ class CartController extends Controller
             $sales  = Sales::create([
                 'customer_id'               => $customer->id,
                 'weight_total'              => $weightTotal,
+                'amount_total'              => $amount_total,
                 'price_total'               => (int) $price_total + (int) $costObj->cost[0]->value,
                 'proof_of_payment'          => null,
                 'status'                    => 'belum bayar',
