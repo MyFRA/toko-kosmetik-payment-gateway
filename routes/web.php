@@ -11,20 +11,22 @@
 |
 */
 
+// Customer Authentication Route
+Route::middleware(['customer.guest'])->group(function() {
+    Route::get('/forgot-password', 'Web\ForgotPasswordController@index');
+    Route::post('/forgot-password', 'Web\ForgotPasswordController@sendEmailAddress');
+    Route::get('/reset-password/token/{token}', 'Web\ForgotPasswordController@resetPasswordShowForm');
+    Route::put('/reset-password', 'Web\ForgotPasswordController@resetPasswordAction');
+    Route::get('/login', 'Auth\Customer\LoginController@showLoginForm')->middleware(['customer.guest']);
+    Route::post('/login', 'Auth\Customer\LoginController@login');
+    Route::get('/register', 'Auth\Customer\RegisterController@showRegistrationForm');
+    Route::post('/register', 'Auth\Customer\RegisterController@register');
+    Route::get('/verify/{email_verification_token}', 'Auth\Customer\RegisterController@verifyCustomer');
+});
+
 Route::get('/', 'Web\HomeController@index');
 Route::get('/categories', 'Web\CategoriesController@index');
 Route::get('/promo', 'Web\PromoController@index');
-Route::get('/forgot-password', 'Web\ForgotPasswordController@index');
-Route::post('/forgot-password', 'Web\ForgotPasswordController@sendEmailAddress');
-Route::get('/reset-password/token/{token}', 'Web\ForgotPasswordController@resetPasswordShowForm');
-Route::put('/reset-password', 'Web\ForgotPasswordController@resetPasswordAction');
-
-// Customer Authentication Route
-Route::get('/login', 'Auth\Customer\LoginController@showLoginForm')->middleware(['customer.guest']);
-Route::post('/login', 'Auth\Customer\LoginController@login');
-Route::get('/register', 'Auth\Customer\RegisterController@showRegistrationForm');
-Route::post('/register', 'Auth\Customer\RegisterController@register');
-Route::get('/verify/{email_verification_token}', 'Auth\Customer\RegisterController@verifyCustomer');
 
 // Product Route
 Route::get('/product/{slug}', 'Web\ProductController@show');
@@ -90,7 +92,7 @@ Route::middleware(['customer.auth'])->group(function() {
 });
 
 // API (Not Must Logged In)
-    Route::get('/api/product-categories', 'Api\ApiController@ProductCategories');
-    Route::get('/api/product-recommendation/{count?}', 'Api\ApiController@getRecommendation');
-    Route::get('/api/product-comments/{product_id?}', 'Api\ApiController@getProductComments');
+Route::get('/api/product-categories', 'Api\ApiController@ProductCategories');
+Route::get('/api/product-recommendation/{count?}', 'Api\ApiController@getRecommendation');
+Route::get('/api/product-comments/{product_id?}', 'Api\ApiController@getProductComments');
 

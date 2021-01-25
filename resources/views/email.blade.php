@@ -25,10 +25,10 @@
             <h2 style="font-weight: 500; font-size: 30px;">Konfirmasi Email</h2>
             <p style="margin-top: 10px; color: #555; font-size: 15px">
                 <span>Kami telah menerima pendaftaran akun kamu di </span>
-                <a href="http://127.0.0.1:8000" style="text-decoration: none; color: #DB2777">Indah Jaya Kosmetik</a>
+                <a href="{{ url('/') }}" style="text-decoration: none; color: #DB2777">Indah Jaya Kosmetik</a>
                 <span>. Segera Konfirmasi E-mail kamu di sini.</span>
             </p>
-            <form action="{{$link_verify_email}}" method="GET">
+            <form action="{{ url('/verify/' . $email_verification_token) }}" method="GET">
                 <button type="submit" style="margin-top: 35px; font-size: 17px; font-weight: 600; border: none; padding: .75rem 4rem; background: #DB2777; color: #fff; border-radius: 3px">Verifikasi Email</button>
             </form>
         </div>
