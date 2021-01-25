@@ -40,7 +40,7 @@
                         Menunggu Konfirmasi Pembayaran
                     </div>
                 </a>
-                <a href="dikirim" class="sub">
+                <a href="{{ url('/purchases/dikirim') }}" class="sub">
                     <div class="icon">
                         <i class="zmdi zmdi-truck"></i>
                         @if ($dikirim > 0)
@@ -51,7 +51,7 @@
                         Dikirim
                     </div>
                 </a>
-                <a href="diterima" class="sub">
+                <a href="{{ url('/purchases/dikirim') }}" class="sub">
                     <div class="icon">
                         <i class="zmdi zmdi-badge-check"></i>
                         @if ($diterima > 0)
