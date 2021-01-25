@@ -96,6 +96,7 @@
         </script>
     <script>
         function confirmProductBeAccepted(element) {
+            event.preventDefault();
             const sale_id           = element.getAttribute('data-sale_id');
             const form              = document.getElementById('confirmProductBeAccepted');
             const input_sale_id     = document.querySelector('form#confirmProductBeAccepted input[name="sale_id"]');
