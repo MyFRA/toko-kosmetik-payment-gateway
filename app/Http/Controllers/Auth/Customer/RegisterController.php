@@ -12,6 +12,7 @@ use App\Mail\VerifikasiEmailRegistrasi;
 use Carbon\Carbon;
 
 use App\Models\Customer;
+use App\Models\CustomerDetail;
 
 class RegisterController extends Controller
 {
@@ -56,6 +57,10 @@ class RegisterController extends Controller
                 'status'                    => 'pending',
                 'email_verified_at'         => null,
                 'email_verification_token'  => Str::random(60),
+            ]);
+
+            CustomerDetail::create([
+                'customer_id'  => $newCustomer->id,
             ]);
 
             // Send Email Verification
