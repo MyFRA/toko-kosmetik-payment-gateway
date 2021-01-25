@@ -18,6 +18,11 @@ class CustomerAuth
     {
         if (!Auth::guard('customer')->check()) {
             return redirect('/login');
+        } elseif( !Auth::guard('customer')->user()->email_verified_at ) {
+            Auth::guard('customer')->logout();
+            Auth::logout();
+            return redirect('/login')
+                    ->with('failed', 'Akun belum diverifikasi, silahkan cek pesan email konfirmasi anda');
         }
         return $next($request);
     }

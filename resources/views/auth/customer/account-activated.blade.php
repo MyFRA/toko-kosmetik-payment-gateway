@@ -151,7 +151,6 @@
                     </tr> <!-- COPY -->
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            <p style="margin: 0;"><a href="{{ url('/') }}" target="_blank" style="color: #DB2777;">{{ url('/') }}</a></p>
                         </td>
                     </tr>
                 </table>

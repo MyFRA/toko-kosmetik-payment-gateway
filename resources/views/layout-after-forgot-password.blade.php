@@ -353,7 +353,7 @@ ul.social li{
             			<div class="text" style="padding: 0 2.5em; text-align: center;">
             				<h2>Pesan Reset Kata Sandi Telah Dikirimkan</h2>
             				<h3>Silakan cek email anda, untuk mendapatkan link reset kata sandi</h3>
-            				<p><a href="https://mail.google.com/mail/u/0/#inbox" class="btn btn-primary">Buka Gmail</a></p>
+            				<p><a href="{{ url('/login') }}" class="btn btn-primary">Login</a></p>
             			</div>
             		</td>
             	</tr>

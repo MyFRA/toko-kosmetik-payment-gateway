@@ -59,4 +59,13 @@
             });
         }
     </script>
+
+    <script>
+        if( {{session('failed') ? 'true' : 'false' }} ) {
+            Toast.fire({
+                'title' : `{{session('failed')}}`,
+                'icon'  : 'error',
+            });
+        }
+    </script>
 @endsection
