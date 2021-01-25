@@ -609,7 +609,7 @@ class CartController extends Controller
                 'bank_sender_account_name'      => $request->bank_sender_account_name,
             ]);
     
-            return redirect('/purchases')->with('success', 'bukti pembayaran telah dikirimkan');
+            return redirect('/purchases/menunggu-konfirmasi-bukti-pembayaran')->with('success', 'bukti pembayaran telah dikirimkan');
         } catch (\Throwable $th) {
             return abort(404);
         }
