@@ -607,6 +607,7 @@ class CartController extends Controller
             $sale->update([
                 'proof_of_payment'              => $image_proof_payment_name,
                 'bank_sender_account_name'      => $request->bank_sender_account_name,
+                'status'                        => 'menunggu konfirmasi bukti pembayaran',
             ]);
     
             return redirect('/purchases/menunggu-konfirmasi-bukti-pembayaran')->with('success', 'bukti pembayaran telah dikirimkan');
