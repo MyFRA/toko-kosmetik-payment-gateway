@@ -54,7 +54,7 @@
                     </td>
                     <td>{{ $sale->start_payment_date }}</td>
                     <td>
-                      <a href="{{ url('/app-admin/purchases/' . $sale->id ) }}" class="btn btn-sm btn-success"><i class="fas fa-eye mr-2"></i> Detail</a>
+                      <a href="{{ url('/app-admin/purchases/detail/' . $sale->id ) }}" class="btn btn-sm btn-success"><i class="fas fa-eye mr-2"></i> Detail</a>
                     </td>
                   </tr>
                 @endforeach
