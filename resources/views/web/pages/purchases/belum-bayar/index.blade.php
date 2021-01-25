@@ -40,8 +40,8 @@
                         <span class="right">Rp. {{ number_format($sale->expedition->price_expedition, 0, '.', '.') }}</span>
                     </div>
                     <div class="row">
-                        <span class="left">Harga total</span>
-                        <span class="right">Rp. {{ number_format($sale->price_total, 0, '.', '.') }}</span>
+                        <span class="left">Harga Produk total</span>
+                        <span class="right">Rp. {{ number_format((int) $sale->price_total - (int) $sale->expedition->price_expedition, 0, '.', '.') }}</span>
                     </div>
                     <div class="row">
                         <span class="left">Harga total</span>
