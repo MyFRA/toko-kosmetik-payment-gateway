@@ -79,6 +79,7 @@ Route::middleware(['customer.auth'])->group(function() {
     Route::get('/purchases/menunggu-konfirmasi-bukti-pembayaran', 'Web\PurchasesController@indexMenungguKonfirmasiPembayaran');
     Route::get('/purchases/dikirim', 'Web\PurchasesController@indexDikirim');
     Route::get('/purchases/diterima', 'Web\PurchasesController@indexDiterima');
+    Route::post('/confirm-product-be-accepted', 'Web\PurchasesController@productBeAccepted');
 
     // Comment
     Route::post('/add-comment', 'Web\CommentController@addComment');

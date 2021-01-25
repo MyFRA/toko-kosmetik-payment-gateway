@@ -57,4 +57,33 @@ class PurchasesController extends Controller
 
         return view('web.pages.purchases.belum-bayar.index', $data);
     }
+
+    public function productBeAccepted(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'sale_id'   => 'required',
+        ], [
+            'sale_id.required' => 'sale id tidak boleh kosong',
+        ]);
+
+        if($validator->fails()) {
+            return back()->with('failed', $validator->errors()->first());
+        }
+
+        $sale = Sales::where('id', $request->sale_id)->first();
+
+        if( is_null($sale) ) {
+            return back()->with('failed', 'sale id tidak valid');
+        }
+
+        if( $sale->customer_id != Auth::guard('customer')->user()->id) {
+            return back()->with('failed', 'id customer tidak cocok');
+        }
+
+        $sale->update([
+            'status'  => 'diterima',
+        ]);
+
+        return redirect('/purchases/diterima')->with('success', 'Produk telah terkonfirmasi diterima');
+    }
 }

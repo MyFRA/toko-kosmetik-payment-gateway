@@ -51,10 +51,56 @@
                @if ($sale->status == 'belum bayar')
                     <a href="{{ url('/cart/checkout/payment-transfer/' . $sale->id) }}" class="bayar-sekarang">BAYAR SEKARANG</a>
                @elseif($sale->status == 'dikirim')
-                    <a href="{{ url('/cart/checkout/payment-transfer/' . $sale->id) }}" class="bayar-sekarang">KONFIRMASI BARANG DITERIMA</a>
+                    <a href="" class="bayar-sekarang" onclick="confirmProductBeAccepted(this)" data-sale_id="{{$sale->id}}" >KONFIRMASI BARANG DITERIMA</a>
                @endif
             </div>
         @endforeach
     </div>
 </div>
+
+<form action="{{ url('/confirm-product-be-accepted') }}" method="POST" id="confirmProductBeAccepted">
+    @csrf
+    <input type="hidden" name="sale_id" value="">
+</form>
+@endsection
+
+@section('script')
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'center',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+        })
+    </script>
+    <script>
+        if( {{session('failed') ? 'true' : 'false' }} ) {
+            Toast.fire({
+                icon: 'error',
+                title: `{{ session('failed') }}`,
+            })
+        }
+    </script>
+        <script>
+            if( {{session('success') ? 'true' : 'false' }} ) {
+                Toast.fire({
+                    icon: 'success',
+                    title: `{{ session('success') }}`,
+                })
+            }
+        </script>
+    <script>
+        function confirmProductBeAccepted(element) {
+            const sale_id           = element.getAttribute('data-sale_id');
+            const form              = document.getElementById('confirmProductBeAccepted');
+            const input_sale_id     = document.querySelector('form#confirmProductBeAccepted input[name="sale_id"]');
+            input_sale_id.value = sale_id;
+            form.submit();
+        }
+    </script>
 @endsection

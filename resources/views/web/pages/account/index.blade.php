@@ -51,7 +51,7 @@
                         Dikirim
                     </div>
                 </a>
-                <a href="{{ url('/purchases/dikirim') }}" class="sub">
+                <a href="{{ url('/purchases/diterima') }}" class="sub">
                     <div class="icon">
                         <i class="zmdi zmdi-badge-check"></i>
                         @if ($diterima > 0)
