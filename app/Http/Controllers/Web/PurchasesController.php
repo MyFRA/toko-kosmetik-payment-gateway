@@ -15,6 +15,7 @@ class PurchasesController extends Controller
     {
         $data = [
             'title'  => 'Pembayaran ~ Belum Bayar',
+            'sub_title' => 'Belum Bayar',
             'nav'    => 'purchases',
             'sales'  => Sales::where('customer_id', Auth::guard('customer')->user()->id)
                             ->where('status', 'belum bayar')->orderBy('created_at', 'DESC')->get(),
@@ -27,6 +28,7 @@ class PurchasesController extends Controller
     {
         $data = [
             'title'  => 'Pembayaran ~ Menunggu Konfirmasi Pembayaran',
+            'sub_title' => 'Menunggu Konfirmasi Pembayaran',
             'nav'    => 'purchases',
             'sales'  => Sales::where('customer_id', Auth::guard('customer')->user()->id)
                             ->where('status', 'menunggu konfirmasi bukti pembayaran')->orderBy('updated_at', 'DESC')->get(),
@@ -39,6 +41,7 @@ class PurchasesController extends Controller
     {
         $data = [
             'title'  => 'Pembayaran ~ Dikirim',
+            'sub_title' => 'Dikirim',
             'nav'    => 'purchases',
             'sales'  => Sales::where('customer_id', Auth::guard('customer')->user()->id)
                             ->where('status', 'dikirim')->orderBy('updated_at', 'DESC')->get(),
@@ -51,6 +54,7 @@ class PurchasesController extends Controller
     {
         $data = [
             'title'  => 'Pembayaran ~ Diterima',
+            'sub_title' => 'Dikirim',
             'nav'    => 'purchases',
             'sales'  => Sales::where('customer_id', Auth::guard('customer')->user()->id)
                             ->where('status', 'diterima')->orderBy('updated_at', 'DESC')->get(),

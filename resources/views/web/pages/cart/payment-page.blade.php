@@ -54,7 +54,7 @@
                             <span>Sentuh Untuk Upload</span>
                         </div>
                         <div class="preview-proof-payment">
-                            <img src="{{ asset('/images/icons/image-icon.png') }}"/> 
+                            <img src="{{ asset('/images/icons/image-icon-white.png') }}"/> 
                             <div class="close-button d-none">
                                 <span><i class="zmdi zmdi-close"></i></span>
                             </div>

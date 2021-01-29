@@ -4081,6 +4081,25 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
     font-weight: 600;
 }
 
+.purchases-wrapper .empty-purchases-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.purchases-wrapper .empty-purchases-wrapper img.img-empty-purchases {
+    width: 35%;
+}
+
+.purchases-wrapper .empty-purchases-wrapper h3.text-empty-purchases {
+    color: #444;
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 7px;
+}
+
 @media screen and (max-width: 1280px) {
     .new-account-index-container {
         padding: 1rem;
@@ -4150,6 +4169,24 @@ section.change-password-wrapper .change-password .body .form-group button:hover 
     .new-account-index-container .purchases-wrapper .bottom-section-group a {
         padding: .6rem .8rem;
         font-size: 15px;
+    }
+
+    .purchases-wrapper .empty-purchases-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .purchases-wrapper .empty-purchases-wrapper img.img-empty-purchases {
+        width: 90%;
+    }
+    
+    .purchases-wrapper .empty-purchases-wrapper h3.text-empty-purchases {
+        color: #444;
+        font-size: 18px;
+        margin-top: 7px;
     }
 }
 

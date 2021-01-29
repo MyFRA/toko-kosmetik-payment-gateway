@@ -10,8 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/components.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/app.css?v=1') }}">
+    <link rel="stylesheet" href="{{ asset('/css/components.css?v=1') }}">
     <link rel="stylesheet" href="{{ asset('/css/inline-class.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/animation.css') }}">
     @yield('stylesheet')

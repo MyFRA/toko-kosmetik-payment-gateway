@@ -5,7 +5,7 @@
     <h1 class="related-product-title text-555 mt-13 mb-5"><i class="zmdi zmdi-card mr-4"></i> {{ $title }} </h1>
 
     <div class="purchases-wrapper">
-        @foreach ($sales as $sale)
+        @forelse ($sales as $sale)
             <div class="purchases">
                 @foreach ($sale->products as $product)
                     <div class="product">
@@ -54,7 +54,12 @@
                     <a href="" class="bayar-sekarang" onclick="confirmProductBeAccepted(this)" data-sale_id="{{$sale->id}}" >KONFIRMASI BARANG DITERIMA</a>
                @endif
             </div>
-        @endforeach
+        @empty
+            <div class="empty-purchases-wrapper">
+                <img src="{{ asset('/images/assets/Empty-pana.png') }}" alt="empty-icon" class="img-empty-purchases">
+                <h3 class="text-empty-purchases">Tidak ada produk {{ $sub_title }}</h3>
+            </div>
+        @endforelse
     </div>
 </div>
 
