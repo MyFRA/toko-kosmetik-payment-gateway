@@ -203,38 +203,21 @@ class ProductController extends Controller
         $arr_product_images_name_from_db    = json_decode($product->product_images);
         $arr_index_product_images_from_db   = [];
 
-        if(!is_null($request->file('product_images'))) {
-            foreach ($request->file('product_images') as $key => $product_image) {
-                // Delete old file by key
-                foreach ($arr_product_images_name_from_db as $keyDB => $product_image_db) {
-                    if( gettype($product_image_db) == 'object' ) {
-                        if($product_image_db->index == $key) {
-                            Storage::delete('public/images/products/'. $product_image_db->name);
-
-                            $arr_product_images_name_from_db[$keyDB] = [
-                                'index'    => $key,
-                                'name'     => $this->uploadFile(uniqid($slug), $request->file('product_images')[$key], 'images/products'),
-                            ];
-                        }
-                    }
+        foreach( $request->product_images_status as $key => $product_status ) {
+            if( $product_status == 'deleted' ) {
+                if(Storage::exists('public/images/products/' . $arr_product_images_name_from_db[$key]->name)) {
+                    Storage::delete('public/images/products/' . $arr_product_images_name_from_db[$key]->name);
                 }
-            }
-
-            foreach($arr_product_images_name_from_db as $product_image) {
-                if( gettype($product_image) == 'object' ) {
-                    $arr_index_product_images_from_db[] = $product_image->index;
-                } else {
-                    $arr_index_product_images_from_db[] = $product_image['index'];
+                unset($arr_product_images_name_from_db[$key]);
+            } else if( $product_status == 'changed' ) {
+                if( isset($arr_product_images_name_from_db[$key]) && Storage::exists('public/images/products/' . $arr_product_images_name_from_db[$key]->name)) {
+                    Storage::delete('public/images/products/' . $arr_product_images_name_from_db[$key]->name);
                 }
-            }
 
-            foreach ($request->file('product_images') as $key => $product_image) {
-                if(!in_array($key, $arr_index_product_images_from_db)) {
-                    $arr_product_images_name_from_db[] = [
-                        'index'     => $key,
-                        'name'      => $this->uploadFile(uniqid($slug), $product_image, 'images/products')
-                    ];
-                }
+                $arr_product_images_name_from_db[$key] = (object) [
+                    'index'    => $key,
+                    'name'     => $this->uploadFile(uniqid($slug), $request->file('product_images')[$key], 'images/products'),
+                ];
             }
         }
 
@@ -245,7 +228,7 @@ class ProductController extends Controller
             'weight'                => $request->weight,
             'amount'                => $request->amount,
             'condition'             => $request->condition,
-            'product_images'        => json_encode($arr_product_images_name_from_db),
+            'product_images'        => json_encode(array_values($arr_product_images_name_from_db)),
             'description'           => $request->description,
             'enable_variants'       => !is_null($request->enable_variants) ? true : false,
         ]);

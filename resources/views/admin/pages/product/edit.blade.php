@@ -125,7 +125,7 @@
 
                   <div class="form-group">
                     <label for="product_images">Foto Produk <span class="text-danger">*</span></label>
-                    <div class="mb-3">
+                    <div class="row mb-3">
                       @php
                           $product_images = json_decode($product->product_images);
                           $product_images_index = [];
@@ -153,13 +153,23 @@
                       @endphp
 
                         @for ($i = 0; $i <= 3; $i++)
-                          <img src="{{ $product_images_ok[$i] }}" alt="product-photo" class="product_image_previews mr-2 rounded" width="100px" height="100px" style="object-fit: cover; object-position: center">
+                          <div class="col-lg-3 d-flex flex-column">
+                            <img src="{{ $product_images_ok[$i] }}" alt="product-photo" class="product_image_previews mr-2 rounded" width="100px" height="100px" style="object-fit: cover; object-position: center">
+                            <button class="btn btn-danger mt-2" type="button" style="width: 100px" onclick="deleteProfileImage(this, {{$i}})"><i class="fas fa-trash mr-1"></i> Hapus</button>
+                          </div>
                         @endfor
                       </div>
-                    <input type="file" class="form-control mb-3" name="product_images[]" multiple id="product_images_0" value="not_changed" onchange="showPreviewImage(0, this)">
-                    <input type="file" class="form-control mb-3" name="product_images[]" multiple id="product_images_1" value="not_changed" onchange="showPreviewImage(1, this)">
-                    <input type="file" class="form-control mb-3" name="product_images[]" multiple id="product_images_2" value="not_changed" onchange="showPreviewImage(2, this)">
-                    <input type="file" class="form-control mb-3" name="product_images[]" multiple id="product_images_3" value="not_changed" onchange="showPreviewImage(3, this)">
+                    <input type="file" class="form-control mb-3" name="product_images[]" multiple id="product_images_0" onchange="showPreviewImage(0, this)">
+                    <input type="hidden" name="product_images_status[]" id="product_images_status_0" value="not_changed">
+
+                    <input type="file" class="form-control mb-3" name="product_images[]" multiple id="product_images_1" onchange="showPreviewImage(1, this)">
+                    <input type="hidden" name="product_images_status[]" id="product_images_status_1" value="not_changed">
+                    
+                    <input type="file" class="form-control mb-3" name="product_images[]" multiple id="product_images_2" onchange="showPreviewImage(2, this)">
+                    <input type="hidden" name="product_images_status[]" id="product_images_status_2" value="not_changed">
+                    
+                    <input type="file" class="form-control mb-3" name="product_images[]" multiple id="product_images_3" onchange="showPreviewImage(3, this)">
+                    <input type="hidden" name="product_images_status[]" id="product_images_status_3" value="not_changed">
 
                     @error('product_images')
                         <div class="invalid-feedback">
@@ -260,7 +270,9 @@
       var product_image_preview  = document.getElementById('product_image_preview');
 
       function showPreviewImage(index, file) {
-        var reader = new FileReader();
+        let reader = new FileReader();
+        const inputFileStatus = document.getElementById(`product_images_status_${index}`);
+        inputFileStatus.value = 'changed';
 
         reader.onload = function() {
           product_image_previews[index].setAttribute('src', reader.result);
@@ -271,5 +283,17 @@
         reader.readAsDataURL(file.files[0]);
       }
       product_image_preview.style.height = product_image_preview.offsetWidth + 'px';
+    </script>
+    <script>
+      function deleteProfileImage(element, index) {
+        event.preventDefault();
+        if( index == 0 ) {
+          alert('Foto utama tidak boleh dihapus!');
+        } else {
+          element.previousElementSibling.setAttribute('src', '/images/icons/shopping-bag.png');
+          const inputFileStatus = document.getElementById(`product_images_status_${index}`);
+          inputFileStatus.value = 'deleted';
+        }
+      }
     </script>
 @endsection
